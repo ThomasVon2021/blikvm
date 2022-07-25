@@ -1,5 +1,5 @@
 # install kvmd fan
-1、if you use pikvm image, the password is *root*
+1、if you use pikvm image, login as root
 ```
 su -
 rw
