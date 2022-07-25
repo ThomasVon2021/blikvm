@@ -1,0 +1,14 @@
+[Unit]
+Description=PiKVM - A small fan controller daemon
+After=systemd-modules-load.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=3
+EnvironmentFile=-/etc/conf.d/kvmd-fan
+ExecStart=/usr/bin/kvmd-fan --config=?/etc/kvmd/fan.ini $KVMD_FAN_ARGS
+TimeoutStopSec=3
+
+[Install]
+WantedBy=multi-user.target

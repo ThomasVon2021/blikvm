@@ -1,0 +1,35 @@
+pkgname=kvmd-fan
+pkgver=0.12
+pkgrel=1
+pkgdesc="BLIKVM"
+url="www.blicube.com"
+license=(GPL)
+arch=(any)
+depends=(
+	iniparser
+	libmicrohttpd
+	libgpiod
+	wiringpi
+)
+source=(
+	$pkgname.service
+	$pkgname.py
+)
+md5sums=(SKIP)
+
+
+package() {
+	mkdir -p "$pkgdir/usr/bin"
+	install -Dm755 $pkgname.py "$pkgdir/usr/bin/$pkgname"
+
+	mkdir -p "$pkgdir/usr/lib/systemd/system"
+	cp *.service "$pkgdir/usr/lib/systemd/system"
+
+}
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Terms
+Privacy
+Security
+
