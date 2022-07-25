@@ -1,4 +1,4 @@
-# Open and cheap DIY and plug-n-play IP-KVM
+# Open and cheap DIY and plug-n-play KVM over IP
 
 BLIKVM is a Open KVM, it has three versions: CM4 Board, Raspberry HAT, PCIE Board. 
 This device helps to manage servers or workstations remotely, regardless of the health of the operating system or whether one is installed.  
