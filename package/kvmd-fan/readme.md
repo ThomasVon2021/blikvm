@@ -6,6 +6,7 @@ rw
 git clone https://github.com/ThomasVon2021/blikvm.git
 cd package/kvmd-fan
 bash install.sh
+ro
 ```
 
 2、if you want to disable fan
