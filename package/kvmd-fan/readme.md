@@ -3,7 +3,7 @@
 ```
 su -
 rw
-git clone --single-branch --branch master https://github.com/ThomasVon2021/pikvm-board.git
+git clone https://github.com/ThomasVon2021/blikvm.git
 cd package/kvmd-fan
 bash install.sh
 ```
