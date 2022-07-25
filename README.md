@@ -1,7 +1,8 @@
 # Open and cheap DIY and plug-n-play KVM over IP
 
-BLIKVM is a Open KVM, it has three versions: CM4 Board, Raspberry HAT, PCIE Board. 
-This device helps to manage servers or workstations remotely, regardless of the health of the operating system or whether one is installed.  
+BliKVM is an open KVM. It comes in three device types: BliKVM CM4, BliKVM HAT and BliKVM PCIe.
+These devices help to manage servers or workstations remotely, regardless of the health of the operating system or whether one is installed. 
+
 Join our <a href="https://discord.gg/9Y374gUF6C" target="_blank">BLIKVM Discord Community</a> for Support, FAQ & News!  
 <a href="https://www.blicube.com/BLIKVM/" target="_blank">BLIKVM detailed document links.</a>  
 Purchase：<a href="https://www.aliexpress.com/item/1005003262886521.html?spm=a2g0o.store_pc_allProduct.8148356.5.39cd62bejpZaWF" target="_blank">BLIKVM CM4 version</a>  
