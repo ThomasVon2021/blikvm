@@ -13,12 +13,12 @@ bash install.sh
 systemctl disable kvmd-fan
 ```
 
-3、if you want restart fan，
+3、if you want start fan，
 ```
 systemctl enable kvmd-fan
 ```
 
 4、if you want see the fan work status
 ```
-systemctl  start kvmd-fan
+systemctl  status kvmd-fan
 ```
