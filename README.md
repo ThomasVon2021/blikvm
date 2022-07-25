@@ -1,7 +1,6 @@
-# BLIKVM
+# Open and cheap DIY and plug-n-play IP-KVM
 
-# An application board for PiKVM
-BLIKVM is a Open KVM, it has three versions: CM4 Board, Raspberry HAT, PCIE Board. The software use <a href="https://github.com/pikvm/pikvm" target="_blank">pikvm.</a>
+BLIKVM is a Open KVM, it has three versions: CM4 Board, Raspberry HAT, PCIE Board. 
 This device helps to manage servers or workstations remotely, regardless of the health of the operating system or whether one is installed.  
 Join our <a href="https://discord.gg/9Y374gUF6C" target="_blank">BLIKVM Discord Community</a> for Support, FAQ & News!  
 <a href="https://www.blicube.com/BLIKVM/" target="_blank">BLIKVM detailed document links.</a>  
@@ -13,7 +12,7 @@ Purchase：<a href="https://www.aliexpress.com/item/3256804191615648.html?spm=a2
 
 ## 1.Introduction
 
-BLIKVM is a CM4 application board for [PiKVM](https://pikvm.org/).  This product’s key features include video capture, ATX adapter, USB 3.0, OTG, Gigabit Ethernet, OLED and RTC. The product has a customized metal shell to dissipate heat and provide protection for the circuit board. This is a feature demonstration [video](https://www.youtube.com/watch?v=d7I9l5yG5M8).The product is currently perfectly compatible with  [**v3-hdmi-rpi4-latest.img**](https://files.pikvm.org/images/v3-hdmi-rpi4-latest.img.xz).
+This product’s key features include video capture, ATX adapter, USB 3.0, OTG, Gigabit Ethernet, OLED and RTC. The product has a customized metal shell to dissipate heat and provide protection for the circuit board. This is a feature demonstration [video](https://www.youtube.com/watch?v=d7I9l5yG5M8).The product is currently perfectly compatible with  [**v3-hdmi-rpi4-latest.img**](https://files.pikvm.org/images/v3-hdmi-rpi4-latest.img.xz).
 | **[>>> PCB front <<<](#diy-getting-started)** | **[>>> PCB front <<<](#pikvm-v3-hat)** |
 | --------------------------------------------- | ------------------------------------------ |
 | [Test video by **Jeff Geerling**](https://www.youtube.com/watch?v=3OPd7svT3bE&t=856s) | [BLIKVM Unboxing video](https://www.youtube.com/watch?v=aehOawHklGE&t=37s) |
@@ -49,8 +48,8 @@ email address:linshuzi123@gmail.com
 <a href="https://discord.gg/9Y374gUF6C" target="_blank">Discord Community Chat</a> 
 
 ## 4.Test video
-https://www.youtube.com/watch?v=aehOawHklGE
-https://www.youtube.com/watch?v=d7I9l5yG5M8
+https://www.youtube.com/watch?v=aehOawHklGE  
+https://www.youtube.com/watch?v=d7I9l5yG5M8  
 
 ![](/images/test_img/figure1.png)
 
