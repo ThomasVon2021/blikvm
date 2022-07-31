@@ -6,6 +6,7 @@ Join our <a href="https://discord.gg/9Y374gUF6C" target="_blank">BLIKVM Discord 
 <a href="https://www.blicube.com/BLIKVM/" target="_blank">BLIKVM detailed document links.</a>  
 Purchase：<a href="https://www.aliexpress.com/item/1005003262886521.html?spm=a2g0o.store_pc_allProduct.8148356.5.39cd62bejpZaWF" target="_blank">BLIKVM CM4 version</a>  
 Purchase：<a href="https://www.aliexpress.com/item/3256804191615648.html?spm=a2g0o.productlist.0.0.42682b63qHmo0g&algo_pvid=eaa3e7fc-42f3-44f0-8c22-84e0e647767d&algo_exp_id=eaa3e7fc-42f3-44f0-8c22-84e0e647767d-1&pdp_ext_f=%7B%22sku_id%22%3A%2212000028971386127%22%7D&pdp_npi=2%40dis%21USD%21%2198.9%21%21%21%21%21%400b0a119a16564597101234153ecbb8%2112000028971386127%21sea" target="_blank">BLIKVM hat version</a> 
+Purchase：<a href="https://de.aliexpress.com/item/3256804386522898.html?spm=a2g0o.productlist.0.0.649a6b5eN5yGDd&algo_pvid=9ad976a1-7d41-46bd-98f0-08232a82f779&algo_exp_id=9ad976a1-7d41-46bd-98f0-08232a82f779-10&pdp_ext_f=%7B%22sku_id%22%3A%2212000029675352722%22%7D&pdp_npi=2%40dis%21USD%21%21117.07%21%21%21%21%21%400b0a050116592735655394348eaab9%2112000029675352722%21sea" target="_blank">BLIKVM PCIe version</a> 
 
 ![Image title](/images/version_all.png)
 
