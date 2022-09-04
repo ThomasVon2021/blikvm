@@ -1,0 +1,7 @@
+[Unit]
+Description=kvmd-hid
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/blikvm/enable-gadget.sh
+[Install]
+WantedBy=multi-user.target
