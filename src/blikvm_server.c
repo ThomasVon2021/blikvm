@@ -7,6 +7,7 @@
  ******************************************************************************/
 
 #include "blikvm_server.h"
+#include "kvmd/blikvm_fan/blikvm_fan.h"
 
 
 /*******************************************************************************
@@ -22,7 +23,7 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         blikvm_log_init(&config->log);
 
         //2、init fan moudle
-
+        blikvm_fan_init();
         //3、init atx moudle
 
         //4、init oled moudle
