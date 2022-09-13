@@ -1,13 +1,12 @@
-<h1 align="center">BliKVM - Open hardware for PiKVM</h1>
+<h1 align="center">BliKVM - Integrated software and hardware solution for KVM</h1>
 
 <p align="center">
-  <a href="https://www.blicube.com">BliKVM</a> is open hardware that runs <a href="https://github.com/pikvm/pikvm">PiKVM</a>,
-  helping you to manage servers or workstations remotely, regardless of the health of the operating system or whether one is installed.
+  <a href="https://www.blicube.com">BliKVM</a> is helps you to manage servers or workstations remotely, regardless of the health of the operating system or whether one is installed.
 </p>
 
 <p align="center">
-  <a href="https://github.com/ThomasVon2021/pikvm-board/stargazers">
-    <img alt="GitHub Stars" src="https://img.shields.io/github/stars/ThomasVon2021/pikvm-board?color=ffcb2f&label=%E2%AD%90%20on%20GitHub">
+  <a href="https://github.com/ThomasVon2021/blikvm/stargazers">
+    <img alt="GitHub Stars" src="https://img.shields.io/github/stars/ThomasVon2021/blikvm?color=ffcb2f&label=%E2%AD%90%20on%20GitHub">
   </a>
   <a href="https://discord.gg/9Y374gUF6C">
     <img alt="Discord Server" src="https://img.shields.io/discord/943534043515977768?color=0&label=discord%20derver&logo=discord">
