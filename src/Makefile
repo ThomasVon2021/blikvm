@@ -6,6 +6,7 @@ INCLUDE_PATH += ./include
 SOURCE_FILES += ./common/blikvm_log/blikvm_log.c
 SOURCE_FILES += ./blikvm_server.c
 SOURCE_FILES += ./kvmd/blikvm_fan/blikvm_fan.c
+SOURCE_FILES += ./kvmd/blikvm_atx/blikvm_atx.c
 
 CC = g++
 
