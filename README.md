@@ -23,10 +23,12 @@
 - [Purchase - BliKVM CM4 Version](https://www.aliexpress.com/item/1005003262886521.html)
 - [Purchase - BliKVM HAT Version](https://www.aliexpress.com/item/1005004377930400.html)
 - [Purchase - BliKVM PCIe version](https://www.aliexpress.com/item/1005004572837650.html)
+- [Reserve - BliKVM PCIe version](https://github.com/ThomasVon2021/pikvm-board/blob/master/Blikvm_PCIe_advanced_order.md)
 
 ## Videos
 
-- [Watch - Review by `Geerling Engineering`](https://www.youtube.com/watch?v=3OPd7svT3bE) 
+- [Watch - CM4 version Review by `Geerling Engineering`](https://www.youtube.com/watch?v=3OPd7svT3bE) 
+- [Watch - PCIe version Review by `Geerling Engineering`](https://www.youtube.com/watch?v=cVWF3u-y-Zg) 
 - [Watch - Feature Overview for CM4 Version](https://www.youtube.com/watch?v=aehOawHklGE)
 - [Watch - Unboxing for CM4 Version](https://www.youtube.com/watch?v=d7I9l5yG5M8)
 
