@@ -1,0 +1,546 @@
+[2022-09-13_14:35:10-770] [FAN] [D] [blikvm_fan_init:51] open /dev/shm/blikvm/fan ok
+[2022-09-13_14:35:10-777] [ATX] [D] [blikvm_atx_init:56] open /dev/shm/blikvm/atx ok
+[2022-09-13_14:35:20-416] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:35:20-908] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:35:21-104] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:38:08-790] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:38:09-160] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:38:09-404] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:38:09-606] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:38:09-824] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:38:49-172] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:38:49-413] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:38:49-660] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:38:49-885] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:38:50-133] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:38:50-394] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:45:58-948] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:46:08-765] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:46:08-940] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:46:09-123] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:46:09-597] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:46:09-739] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:46:09-997] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:46:10-697] [ATX] [D] [blikvm_atx_loop:128] atx short
+[2022-09-13_14:46:10-890] [ATX] [D] [blikvm_atx_loop:128] atx short
+[2022-09-13_14:46:11-058] [ATX] [D] [blikvm_atx_loop:128] atx short
+[2022-09-13_14:46:11-239] [ATX] [D] [blikvm_atx_loop:128] atx short
+[2022-09-13_14:46:11-877] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:46:12-070] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:50:22-211] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:50:22-542] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:50:22-735] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:50:22-952] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:50:23-133] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:50:32-785] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:50:32-989] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:50:33-179] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:50:33-359] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:06-134] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:11-985] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:12-169] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:12-347] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:12-535] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:12-736] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:12-918] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:13-102] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:13-300] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:13-647] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:38-924] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:39-103] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:39-281] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:56-530] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:56-726] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:56-895] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:57-081] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:53:57-245] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:55:04-582] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:55:04-843] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:55:05-028] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:55:05-496] [FAN] [E] [blikvm_fan_loop:134] write ok
+[2022-09-13_14:55:05-658] [FAN] [E] [2022-09-24_13:24:33-902] [FAN] [D] [blikvm_fan_init:69] open /dev/shm/blikvm/fan ok
+[2022-09-24_13:24:33-912] [ATX] [D] [blikvm_atx_init:62] open /dev/shm/blikvm/atx ok
+[2022-09-24_13:24:33-913] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:24:43-913] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:24:53-914] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:25:03-914] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:25:13-914] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:25:23-915] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:25:33-917] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:25:43-917] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:25:53-918] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:26:03-918] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:26:13-919] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:26:23-919] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:26:33-919] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:26:35-238] [ATX] [D] [blikvm_atx_loop:151] atx short
+[2022-09-24_13:26:35-243] [ATX] [E] [blikvm_read_atx_state:219] read pwr led buff error
+[2022-09-24_13:26:35-243] [ATX] [E] [blikvm_atx_loop:181] write ok: 1 sizeof state:1
+[2022-09-24_13:26:43-919] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:26:53-920] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:27:03-920] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:27:13-922] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:27:23-924] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:27:33-925] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:27:43-926] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:27:53-926] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:28:03-927] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:28:13-928] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:28:23-928] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:28:33-928] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:28:43-929] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:28:53-929] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:29:03-930] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:29:13-931] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:29:23-931] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:29:33-931] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:29:43-932] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:29:53-932] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:30:03-932] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:30:13-933] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:30:23-933] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:30:33-933] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:30:43-934] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:30:53-934] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:31:03-935] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:31:13-936] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:31:23-937] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:31:33-938] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:31:43-940] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:31:53-942] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:32:03-942] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:32:13-943] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:32:23-943] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:32:33-944] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:32:43-945] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:32:53-945] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:33:03-945] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:33:13-945] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:33:23-946] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:33:33-946] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:33:43-946] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:33:53-947] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:34:03-947] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:34:13-947] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:34:23-948] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:34:33-949] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:34:43-950] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:34:53-955] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:35:03-956] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:35:13-957] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:35:23-958] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:35:33-960] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:35:43-961] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:35:53-962] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:36:03-963] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:36:13-964] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:36:23-964] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:36:33-965] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:36:43-965] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:36:53-965] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:37:03-966] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:37:13-966] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:37:23-967] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:37:33-967] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:37:43-967] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:37:53-968] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:38:03-968] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:38:13-969] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:38:23-972] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:38:33-973] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:38:43-973] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:38:53-973] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:39:03-974] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:39:13-975] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:39:23-976] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:39:33-977] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:39:43-977] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:39:53-978] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:40:03-979] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:40:13-980] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:40:23-981] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:40:33-982] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:40:43-982] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:40:53-982] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:41:03-983] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:41:13-983] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:41:23-983] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:41:33-986] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:41:43-987] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:41:53-987] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:42:03-989] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:42:13-990] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:42:23-990] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:42:33-990] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:42:43-991] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:42:53-991] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:43:03-993] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:43:13-995] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:43:23-996] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:43:33-996] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:43:43-996] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:43:53-997] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:44:03-997] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:44:13-998] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:44:23-999] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:44:33-000] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:44:43-001] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:44:53-003] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:45:04-004] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:45:14-004] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:45:24-004] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:45:34-006] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:45:44-007] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:45:54-008] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:46:04-009] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:46:14-009] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:46:24-010] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:46:34-010] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:46:44-010] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:46:54-011] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:47:04-012] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:47:14-013] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:47:24-015] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:47:34-017] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:47:44-018] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:47:54-018] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:48:04-019] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:48:14-019] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:48:24-019] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:48:34-020] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:48:44-020] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:48:54-020] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:49:04-021] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:49:14-021] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:49:24-022] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:49:34-022] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:49:44-023] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:49:54-024] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:50:04-024] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:50:14-026] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:50:24-026] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:50:34-026] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:50:44-027] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:50:54-027] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:51:04-028] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:51:14-028] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:51:24-029] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:51:34-030] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:51:44-030] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:51:54-030] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:52:04-031] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:52:14-031] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:52:24-032] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:52:34-032] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:52:44-033] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:52:54-035] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:53:04-036] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:53:14-037] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:53:24-039] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:53:34-039] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:53:44-040] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:53:54-040] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:54:04-041] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:54:14-041] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:54:24-042] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:54:34-043] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:54:44-044] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:54:54-045] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:55:04-045] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:55:14-047] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:55:24-047] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:55:34-048] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:55:44-048] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:55:54-049] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:56:04-049] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:56:14-050] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:56:24-050] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:56:34-050] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:56:44-051] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:56:54-053] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:57:04-055] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:57:14-056] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:57:24-056] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:57:34-056] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:57:44-057] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:57:54-057] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:58:04-058] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:58:14-060] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:58:24-061] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:58:34-062] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:58:44-062] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:58:54-062] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:59:04-063] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:59:14-063] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:59:24-063] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:59:34-065] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:59:44-066] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_13:59:54-067] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:00:04-067] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:00:14-067] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:00:24-068] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:00:34-068] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:00:44-068] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:00:54-069] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:01:04-070] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:01:14-070] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:01:24-070] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:01:34-071] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:01:44-071] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:01:54-072] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:02:04-073] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:02:14-073] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:02:24-073] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:02:34-074] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:02:44-074] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:02:54-077] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:03:04-077] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:03:14-078] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:03:24-079] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:03:34-079] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:03:44-079] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-[2022-09-24_14:35:17-246] [FAN] [E] [blikvm_fan_init:51] not exit /dev/shm/blikvm/ will creat this dir
+[2022-09-24_14:35:17-251] [FAN] [E] [blikvm_fan_init:53] creat /dev/shm/blikvm/ ok
+[2022-09-24_14:35:17-260] [FAN] [D] [blikvm_fan_init:69] open /dev/shm/blikvm/fan ok
+[2022-09-24_14:35:17-297] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:35:17-297] [ATX] [D] [blikvm_atx_init:62] open /dev/shm/blikvm/atx ok state:P
+[2022-09-24_14:35:17-298] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:35:27-298] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:35:37-298] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:35:47-299] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:35:53-686] [ATX] [D] [blikvm_atx_loop:150] atx short
+[2022-09-24_14:35:53-696] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:35:53-696] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:35:57-299] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:35:58-986] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:35:58-996] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:35:58-997] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:00-566] [ATX] [D] [blikvm_atx_loop:150] atx short
+[2022-09-24_14:36:00-578] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:00-579] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:03-698] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:03-708] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:03-709] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:05-713] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:05-724] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:05-724] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:07-300] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:36:07-727] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:07-738] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:07-738] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:09-741] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:09-753] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:09-753] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:11-755] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:11-765] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:11-765] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:13-768] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:13-778] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:13-778] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:15-780] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:15-791] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:15-791] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:17-301] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:36:17-794] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:17-805] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:17-805] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:19-808] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:19-818] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:19-818] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:21-826] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:21-836] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:21-836] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:23-838] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:23-849] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:23-849] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:27-302] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:36:37-303] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:36:37-676] [ATX] [D] [blikvm_atx_loop:150] atx short
+[2022-09-24_14:36:37-686] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:37-686] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:45-907] [ATX] [D] [blikvm_atx_loop:165] atx long
+[2022-09-24_14:36:45-916] [ATX] [D] [blikvm_read_atx_state:263] atx state ret:136
+[2022-09-24_14:36:45-916] [ATX] [E] [blikvm_atx_loop:180] write ok: 1 sizeof state:1
+[2022-09-24_14:36:47-303] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:36:57-304] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:37:07-304] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:37:17-305] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:37:27-305] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:37:37-305] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:37:47-306] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:37:57-306] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:38:07-308] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:38:17-310] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:38:27-312] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:38:37-313] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:38:47-314] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:38:57-316] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:39:07-317] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:39:17-319] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:39:27-323] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:39:37-324] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:39:47-326] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:39:57-326] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:40:07-328] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:40:17-329] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:40:27-330] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:40:37-330] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:40:47-330] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:40:57-332] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:41:07-333] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:41:17-334] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:41:27-334] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:41:37-335] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:41:47-336] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:41:57-336] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:42:07-337] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:42:17-338] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:42:27-338] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:42:37-338] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:42:47-339] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:42:57-339] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:43:07-340] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:43:17-340] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:43:27-341] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:43:37-341] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:43:47-341] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:43:57-342] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:44:07-342] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:44:17-343] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:44:27-344] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:44:37-345] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:44:47-345] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:44:57-346] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:45:07-346] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:45:17-347] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:45:27-348] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:45:37-350] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:45:47-351] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:45:57-351] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:46:07-353] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:46:17-353] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:46:27-353] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:46:37-354] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:46:47-354] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:46:57-355] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:47:07-356] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:47:17-359] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:47:27-360] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:47:37-361] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:47:47-363] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:47:57-364] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:48:07-365] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:48:17-366] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:48:27-367] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:48:37-369] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:48:47-370] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:48:57-372] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:49:07-372] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:49:17-372] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:49:27-373] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:49:37-375] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:49:47-376] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:49:57-376] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:50:07-379] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:50:17-380] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:50:27-381] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:50:37-383] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:50:47-384] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:50:57-385] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:51:07-387] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:51:17-388] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:51:27-390] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:51:37-391] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:51:47-391] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:51:57-392] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:52:07-393] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:52:17-393] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:52:27-394] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:52:37-394] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:52:47-394] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:52:57-394] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:53:07-396] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:53:17-396] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:53:27-397] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:53:37-397] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:53:47-397] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:53:57-400] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:54:07-401] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:54:17-402] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:54:27-402] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:54:37-403] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:54:47-404] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:54:57-404] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:55:07-406] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:55:17-406] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:55:27-408] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:55:37-409] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:55:47-410] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:55:57-411] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:56:07-412] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:56:17-413] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:56:27-414] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:56:37-415] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:56:47-416] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:56:57-417] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:57:07-417] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:57:17-419] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:57:27-420] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:57:37-421] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:57:47-422] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:57:57-423] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:58:07-425] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:58:17-427] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:58:27-428] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:58:37-430] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:58:47-430] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:58:57-430] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:59:07-431] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:59:17-434] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:59:27-435] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:59:37-436] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:59:47-438] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_14:59:57-440] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:00:07-442] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:00:17-444] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:00:27-445] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:00:37-446] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:00:47-447] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:00:57-448] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:01:07-450] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:01:17-452] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:01:27-452] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:01:37-452] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:01:47-453] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:01:57-454] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:02:07-454] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:02:17-455] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:02:27-455] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:02:37-455] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:02:47-457] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:02:57-460] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:03:07-461] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:03:17-461] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:03:27-462] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:03:37-462] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:03:47-462] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:03:57-463] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:04:07-463] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:04:17-464] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:04:27-466] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:04:37-467] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:04:47-467] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:04:57-469] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:05:07-470] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:05:17-471] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:05:27-471] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:05:37-472] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:05:47-473] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:05:57-474] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:06:07-474] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:06:17-474] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:06:27-475] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:06:37-475] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:06:47-476] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:06:57-476] [FAN] [D] [blikvm_fan_loop:227] write ok: 1 sizeof state:1
+[2022-09-24_15:07:07-476] [FAN] [D] [blikvm_fan_loop

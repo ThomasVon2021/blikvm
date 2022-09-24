@@ -1,3 +1,6 @@
 [submodule "package/blikvm-webclient"]
 	path = package/blikvm-webclient
 	url = https://github.com/ThomasVon2021/blikvm-webclient.git
+[submodule "package/blikvm-webserver"]
+	path = package/blikvm-webserver
+	url = https://github.com/ThomasVon2021/blikvm-webserver.git
