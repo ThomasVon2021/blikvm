@@ -9,8 +9,10 @@
 #include "blikvm_server.h"
 #include "kvmd/blikvm_fan/blikvm_fan.h"
 #include "kvmd/blikvm_atx/blikvm_atx.h"
+#include "kvmd/blikvm_oled/blikvm_oled.h"
+#include "common/blikvm_log/blikvm_log.h"
 
-
+#define TAG "SERVER"
 /*******************************************************************************
  * private methods defination
  ******************************************************************************/
@@ -29,6 +31,7 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         blikvm_atx_init();
 
         //4、init oled moudle
+        blikvm_oled_init(config->oled_type);
 
         //5、init dtc moudle
 
@@ -42,8 +45,22 @@ blikvm_int8_t blikvm_start()
 
     do
     {
-        blikvm_fan_start();
-        blikvm_atx_start();
+        if(blikvm_fan_start() < 0 )
+        {
+            BLILOG_E(TAG,"fan start error\n");
+            break;
+        }
+        if (blikvm_atx_start() < 0)
+        {
+            BLILOG_E(TAG,"atx start error\n");
+            break;
+        }
+        if(blikvm_oled_start()<0)
+        {
+            BLILOG_E(TAG,"oled start error\n");
+            break;
+        }
+        ret =0;
     }while(0>1);
 
     return ret;

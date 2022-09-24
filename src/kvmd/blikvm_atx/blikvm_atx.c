@@ -10,6 +10,9 @@
 #include "blikvm_atx.h" 
 #include "common/blikvm_socket/blikvm_socket.h"
 
+#include "wiringPi.h"     //添加库文件
+#include "softPwm.h"     //添加库文件
+
 #define TAG "ATX"
 
 typedef struct 
@@ -30,6 +33,7 @@ typedef enum
 static blikvm_atx_t g_atx = {0};
 static blikvm_domainsocker_rev_t g_rev_buff = {0};
 static blikvm_void_t *blikvm_atx_loop(void *_);
+static blikvm_int8_t blikvm_read_atx_state();
 
 blikvm_int8_t blikvm_atx_init()
 {
@@ -43,7 +47,8 @@ blikvm_int8_t blikvm_atx_init()
             BLILOG_E(TAG,"creat /dev/shm/blikvm/ ok\n");
         }
         system("chmod 777 /dev/shm/blikvm/");
-        g_atx.fp = fopen("/dev/shm/blikvm/atx","w+");
+        g_atx.fp = fopen("/dev/shm/blikvm/atx","wb+");
+        system("chmod 777 /dev/shm/blikvm/atx");
         if(NULL == g_atx.fp)
         {
             printf("open atx shm failed\n");
@@ -52,8 +57,12 @@ blikvm_int8_t blikvm_atx_init()
         }
         else
         {
-            printf("open atx shm success\n");
-            BLILOG_D(TAG,"open /dev/shm/blikvm/atx ok\n");
+            blikvm_int8_t state[1];
+            state[0] = blikvm_read_atx_state();
+            fwrite(state, sizeof(state) , 1, g_atx.fp );
+            fflush(g_atx.fp);
+            fclose(g_atx.fp);
+            BLILOG_D(TAG,"open /dev/shm/blikvm/atx ok state:%c\n",&state[0]);
         }
 
         g_atx.socket = socket(AF_UNIX, SOCK_DGRAM, 0);
@@ -81,8 +90,9 @@ blikvm_int8_t blikvm_atx_init()
         }
         g_atx.socket_addr.send_addr_len = sizeof(g_atx.socket_addr.send_addr);
 
+        pinMode(4, OUTPUT); // wpi
+        pinMode(2, OUTPUT); //wpi
         g_atx.init = 1;
-        ret =0;
         ret =0;
     } while (0>1);
     return ret;
@@ -117,32 +127,129 @@ static blikvm_void_t *blikvm_atx_loop(void *_)
         }
         while(1)
         {
-            printf("test atx thread\n");
             blikvm_int32_t ret = recvfrom(g_atx.socket,(void *)g_rev_buff.recvBuf,DEFAULT_BUF_LEN,
             0,(struct sockaddr *)&(g_atx.socket_addr.send_addr), &(g_atx.socket_addr.send_addr_len));
+            
+            blikvm_uint8_t state[1];
             if( ret == 1U)
             {
+                g_atx.fp = fopen("/dev/shm/blikvm/atx","wb+");
+                blikvm_int32_t ret_len;
+                BLILOG_D(TAG,"atx get:%d\n",g_rev_buff.recvBuf[0]);
                 switch(g_rev_buff.recvBuf[0])
                 {
-                    case int(ATX_SHORT):
-                        BLILOG_D(TAG,"atx short\n");
+                    case blikvm_int32_t(ATX_SHORT):
+                        digitalWrite(4, HIGH); 
+                        usleep(500*1000);
+		                digitalWrite(4, LOW);
+                        BLILOG_D(TAG,"atx power on\n");
+                        state[0] = 0b01000000 | blikvm_read_atx_state(); 
                         break;
-                    case int(ATX_LONG):
-                        BLILOG_D(TAG,"atx long\n");
+                    case blikvm_int32_t(ATX_LONG):
+                        digitalWrite(4, HIGH); 
+                        usleep(2000*1000);
+		                digitalWrite(4, LOW);
+                        BLILOG_D(TAG,"atx power off\n");
+                        state[0] = 0b00000000 | blikvm_read_atx_state(); 
                         break;
-                    case int(ATX_RESET):
-                        BLILOG_D(TAG,"atx reset\n");
+                    case blikvm_int32_t(ATX_RESET):
+                        digitalWrite(16, HIGH); 
+                        usleep(500*1000);
+		                digitalWrite(2, LOW);
+                        state[0] = 0b01000000 | blikvm_read_atx_state(); 
+                        BLILOG_D(TAG,"atx restart\n");
                         break;
                     default:
                         BLILOG_E(TAG,"atx get error command:%d\n",g_rev_buff.recvBuf[0]);
                         break;
                 }
+
+                ret_len = fwrite(state, sizeof(state) , 1, g_atx.fp);
+                if(ret_len > 0)
+                {
+                    BLILOG_E(TAG,"write ok: %d sizeof state:%d\n",ret_len,sizeof(state));
+                }
+                fflush(g_atx.fp);
+                fclose(g_atx.fp);
+
             }
             else
             {
                 BLILOG_E(TAG,"recv error len:%d\n",ret);
             }
+
         }
     } while (0>1);
     return NULL;
+}
+
+static blikvm_int8_t blikvm_read_atx_state()
+{
+    blikvm_int8_t ret = 0;
+
+    do
+    {
+    // led_pwr = os.popen('gpio -g read 24').read()
+    // led_hdd = os.popen('gpio -g read 22').read()
+        FILE  *fp;
+        fp = popen("gpio -g read 24","r");
+        blikvm_int8_t result_buf[1024];
+        if( fp == NULL)
+        {
+            BLILOG_E(TAG,"read pwr led gpio error\n");
+            break;
+        }
+        blikvm_int32_t len = fread(result_buf,1,sizeof(result_buf),fp);
+
+        if( len > 0)
+        {
+            blikvm_int32_t gpio = atoi(result_buf);
+            if( gpio == 1 )
+            {
+                ret = 0b10000000;
+            }   
+        }
+        else
+        {
+            BLILOG_E(TAG,"read pwr led buff error len:%d  conten:%s c0:%d c1:%d\n",len,result_buf,result_buf[0],result_buf[1]);
+            break;
+        }
+        //关闭文件指针
+        if(-1 == pclose(fp))
+        {
+            BLILOG_E(TAG,"close file point failure.\n");
+            ret = 0;
+            break;
+        }
+
+        fp = popen("gpio -g read 22","r");
+        if( fp == NULL)
+        {
+            BLILOG_E(TAG,"read hdd led gpio error\n");
+            break;
+        }
+        if(fread(result_buf,1,sizeof(result_buf),fp) > 0)
+        {
+            blikvm_int32_t gpio_hdd = atoi(result_buf);
+            if( gpio_hdd == 1 )
+            {
+                ret = ret | 0b00001000;
+            }   
+        }
+        else
+        {
+            BLILOG_E(TAG,"read hdd led buff error\n");
+            break;
+        }
+        //关闭文件指针
+        if(-1 == pclose(fp))
+        {
+            BLILOG_E(TAG,"close file point failure.\n");
+            ret = 0;
+            break;
+        }
+
+    } while (0>1);
+    BLILOG_D(TAG,"atx state ret:%d\n",ret);
+    return ret;
 }

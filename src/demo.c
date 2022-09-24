@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
     config.log.channel = BLI_LOG_CHANNEL_CONSOLE | BLI_LOG_CHANNEL_FILE;
     memcpy(config.log.log_out.file.path, log_path, strnlen((blikvm_int8_t *)log_path, 256));
     config.log.log_out.file.max_size[0] =  5 * 1024U;
+    config.oled_type = OLED_SSD1306_128_64;
     
     blikvm_init(&config);
     blikvm_start();
