@@ -50,7 +50,7 @@ blikvm_int8_t blikvm_fan_init()
         {
             BLILOG_E(TAG,"not exit /dev/shm/blikvm/ will creat this dir\n");
             system("mkdir /dev/shm/blikvm/");
-            BLILOG_E(TAG,"creat /dev/shm/blikvm/ ok\n");
+            BLILOG_I(TAG,"creat /dev/shm/blikvm/ ok\n");
         }
         system("chmod 777 /dev/shm/blikvm/");
         g_fan.fp = fopen("/dev/shm/blikvm/fan","wb+");
