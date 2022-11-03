@@ -31,7 +31,7 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         blikvm_atx_init();
 
         //4、init oled moudle
-        blikvm_oled_init(config->oled_type);
+        //blikvm_oled_init(config->oled_type);
 
         //5、init dtc moudle
 
@@ -55,11 +55,7 @@ blikvm_int8_t blikvm_start()
             BLILOG_E(TAG,"atx start error\n");
             break;
         }
-        if(blikvm_oled_start()<0)
-        {
-            BLILOG_E(TAG,"oled start error\n");
-            break;
-        }
+
         ret =0;
     }while(0>1);
 

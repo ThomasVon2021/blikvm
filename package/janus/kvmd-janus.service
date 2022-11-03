@@ -1,0 +1,12 @@
+[Unit]
+Description=BLIKVM - janus controller daemon
+After=syslog.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/opt/janus/bin/janus
+RemainAfterExit=true
+
+[Install]
+WantedBy=local-fs.target

@@ -8,7 +8,7 @@
 int main(int argc, char *argv[])
 {
     blikvm_config_t config;
-    blikvm_uint8_t log_path[] = "./blilog";
+    blikvm_uint8_t log_path[] = "/opt/bin/blilog";
     config.log.enable[0] = 1;
     config.log.level = 4U;
     config.log.channel = BLI_LOG_CHANNEL_CONSOLE | BLI_LOG_CHANNEL_FILE;

@@ -1,7 +1,14 @@
 [Unit]
-Description=kvmd-hid
+Description=Initialize USB gadgets
+After=syslog.target
+
 [Service]
 Type=oneshot
+User=root
 ExecStart=/usr/bin/blikvm/enable-gadget.sh
+RemainAfterExit=true
+ExecStop=/usr/bin/blikvm/disable-gadget.sh
+StandardOutput=journal
+
 [Install]
-WantedBy=multi-user.target
+WantedBy=local-fs.target

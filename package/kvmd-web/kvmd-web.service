@@ -1,0 +1,12 @@
+[Unit]
+Description=BLIKVM - web controller daemon
+After=syslog.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/kvmd-web.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=local-fs.target
