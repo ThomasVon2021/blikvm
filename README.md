@@ -13,6 +13,25 @@
   </a>
 </p>
 
+## Overview
+![Image title](/images/web/web-chinese.png)
+
+## Features
+
+- Support  Raspberry Pi 4B and CM4, PCIe card.
+- **Video capture** (HDMI/DVI/VGA)
+- **Keyboard forwarding**
+- **Mouse forwarding**
+- **ATX** Control the server power using ATX functions
+- **Fullscreen mode**
+- Access via **Web UI**
+- **Health monitoring** of the Pi
+- PWM **FAN** controller
+- Support **PoE**
+- **Serial** console port
+- **I2C** display connector
+- **Real Time Clock (RTC)**  
+
 ## Support
 
 - Check out [the documentation](https://wiki.blicube.com/blikvm/)!
@@ -23,7 +42,6 @@
 - [Purchase - BliKVM CM4 Version](https://www.aliexpress.com/item/1005003262886521.html)
 - [Purchase - BliKVM HAT Version](https://www.aliexpress.com/item/1005004377930400.html)
 - [Purchase - BliKVM PCIe version](https://www.aliexpress.com/item/1005004572837650.html)
-- [Reserve - BliKVM PCIe version](https://github.com/ThomasVon2021/pikvm-board/blob/master/Blikvm_PCIe_advanced_order.md)
 
 ## Videos
 
@@ -32,33 +50,12 @@
 - [Watch - Feature Overview for CM4 Version](https://www.youtube.com/watch?v=aehOawHklGE)
 - [Watch - Unboxing for CM4 Version](https://www.youtube.com/watch?v=d7I9l5yG5M8)
 
-## Pictures
+## Hardware version
 
 ![Image title](/images/version_all.png)
 
-## Features
-
-This product’s key features include `Video Capture`, `ATX Power Control`, `USB 3.0`, `OTG`, `Gigabit Ethernet`, `OLED`, and `RTC`. 
-
-| __PCB - Front__                            | __PCB - Back__                            |
-|--------------------------------------------|-------------------------------------------|
-| ![PCB - Front](/images/docs_image/2-1.png) | ![PCB - Back](/images/docs_image/2-2.png) |
-
-1. **HDMI IN** port with I2S
-2. **ATX** controller interface (power on/off, reboot control, PWR and HDD ACT LEDs)
-3. **USB3.0 port**  x 2
-4. **USB-C OTG** 
-5. **Real Time Clock (RTC)**  
-6. **Gigabit Ethernet**  
-7. **Activity** LED  
-8. **Micro SD Card** socket
-9. **Power** LED
-10. **I2C** display connector
-11. **nRPI_BOOT** Jumper
-12. **USB-C power input** 
-13. PWM **FAN** controller
-14. **Serial** console port
-15. Support **POE**
+## Developer installation
+See the [dev-readme](dev-readme.md) file.
 
 ## Other Purchase Links
 

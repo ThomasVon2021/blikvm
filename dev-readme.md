@@ -86,20 +86,20 @@ EOF
 ```
 
 # web
-apt install -y vim libcurl4-openssl-dev
-apt install -y  php7.4-bz2 php7.4-cli php7.4-curl php7.4-dev php7.4-json php7.4-mbstring php7.4-xml php7.4-zip
-vim  /etc/php/7.4/cli/php.ini
-date.timezone = Asia/Shanghai
-apt install php-pear 
-pecl install http://pecl.php.net/get/swoole-4.8.9.tgz
-#all is yes
-echo "extension=swoole.so" > /etc/php/7.4/cli/conf.d/swoole.ini
-vim /etc/php/7.4/cli/php.ini
-extension=swoole.so
+apt install -y vim libcurl4-openssl-dev  
+apt install -y  php7.4-bz2 php7.4-cli php7.4-curl php7.4-dev php7.4-json php7.4-mbstring php7.4-xml php7.4-zip  
+vim  /etc/php/7.4/cli/php.ini  
+date.timezone = Asia/Shanghai  
+apt install php-pear   
+pecl install http://pecl.php.net/get/swoole-4.8.9.tgz  
+#all is yes  
+echo "extension=swoole.so" > /etc/php/7.4/cli/conf.d/swoole.ini  
+vim /etc/php/7.4/cli/php.ini  
+extension=swoole.so  
 
-pecl install inotify
-vim /etc/php/7.4/cli/php.ini
-extension=inotify.so
+pecl install inotify  
+vim /etc/php/7.4/cli/php.ini  
+extension=inotify.so  
 
 ## webclient
 ```
