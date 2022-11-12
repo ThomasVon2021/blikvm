@@ -14,7 +14,11 @@
 </p>
 
 ## Overview
-![Image title](/images/web/web-chinese.png)
+
+| __中文界面__ | __English UI__ |
+|--------------------------------------------|-------------------------------------------|
+| ![chinese](/images/web/web-chinese.png) | ![PCB - Back](/images/web/web-english.png) |
+
 
 ## Features
 
@@ -25,6 +29,7 @@
 - **ATX** Control the server power using ATX functions
 - **Fullscreen mode**
 - Access via **Web UI**
+- Support **multi language** switching
 - **Health monitoring** of the Pi
 - PWM **FAN** controller
 - Support **PoE**
