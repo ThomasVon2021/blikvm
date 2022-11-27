@@ -1,11 +1,11 @@
-# install kvmd ustreamer
+# install kvmd-main
 
-1、if you want to disable fan
+1、if you want to disable 
 ```
 systemctl disable kvmd-main
 ```
 
-2、if you want to start fan
+2、if you want to start 
 ```
 systemctl enable kvmd-main
 ```
