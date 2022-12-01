@@ -49,6 +49,14 @@ blikvm_int8_t blikvm_atx_init()
         system("chmod 777 /dev/shm/blikvm/");
         g_atx.fp = fopen("/dev/shm/blikvm/atx","wb+");
         system("chmod 777 /dev/shm/blikvm/atx");
+
+        if(access("/var/blikvm/",R_OK) != 0)
+        {
+            BLILOG_E(TAG,"not exit /var/blikvm/ will creat this dir\n");
+            system("mkdir /var/blikvm/");
+            BLILOG_I(TAG,"creat /var/blikvm/ ok\n");
+        }
+
         if(NULL == g_atx.fp)
         {
             printf("open atx shm failed\n");
