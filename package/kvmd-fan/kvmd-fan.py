@@ -25,7 +25,7 @@ try:
 		tmpFile.close()
 		print("Temp:",cpu_temp)
 		if (cpu_temp >= 60) or (cpu_temp > min_temp): 
-			if(running): #if fan not running, start fan
+			if(not running): #if fan not running, start fan
 				pwm.start(0)
 				running = True
 			if (cpu_temp >= 60): #For safety, temp exceeds 60 degrees, the fan speed is always set to 100%.
