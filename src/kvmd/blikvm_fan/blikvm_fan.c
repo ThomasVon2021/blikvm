@@ -230,6 +230,7 @@ static blikvm_void_t *blikvm_fan_loop(void *_)
                             BLILOG_E(TAG,"fan get error open value:%d\n",fan_enable);
                         break;
                     }
+                    
                     ret_len = fwrite(state, sizeof(state) , 1, g_fan.fp);
                     if(ret_len > 0)
                     {

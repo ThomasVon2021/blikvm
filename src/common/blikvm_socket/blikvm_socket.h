@@ -30,4 +30,12 @@ typedef struct
     char mSunPath[BLIKVM_DOMAIN_PATH_MAX_LENGTH];    ///< domain socket adress,default length = 30
 }blikvm_domainsocker_rev_t;
 
+typedef struct 
+{
+    FILE * fp;
+    blikvm_int8_t init;
+    blikvm_int32_t socket;
+    blikvm_domainsocket_addr_t socket_addr;
+}blikvm_interactive_t;
+
  #endif

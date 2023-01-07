@@ -175,7 +175,7 @@ static blikvm_void_t *blikvm_atx_loop(void *_)
                 ret_len = fwrite(state, sizeof(state) , 1, g_atx.fp);
                 if(ret_len > 0)
                 {
-                    BLILOG_E(TAG,"write ok: %d sizeof state:%d\n",ret_len,sizeof(state));
+                    BLILOG_D(TAG,"write ok: %d sizeof state:%d\n",ret_len,sizeof(state));
                 }
                 fflush(g_atx.fp);
                 fclose(g_atx.fp);
