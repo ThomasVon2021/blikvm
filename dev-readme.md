@@ -144,6 +144,14 @@ npm run serve
 npm run build
 ```
 
+# Config in raspberry 
+in the /boot/config.txt end, add the following content
+```
+dtoverlay=tc358743
+dtoverlay=tc358743-audio
+dtoverlay=dwc2
+```
+
 # Install kvmd services
 
 ```
