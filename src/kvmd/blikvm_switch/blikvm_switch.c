@@ -15,28 +15,25 @@
 #include "common/blikvm_uart/blikvm_uart.h"
 #include "common/blikvm_log/blikvm_log.h"
 #include "common/blikvm_socket/blikvm_socket.h"
+#include "common/blikvm_util/blikvm_util.h"
 
 #define TAG "SWITCH"
 #define SERIAL_TIME_OUT_MS  (2050)
 static blikvm_int32_t g_serial_fd = 0;
 static blikvm_interactive_t g_switch;
 static blikvm_domainsocker_rev_t g_rev_buff = {0};
+static blikvm_int8_t g_switch_enable = 0;
 
 static blikvm_void_t *blikvm_switch_state_loop(void *_);
 static blikvm_void_t *blikvm_switch_control_loop(void *_);
+static blikvm_void_t *blikvm_switch_monitor_loop(void *_);
+static blikvm_int8_t blikvm_switch_serial_judge(blikvm_int32_t timeout);
 
 blikvm_int8_t blikvm_switch_init()
 {
     blikvm_int8_t ret = -1;
     do
     {
-        g_serial_fd = open_serial_dev("/dev/ttyUSB0",g_serial_fd);
-        if( g_serial_fd < 0)
-        {
-            BLILOG_E(TAG,"init switch failed\n");
-            break;
-        }
-
         if(access("/dev/shm/blikvm/",R_OK) != 0)
         {
             BLILOG_E(TAG,"not exit /dev/shm/blikvm/ will creat this dir\n");
@@ -102,13 +99,23 @@ blikvm_int8_t blikvm_switch_start()
             BLILOG_E(TAG,"switch moudle status is not ok\n");
             break;
         }
-        pthread_t blikvm_switch_thread;
-        blikvm_int8_t thread_ret = pthread_create(&blikvm_switch_thread, NULL, blikvm_switch_state_loop, NULL);
+
+        pthread_t blikvm_switch_monitor_thread;
+        blikvm_int8_t thread_ret = pthread_create(&blikvm_switch_monitor_thread, NULL, blikvm_switch_monitor_loop, NULL);
+        if(thread_ret != 0)
+        {
+            BLILOG_E(TAG,"creat switch monitor loop thread failed\n");
+            break;
+        }
+
+        pthread_t blikvm_switch_state_thread;
+        thread_ret = pthread_create(&blikvm_switch_state_thread, NULL, blikvm_switch_state_loop, NULL);
         if(thread_ret != 0)
         {
             BLILOG_E(TAG,"creat switch state loop thread failed\n");
             break;
         }
+
         pthread_t blikvm_switch_control_thread;
         thread_ret = pthread_create(&blikvm_switch_control_thread, NULL, blikvm_switch_control_loop, NULL);
         if(thread_ret != 0)
@@ -143,23 +150,22 @@ static blikvm_void_t *blikvm_switch_state_loop(void *_)
 
             /* Do the select */
             n = select(max_fd, &input, NULL, NULL, &tv);
-                        /* See if there was an error */
+            /* See if there was an error */
+            blikvm_uint8_t state[1];
+            state[0] = 0b00000000; 
             if (n < 0) {
                 BLILOG_E(TAG,"select failed\n");
-                continue;
             }
             else if (n == 0) {
                 BLILOG_E(TAG,"serial read timeout in :%d (ms)\n",SERIAL_TIME_OUT_MS);
             }
             else {
                 /* We have input */
-                if (FD_ISSET(g_serial_fd, &input)) {
+                if (FD_ISSET(g_serial_fd, &input)) 
+                {
                     blikvm_int32_t len = read(g_serial_fd, data, sizeof(data));
                     if (len > 0) {
-                        g_switch.fp = fopen("/dev/shm/blikvm/switch","wb+");
                         BLILOG_D(TAG,"switch data:%s, %d\n",data, len);
-                        
-                        blikvm_uint8_t state[1];
                         switch(data[2])
                         {
                             case '1': 
@@ -178,17 +184,25 @@ static blikvm_void_t *blikvm_switch_state_loop(void *_)
                                 BLILOG_E(TAG,"switch get error open value:%d\n",data[2]);
                             break;
                         }
-
-                        blikvm_int32_t ret_len = fwrite(state, sizeof(state) , 1, g_switch.fp);
-                        if(ret_len > 0)
-                        {
-                            BLILOG_D(TAG,"write ok: %d  state:%d\n",ret_len,state[0]);
-                        }
-                        fflush(g_switch.fp);
-                        fclose(g_switch.fp);
+                    }
+                    else
+                    {
+                        sleep(2);
                     }
                 }
+                else
+                {
+                    BLILOG_E(TAG,"serial fd is not in input\n");
+                }
             }
+            g_switch.fp = fopen("/dev/shm/blikvm/switch","wb+");
+            blikvm_int32_t ret_len = fwrite(state, sizeof(state) , 1, g_switch.fp);
+            if( ret_len < 0 )
+            {
+                 BLILOG_E(TAG,"write state is error\n");
+            }
+            fflush(g_switch.fp);
+            fclose(g_switch.fp);
         }
     }while(0>1);
 }
@@ -210,8 +224,7 @@ static blikvm_void_t *blikvm_switch_control_loop(void *_)
             {
                 blikvm_int8_t cont_data[12];
                 switch(g_rev_buff.recvBuf[0])
-                {
-                    
+                { 
                     case 1:
                         memcpy(cont_data,"SW1\r\nG01gA",strlen("SW1\r\nG01gA")); 
                     break;
@@ -228,7 +241,10 @@ static blikvm_void_t *blikvm_switch_control_loop(void *_)
                         BLILOG_E(TAG,"switch get error command:%d\n",g_rev_buff.recvBuf[0]);
                     break;
                 }
-                write(g_serial_fd, cont_data, sizeof(cont_data));
+                if(g_switch_enable == 1)
+                {
+                    write(g_serial_fd, cont_data, sizeof(cont_data));
+                }
             }
             else
             {
@@ -237,4 +253,125 @@ static blikvm_void_t *blikvm_switch_control_loop(void *_)
         }
     }while(0>1);
     return NULL;
+}
+
+/**
+ * @brief : 每5s轮询一次，判断g_switch_enable是否为1，如果为1，则不进行后续逻辑判断，如果非1，则去进行逻辑处理
+ */
+static blikvm_void_t *blikvm_switch_monitor_loop(void *_)
+{
+    do
+    {
+        if(g_switch.init != 1U)
+        {
+            BLILOG_E(TAG,"not init\n");
+            break;
+        }
+        while(1)
+        {
+            if(g_switch_enable == 1)
+            {
+                if(write(g_serial_fd, "1", 1) <= 0 )
+                {
+                    g_serial_fd = 0;
+                    g_switch_enable = 0;
+                }
+            }
+            else
+            {
+                char result[256] = {0};
+                char *cmd = (char*)"ls /dev/ttyUSB*";
+                if( execmd(cmd,result) == 1 )
+                {
+                    BLILOG_I(TAG,"len:%d result:%s\n",strlen(result),result);
+                    char *revbuf[4] = {0}; //存放分割后的子字符串 
+                    //分割后子字符串的个数
+                    int num = 0;
+
+                    // 预处理，用#替换掉\n
+                    blikvm_int32_t len = strlen(result);
+                    for(blikvm_int32_t i=0; i<len; i++)
+                    {
+                        if(result[i] == '\n')
+                        {
+                            result[i] = '#';
+                        }
+                    }
+                    split(result,"#",revbuf,&num); //调用函数进行分割 
+                    //输出返回的每个内容
+                    for(int i = 0;i < num; i ++)
+                    {
+                        g_serial_fd = open_serial_dev(revbuf[i],19200);
+                        if( g_serial_fd < 0)
+                        {
+                            BLILOG_E(TAG,"open %s failed\n",revbuf[i]);
+                            continue;
+                        }
+                        blikvm_int8_t flag = blikvm_switch_serial_judge(5000);
+                        if(flag)
+                        {
+                            break;
+                        }       
+                    } 
+                }
+            }
+            sleep(5);
+        }
+    }while(0>1);
+    return NULL;
+}
+
+static blikvm_int8_t blikvm_switch_serial_judge(blikvm_int32_t timeout)
+{
+    blikvm_int8_t ret = -1;
+    fd_set         input;
+    blikvm_int32_t  max_fd;
+    blikvm_int8_t   data[8];
+    struct timeval tv;
+    blikvm_int32_t  n;
+    blikvm_int64_t  start_time = blikvm_get_utc_ms();
+    blikvm_int64_t  end_time = start_time;
+    while(1)
+    {
+        if( end_time - start_time > timeout )
+        {
+            break;
+        }
+        /* Initialize the input set */
+        FD_ZERO(&input);
+        FD_SET(g_serial_fd, &input);
+
+        max_fd = g_serial_fd + 1;
+
+        tv.tv_sec  = SERIAL_TIME_OUT_MS / 1000;
+        tv.tv_usec = (SERIAL_TIME_OUT_MS % 1000) * 1000;
+
+        /* Do the select */
+        n = select(max_fd, &input, NULL, NULL, &tv);
+                    /* See if there was an error */
+        if (n < 0) {
+            BLILOG_E(TAG,"select failed\n");
+            continue;
+        }
+        else if (n == 0) {
+            BLILOG_E(TAG,"serial read timeout in :%d (ms)\n",SERIAL_TIME_OUT_MS);
+        }
+        else {
+            /* We have input */
+            if (FD_ISSET(g_serial_fd, &input)) {
+                blikvm_int32_t len = read(g_serial_fd, data, sizeof(data));
+                if (len > 0) {
+                    if( (data[0] == 'G') && (data[4] == 'A'))
+                        {
+                            g_switch_enable = 1;
+                            ret = 1;
+                            BLILOG_D(TAG,"get switch handle success\n");
+                            break;
+                        }  
+                }
+            }
+        }
+        end_time = blikvm_get_utc_ms();
+    }
+    return ret;
 }

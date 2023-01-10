@@ -197,7 +197,7 @@ static blikvm_void_t *blikvm_fan_loop(void *_)
                 fan_enable = 1;
                 Duty = GetDuty(temp);
                 softPwmWrite(PWM_Pin,Duty);
-                printf("temp: %.2f,Duty: %d\n", temp, Duty);
+                BLILOG_D(TAG,"temp: %.2f,Duty: %d\n", temp, Duty);
             }
             else
             {

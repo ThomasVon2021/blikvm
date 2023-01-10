@@ -31,11 +31,11 @@ static blikvm_int32_t set_serial_opt(blikvm_int32_t fd, blikvm_int32_t nSpeed, b
  * @param serial_dev serial device in linux host
  * @return 0: success; -1: fail
  */
-blikvm_int32_t open_serial_dev(const blikvm_int8_t* serial_dev, blikvm_int32_t fd)
+blikvm_int32_t open_serial_dev(const blikvm_int8_t* serial_dev, blikvm_int32_t baut)
 {
     BLILOG_I(TAG,"opening device :%s \n", serial_dev);
 
-    blikvm_int32_t baut = DEFAULT_SERIAL_BAUT;
+    blikvm_int32_t fd =0;
 
     /* O_RDWR Read/Write access to serial port           */
     /* O_NOCTTY - No terminal will control the process   */
@@ -47,7 +47,6 @@ blikvm_int32_t open_serial_dev(const blikvm_int8_t* serial_dev, blikvm_int32_t f
         return -1;
     }
     else {
-        baut = DEFAULT_SERIAL_BAUT;
         BLILOG_I(TAG,"communicate baut is %d \n", baut);
         blikvm_int32_t set_ret = set_serial_opt(fd, baut, 8, 'N', 1);  // CHANG BUAD
         if (set_ret == -1) {
@@ -152,34 +151,4 @@ set_serial_opt(blikvm_int32_t fd, blikvm_int32_t nSpeed, blikvm_int32_t nBits, b
     }
 
     return 0;
-}
-
-/**
- * @brief send command to MC
- *
- * @param fd serial device file descriptor
- * @param cmd command string
- * @param len command string length
- */
-static blikvm_void_t send_cmd2mc(blikvm_int32_t fd, blikvm_int8_t const* cmd, blikvm_int32_t len)
-{
-    blikvm_int32_t offset    = 0;
-    ssize_t       wcnt      = 0;
-    blikvm_int32_t total     = len;
-    blikvm_int32_t write_cnt = 0;
-    do {
-        wcnt = write(fd, cmd + offset, total);
-        if (wcnt <= 0) {
-            if (++write_cnt > 5) {
-                break;
-            }
-            BLILOG_I(TAG,,"write cmd to ublox failed....\n");
-            usleep(1000);
-            continue;
-        }
-        else {
-            offset += wcnt;
-            total -= wcnt;
-        }
-    } while (total > 0);
 }

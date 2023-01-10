@@ -59,7 +59,6 @@ blikvm_int8_t blikvm_atx_init()
 
         if(NULL == g_atx.fp)
         {
-            printf("open atx shm failed\n");
             BLILOG_E(TAG,"open /dev/shm/blikvm/atx error\n");
             break;
         }
