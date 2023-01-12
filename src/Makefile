@@ -1,7 +1,17 @@
 TEST_PATH=$(PWD)
+PLAT=$(PLATFORM)
 
 INCLUDE_PATH += ./
 INCLUDE_PATH += ./include
+
+ifeq ($(PLAT),x86)
+INCLUDE_PATH += ./extern
+SOURCE_FILES += ./extern/softPwm_mock.c
+SOURCE_FILES += ./extern/wiringPi_mock.c
+else
+LIBS    +=  -lwiringPi
+endif
+
 
 SOURCE_FILES += ./common/blikvm_log/blikvm_log.c
 SOURCE_FILES += ./common/blikvm_uart/blikvm_uart.c
@@ -17,7 +27,7 @@ CC = g++
 
 OFLAGS = -g -Wall
 
-LIBS     =  -lpthread -lwiringPi
+LIBS    +=  -lpthread 
 
 # LIBPATH += $(foreach path,$(DEPS_LIB_PATH),-L$(path))
 # LIBPATH += -L${SDK_ROOT_PATH}
