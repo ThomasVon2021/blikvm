@@ -16,6 +16,7 @@ endif
 SOURCE_FILES += ./common/blikvm_log/blikvm_log.c
 SOURCE_FILES += ./common/blikvm_uart/blikvm_uart.c
 SOURCE_FILES += ./common/blikvm_util/blikvm_util.c
+SOURCE_FILES += ./common/blikvm_util/cJSON.c
 SOURCE_FILES += ./blikvm_server.c
 SOURCE_FILES += ./kvmd/blikvm_fan/blikvm_fan.c
 SOURCE_FILES += ./kvmd/blikvm_atx/blikvm_atx.c
