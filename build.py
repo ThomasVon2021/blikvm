@@ -23,7 +23,7 @@ def main():
     # package binary  rm -rf release && rm -r release.tar.gz && 
     cmd = "mkdir release && cp package/kvmd-hid/* release/ && cp package/kvmd-main/* release/ && \
     cp package/kvmd-oled/* release/ && cp package/kvmd-web/* release/ && cp package/ustreamer/* release/ && \
-    tar -zcvf release.tar.gz release && rm -rf release"
+    cp src/kvmd-main release/ && tar -zcvf release.tar.gz release && rm -rf release"
     output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
 
     # modify package.json
@@ -32,7 +32,7 @@ def main():
         json_data = json.load(fp_r)
         cmd = "md5sum release.tar.gz"
         output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
-        print("md5: ",output, "str: ", output.decode('utf-8')[0:32] )
+        # print("md5: ",output, "str: ", output.decode('utf-8')[0:32] )
         json_data['md5value'] = output.decode('utf-8')[0:32]
         with open(file_path,'w',encoding='utf8')as fp_w:
 	        json.dump(json_data,fp_w,ensure_ascii=False)
