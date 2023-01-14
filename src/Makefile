@@ -39,9 +39,9 @@ CFLAGS = ${IFLAGS} ${OFLAGS}
 
 .PHONY:clean
 
-all:clean demo.bin
+all:clean kvmd-main
 # $(SOURCE_FILES)
-demo.bin:demo.c $(SOURCE_FILES)
+kvmd-main:demo.c $(SOURCE_FILES)
 	$(CC) ${CFLAGS} $^ -o $@ -Wl,-rpath=./lib -Llib ${LIBS}
 clean:
-	@rm -f demo.bin
+	@rm -f kvmd-main
