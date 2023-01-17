@@ -5,5 +5,5 @@ cp blikvm-oled.py /usr/bin/blikvm-oled.py
 cp kvmd-oled.sh /usr/bin/kvmd-oled.sh
 mkdir -p "/usr/lib/systemd/system"
 cp kvmd-oled.service "/usr/lib/systemd/system"
-
+systemctl enable kvmd-oled.service
 echo "install oled ok"

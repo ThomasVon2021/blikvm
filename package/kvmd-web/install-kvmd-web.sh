@@ -13,4 +13,6 @@ chmod 777 /usr/bin/config.ini
 mkdir -p "/usr/lib/systemd/system"
 cp kvmd-web.service "/usr/lib/systemd/system"
 
+systemctl enable kvmd-web.service
+
 echo "install web ok"

@@ -23,7 +23,7 @@ def main():
     # package binary  rm -rf release && rm -r release.tar.gz && 
     cmd = "mkdir release && cp package/kvmd-hid/* release/ && cp package/kvmd-main/* release/ && \
     cp package/kvmd-oled/* release/ && cp package/kvmd-web/* release/ && cp package/ustreamer/* release/ && \
-    cp src/kvmd-main release/ && tar -zcvf release.tar.gz release && rm -rf release"
+    cp src/kvmd-main release/ && cp src/config/package.json release/ && tar -zcvf release.tar.gz release && rm -rf release"
     output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
 
     # modify package.json
