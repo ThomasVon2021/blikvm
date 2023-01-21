@@ -1,4 +1,4 @@
-# eg: python3 install_release.py 
+# eg: python3 install_release.py --releasepath release
 # after run this script, need reboot.
 import subprocess
 import os
