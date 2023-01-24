@@ -41,6 +41,7 @@
 
 - Check out [the documentation](https://wiki.blicube.com/blikvm/)!
 - Join the [Discord Community Chat](https://discord.gg/9Y374gUF6C) for news, questions and support!
+- Download [BLIKVM OS](https://wiki.blicube.com/blikvm/en/flashing_os/).
 
 ## Purchase
 
