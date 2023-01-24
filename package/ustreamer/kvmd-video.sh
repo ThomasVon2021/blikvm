@@ -10,6 +10,7 @@ do
     if [[ "$result" != "" ]]
     then
         echo "network ok"
+        sleep 10
         break
     else
         sleep 1
