@@ -5,7 +5,7 @@ import os
 import sys
 import subprocess
 
-download_path = "/tmp/"
+download_path = "/tmp/kvm_update/"
 update_result = False
 def main():
     global update_result
@@ -13,11 +13,14 @@ def main():
     make_path = sh_path + '/src'
 
     # clear download_path file
-    cmd = "rm -rf /tmp/*"
+    cmd = "rm -rf /tmp/kvm_update"
+    output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
+
+    cmd = "mkdir /tmp/kvm_update"
     output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
 
     #start update
-    file = open('/tmp/update_status.json','w')
+    file = open('/tmp/kvm_update/update_status.json','w')
     file.write('{\"update_status\": 0}')
     file.close()
     a=1
@@ -41,7 +44,7 @@ def main():
 
         # compare download packjson version and run packjson version
         download_json = download_path + "package.json"
-        run_json = '/usr/bin/package.json'
+        run_json = '/usr/bin/kvm_json/package.json'
         last_version = ''
         run_version = ''
         with open(download_json,'r',encoding='utf8')as fp_r:
@@ -76,7 +79,7 @@ def main():
     else:
         result_cnt = "{\"update_status\": 2}"
 
-    file = open('/tmp/update_status.json','w')
+    file = open('/tmp/kvm_update/update_status.json','w')
     file.write(result_cnt)
     file.close()
 

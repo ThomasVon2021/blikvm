@@ -5,6 +5,7 @@
  *-----------------------------------------------------------------------------*
  * 2022-09-10 | 0.1       | Thomasvon     |                 create
  ******************************************************************************/
+ 
 #include <pthread.h>
 #include <stdlib.h>
 #include "blikvm_atx.h" 
@@ -14,6 +15,12 @@
 #include "softPwm.h"     //添加库文件
 
 #define TAG "ATX"
+#define PIN_POWER 23  //BCM23 
+#define PIN_RESET 27  //BCM27
+#define PIN_LED_PWR 24  //BCM24 
+#define PIN_LED_HDD 22  //BCM22
+#define ATX_CYCLE 500 //unit:ms
+
 
 typedef struct 
 {
@@ -33,13 +40,18 @@ typedef enum
 static blikvm_atx_t g_atx = {0};
 static blikvm_domainsocker_rev_t g_rev_buff = {0};
 static blikvm_void_t *blikvm_atx_loop(void *_);
-static blikvm_int8_t blikvm_read_atx_state();
+static blikvm_void_t *blikvm_atx_monitor(void *_);
+static blikvm_uint8_t blikvm_read_atx_state();
 
 blikvm_int8_t blikvm_atx_init()
 {
     blikvm_int8_t ret = -1;
     do
     {
+        if(wiringPiSetupGpio() == -1)
+        {
+            BLILOG_E(TAG,"atx init gpio failed\n");
+        }
         if(access("/dev/shm/blikvm/",R_OK) != 0)
         {
             BLILOG_E(TAG,"not exit /dev/shm/blikvm/ will creat this dir\n");
@@ -97,8 +109,10 @@ blikvm_int8_t blikvm_atx_init()
         }
         g_atx.socket_addr.send_addr_len = sizeof(g_atx.socket_addr.send_addr);
 
-        pinMode(4, OUTPUT); // wpi
-        pinMode(2, OUTPUT); //wpi
+        pinMode(PIN_POWER, OUTPUT); 
+        pinMode(PIN_RESET, OUTPUT); 
+        pinMode(PIN_LED_PWR, INPUT);  
+        pinMode(PIN_LED_HDD, INPUT); 
         g_atx.init = 1;
         ret =0;
     } while (0>1);
@@ -110,12 +124,19 @@ blikvm_int8_t blikvm_atx_start()
 {
     blikvm_int8_t ret = -1;
     pthread_t blikvm_atx_thread;
+    pthread_t blikvm_monitor_thread;
     do
     {
         blikvm_int8_t thread_ret = pthread_create(&blikvm_atx_thread, NULL, blikvm_atx_loop, NULL);
         if(thread_ret != 0)
         {
-            BLILOG_E(TAG,"creat thread failed\n");
+            BLILOG_E(TAG,"creat loop thread failed\n");
+            break;
+        }
+        ret =  pthread_create(&blikvm_monitor_thread, NULL, blikvm_atx_monitor, NULL);
+        if(thread_ret != 0)
+        {
+            BLILOG_E(TAG,"creat monitor thread failed\n");
             break;
         }
         ret = 0;
@@ -137,48 +158,33 @@ static blikvm_void_t *blikvm_atx_loop(void *_)
             blikvm_int32_t ret = recvfrom(g_atx.socket,(void *)g_rev_buff.recvBuf,DEFAULT_BUF_LEN,
             0,(struct sockaddr *)&(g_atx.socket_addr.send_addr), &(g_atx.socket_addr.send_addr_len));
             
-            blikvm_uint8_t state[1];
             if( ret == 1U)
             {
-                g_atx.fp = fopen("/dev/shm/blikvm/atx","wb+");
-                blikvm_int32_t ret_len;
                 BLILOG_D(TAG,"atx get:%d\n",g_rev_buff.recvBuf[0]);
                 switch(g_rev_buff.recvBuf[0])
                 {
                     case blikvm_int32_t(ATX_SHORT):
-                        digitalWrite(4, HIGH); 
+                        digitalWrite(PIN_POWER, HIGH); 
                         usleep(500*1000);
-		                digitalWrite(4, LOW);
+		                digitalWrite(PIN_POWER, LOW);
                         BLILOG_D(TAG,"atx power on\n");
-                        state[0] = 0b01000000 | blikvm_read_atx_state(); 
                         break;
                     case blikvm_int32_t(ATX_LONG):
-                        digitalWrite(4, HIGH); 
+                        digitalWrite(PIN_POWER, HIGH); 
                         usleep(2000*1000);
-		                digitalWrite(4, LOW);
+		                digitalWrite(PIN_POWER, LOW);
                         BLILOG_D(TAG,"atx power off\n");
-                        state[0] = 0b00000000 | blikvm_read_atx_state(); 
                         break;
                     case blikvm_int32_t(ATX_RESET):
-                        digitalWrite(16, HIGH); 
+                        digitalWrite(PIN_RESET, HIGH); 
                         usleep(500*1000);
-		                digitalWrite(2, LOW);
-                        state[0] = 0b01000000 | blikvm_read_atx_state(); 
+		                digitalWrite(PIN_RESET, LOW);
                         BLILOG_D(TAG,"atx restart\n");
                         break;
                     default:
                         BLILOG_E(TAG,"atx get error command:%d\n",g_rev_buff.recvBuf[0]);
                         break;
                 }
-
-                ret_len = fwrite(state, sizeof(state) , 1, g_atx.fp);
-                if(ret_len > 0)
-                {
-                    BLILOG_D(TAG,"write ok: %d sizeof state:%d\n",ret_len,sizeof(state));
-                }
-                fflush(g_atx.fp);
-                fclose(g_atx.fp);
-
             }
             else
             {
@@ -190,73 +196,46 @@ static blikvm_void_t *blikvm_atx_loop(void *_)
     return NULL;
 }
 
-static blikvm_int8_t blikvm_read_atx_state()
+static blikvm_void_t *blikvm_atx_monitor(void *_)
 {
-    blikvm_int8_t ret = 0;
+    do
+    {
+        blikvm_uint8_t state[1];
+        state[0] = blikvm_read_atx_state();
+        g_atx.fp = fopen("/dev/shm/blikvm/atx","wb+");
+        if(NULL == g_atx.fp)
+        {
+            BLILOG_E(TAG,"open /dev/shm/blikvm/atx error\n");
+            break;
+        }
+        blikvm_int32_t ret_len = fwrite(state, sizeof(state) , 1, g_atx.fp);
+        if(ret_len < 0)
+        {
+            BLILOG_E(TAG,"write error: %d sizeof state:%d\n",ret_len,sizeof(state));
+        }
+        fflush(g_atx.fp);
+        fclose(g_atx.fp);
+        usleep(ATX_CYCLE*1000);
+    }while(1);
+    return NULL;
+}
+
+static blikvm_uint8_t blikvm_read_atx_state()
+{
+    blikvm_uint8_t ret = 0;
 
     do
     {
-    // led_pwr = os.popen('gpio -g read 24').read()
-    // led_hdd = os.popen('gpio -g read 22').read()
-        FILE  *fp;
-        fp = popen("gpio -g read 24","r");
-        blikvm_int8_t result_buf[1024];
-        if( fp == NULL)
+        if(digitalRead(PIN_LED_PWR) == 1 )
         {
-            BLILOG_E(TAG,"read pwr led gpio error\n");
-            break;
+            ret = 0b01000000;
         }
-        blikvm_int32_t len = fread(result_buf,1,sizeof(result_buf),fp);
-
-        if( len > 0)
+        if(digitalRead(PIN_LED_HDD) == 1 )
         {
-            blikvm_int32_t gpio = atoi(result_buf);
-            if( gpio == 1 )
-            {
-                ret = 0b10000000;
-            }   
-        }
-        else
-        {
-            BLILOG_E(TAG,"read pwr led buff error len:%d  conten:%s c0:%d c1:%d\n",len,result_buf,result_buf[0],result_buf[1]);
-            break;
-        }
-        //关闭文件指针
-        if(-1 == pclose(fp))
-        {
-            BLILOG_E(TAG,"close file point failure.\n");
-            ret = 0;
-            break;
-        }
-
-        fp = popen("gpio -g read 22","r");
-        if( fp == NULL)
-        {
-            BLILOG_E(TAG,"read hdd led gpio error\n");
-            break;
-        }
-        if(fread(result_buf,1,sizeof(result_buf),fp) > 0)
-        {
-            blikvm_int32_t gpio_hdd = atoi(result_buf);
-            if( gpio_hdd == 1 )
-            {
-                ret = ret | 0b00001000;
-            }   
-        }
-        else
-        {
-            BLILOG_E(TAG,"read hdd led buff error\n");
-            break;
-        }
-        //关闭文件指针
-        if(-1 == pclose(fp))
-        {
-            BLILOG_E(TAG,"close file point failure.\n");
-            ret = 0;
-            break;
+            ret = ret | 0b00001000;
         }
 
     } while (0>1);
-    BLILOG_D(TAG,"atx state ret:%d\n",ret);
+    BLILOG_D(TAG,"atx state ret:%02X\n",ret);
     return ret;
 }

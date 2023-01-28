@@ -9,7 +9,7 @@ gArgs = None
 def doArgParse():
     global gArgs
     optParser = argparse.ArgumentParser(description='build and tar file')
-    optParser.add_argument('--releasepath', nargs='?', default='/tmp/release/', type=str, help='release path')
+    optParser.add_argument('--releasepath', nargs='?', default='/tmp/kvm_update/release/', type=str, help='release path')
     gArgs = optParser.parse_args()
 
 def execute_cmd(cmd,sh_path):
@@ -55,7 +55,7 @@ def main():
         cmd = "bash install-kvmd-main.sh && bash install-ustreamer.sh && bash install-kvmd-oled.sh && bash install-kvmd-hid.sh \
         && bash install-kvmd-web.sh"
         subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
-        cmd = "cp package.json /usr/bin/package.json"
+        cmd = "cp package.json /usr/bin/kvm_json/package.json"
         subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
         # cmd = "reboot"
         # subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )

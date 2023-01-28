@@ -30,7 +30,7 @@ blikvm_int8_t blikvm_oled_start()
     blikvm_int8_t ret = -1;
     do
     {
-        if( popen("python kvmd/blikvm_oled/blikvm-oled.py &","r") == NULL)
+        if( popen("python /usr/bin/blikvm-oled.py &","r") == NULL)
         {
             BLILOG_E(TAG,"don't find oled py\n");
             break;
