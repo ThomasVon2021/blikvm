@@ -51,7 +51,13 @@ blikvm_int8_t blikvm_atx_init()
         if(wiringPiSetupGpio() == -1)
         {
             BLILOG_E(TAG,"atx init gpio failed\n");
+            break;
         }
+        pinMode(PIN_POWER, OUTPUT); 
+        pinMode(PIN_RESET, OUTPUT); 
+        pinMode(PIN_LED_PWR, INPUT);  
+        pinMode(PIN_LED_HDD, INPUT); 
+
         if(access("/dev/shm/blikvm/",R_OK) != 0)
         {
             BLILOG_E(TAG,"not exit /dev/shm/blikvm/ will creat this dir\n");
@@ -76,7 +82,7 @@ blikvm_int8_t blikvm_atx_init()
         }
         else
         {
-            blikvm_int8_t state[1];
+            blikvm_uint8_t state[1];
             state[0] = blikvm_read_atx_state();
             fwrite(state, sizeof(state) , 1, g_atx.fp );
             fflush(g_atx.fp);
@@ -108,11 +114,6 @@ blikvm_int8_t blikvm_atx_init()
             break;
         }
         g_atx.socket_addr.send_addr_len = sizeof(g_atx.socket_addr.send_addr);
-
-        pinMode(PIN_POWER, OUTPUT); 
-        pinMode(PIN_RESET, OUTPUT); 
-        pinMode(PIN_LED_PWR, INPUT);  
-        pinMode(PIN_LED_HDD, INPUT); 
         g_atx.init = 1;
         ret =0;
     } while (0>1);
@@ -127,6 +128,11 @@ blikvm_int8_t blikvm_atx_start()
     pthread_t blikvm_monitor_thread;
     do
     {
+        if(g_atx.init != 1U)
+        {
+            BLILOG_E(TAG,"not init\n");
+            break;
+        }
         blikvm_int8_t thread_ret = pthread_create(&blikvm_atx_thread, NULL, blikvm_atx_loop, NULL);
         if(thread_ret != 0)
         {

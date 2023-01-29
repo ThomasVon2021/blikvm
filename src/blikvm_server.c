@@ -28,9 +28,24 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         blikvm_log_init(&config->log);
 
         //2、init fan moudle
-        blikvm_fan_init();
+        if( blikvm_fan_init() == 0)
+        {
+            BLILOG_D(TAG,"init fan success\n");
+        }
+        else
+        {
+            BLILOG_E(TAG,"init fan failed\n");
+        }
+
         //3、init atx moudle
-        blikvm_atx_init();
+        if(blikvm_atx_init() == 0)
+        {
+            BLILOG_D(TAG,"init atx success\n");
+        }
+        else
+        {
+            BLILOG_E(TAG,"init atx failed\n");
+        }
 
         //4. init switch mouudle
         blikvm_switch_init();

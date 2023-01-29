@@ -123,6 +123,11 @@ blikvm_int8_t blikvm_fan_start()
     pthread_t blikvm_fan_thread_monitor;
     do
     {
+        if(g_fan.init != 1)
+        {
+            BLILOG_E(TAG,"not init\n");
+            break;
+        }
         blikvm_int8_t thread_ret = pthread_create(&blikvm_fan_thread, NULL, blikvm_fan_loop, NULL);
         if(thread_ret != 0)
         {

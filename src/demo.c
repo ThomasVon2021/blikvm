@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     blikvm_start();
     while (1)
     {
-        usleep(100*1000);
+        usleep(10000*1000);
     }
     
     return 0;
