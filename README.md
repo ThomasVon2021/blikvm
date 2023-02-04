@@ -60,8 +60,10 @@
 
 ![Image title](/images/version_all.png)
 
-## Developer installation
-See the [dev-readme](dev-readme.md) file.
+## Developer
+Front and backend separation software architecture: 
+![](/images/docs_image/arch.drawio.png)
+See more in the [dev-readme](dev-readme.md) file.
 
 ## Other Purchase Links
 
