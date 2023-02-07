@@ -11,14 +11,14 @@
 #include "blikvm_atx.h" 
 #include "common/blikvm_socket/blikvm_socket.h"
 
-#include "wiringPi.h"     //添加库文件
-#include "softPwm.h"     //添加库文件
+#include "GPIO/armbianio.h"     //添加库文件
+#include "GPIO/softPwm.h"     //添加库文件
 
 #define TAG "ATX"
-#define PIN_POWER 23  //BCM23 
-#define PIN_RESET 27  //BCM27
-#define PIN_LED_PWR 24  //BCM24 
-#define PIN_LED_HDD 22  //BCM22
+#define PIN_POWER 16  //BCM23 
+#define PIN_RESET 13  //BCM27
+#define PIN_LED_PWR 18  //BCM24 
+#define PIN_LED_HDD 15  //BCM22
 #define ATX_CYCLE 500 //unit:ms
 
 
@@ -48,16 +48,11 @@ blikvm_int8_t blikvm_atx_init()
     blikvm_int8_t ret = -1;
     do
     {
-        if(wiringPiSetupGpio() == -1)
-        {
-            BLILOG_E(TAG,"atx init gpio failed\n");
-            break;
-        }
-        pinMode(PIN_POWER, OUTPUT); 
-        pinMode(PIN_RESET, OUTPUT); 
-        pinMode(PIN_LED_PWR, INPUT);  
-        pinMode(PIN_LED_HDD, INPUT); 
-
+        AIOAddGPIO(PIN_POWER, GPIO_OUT);
+        AIOAddGPIO(PIN_RESET, GPIO_OUT);
+        AIOAddGPIO(PIN_LED_PWR, GPIO_IN);
+        AIOAddGPIO(PIN_LED_HDD, GPIO_IN);
+ 
         if(access("/dev/shm/blikvm/",R_OK) != 0)
         {
             BLILOG_E(TAG,"not exit /dev/shm/blikvm/ will creat this dir\n");
@@ -169,22 +164,22 @@ static blikvm_void_t *blikvm_atx_loop(void *_)
                 BLILOG_D(TAG,"atx get:%d\n",g_rev_buff.recvBuf[0]);
                 switch(g_rev_buff.recvBuf[0])
                 {
-                    case blikvm_int32_t(ATX_SHORT):
-                        digitalWrite(PIN_POWER, HIGH); 
+                    case ATX_SHORT:
+                        AIOWriteGPIO(PIN_POWER, GPIO_HIGH);
                         usleep(500*1000);
-		                digitalWrite(PIN_POWER, LOW);
+                        AIOWriteGPIO(PIN_POWER, GPIO_LOW);
                         BLILOG_D(TAG,"atx power on\n");
                         break;
-                    case blikvm_int32_t(ATX_LONG):
-                        digitalWrite(PIN_POWER, HIGH); 
+                    case ATX_LONG:
+                        AIOWriteGPIO(PIN_POWER, GPIO_HIGH);
                         usleep(2000*1000);
-		                digitalWrite(PIN_POWER, LOW);
+		                AIOWriteGPIO(PIN_POWER, GPIO_LOW);
                         BLILOG_D(TAG,"atx power off\n");
                         break;
-                    case blikvm_int32_t(ATX_RESET):
-                        digitalWrite(PIN_RESET, HIGH); 
+                    case ATX_RESET:
+                        AIOWriteGPIO(PIN_RESET, GPIO_HIGH);
                         usleep(500*1000);
-		                digitalWrite(PIN_RESET, LOW);
+                        AIOWriteGPIO(PIN_RESET, GPIO_LOW);
                         BLILOG_D(TAG,"atx restart\n");
                         break;
                     default:
@@ -232,11 +227,11 @@ static blikvm_uint8_t blikvm_read_atx_state()
 
     do
     {
-        if(digitalRead(PIN_LED_PWR) == 1 )
+        if(AIOReadGPIO(PIN_LED_PWR) == 1 )
         {
             ret = 0b01000000;
         }
-        if(digitalRead(PIN_LED_HDD) == 1 )
+        if(AIOReadGPIO(PIN_LED_HDD) == 1 )
         {
             ret = ret | 0b00001000;
         }

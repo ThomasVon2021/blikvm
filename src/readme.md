@@ -1,7 +1,7 @@
 # build command
-## On arm borad like raspberry pi
+## On arm board like raspberry pi
 ```
-make
+make RPI=1
 ```
 ## On x86 linux
 ```

@@ -3,12 +3,15 @@ PLAT=$(PLATFORM)
 
 INCLUDE_PATH += ./
 INCLUDE_PATH += ./include
+INCLUDE_PATH += ../third_lib
 
 ifeq ($(PLAT),x86)
 SOURCE_FILES += ./extern/softPwm_mock.c
 SOURCE_FILES += ./extern/wiringPi_mock.c
-else
-LIBS    +=  -lwiringPi
+endif
+
+ifeq ($(RPI),1)
+OFLAGS += -DPRI
 endif
 
 
@@ -20,12 +23,14 @@ SOURCE_FILES += ./blikvm_server.c
 SOURCE_FILES += ./kvmd/blikvm_fan/blikvm_fan.c
 SOURCE_FILES += ./kvmd/blikvm_atx/blikvm_atx.c
 SOURCE_FILES += ./kvmd/blikvm_switch/blikvm_switch.c
+SOURCE_FILES += ../third_lib/GPIO/armbianio.c
+SOURCE_FILES += ../third_lib/GPIO/softPwm.c
 #SOURCE_FILES += ./kvmd/blikvm_oled/blikvm_oled.c
 
-CC = g++
+CC = gcc
 
 
-OFLAGS = -g -Wall
+OFLAGS += -g -Wall
 
 LIBS    +=  -lpthread 
 

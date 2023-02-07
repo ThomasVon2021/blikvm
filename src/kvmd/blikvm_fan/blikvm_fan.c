@@ -22,7 +22,7 @@
 #define TAG "FAN"
 #define TEMP_PATH "/sys/class/thermal/thermal_zone0/temp"
 #define MAX_SIZE 32
-#define PWM_Pin 26         //定义PWM_Pin引脚  wPi
+#define PWM_Pin 32         //定义PWM_Pin引脚  wPi
 
 typedef struct 
 {
@@ -104,10 +104,8 @@ blikvm_int8_t blikvm_fan_init()
         g_fan.socket_addr.send_addr_len = sizeof(g_fan.socket_addr.send_addr);
 
         //init gpio control
-        wiringPiSetup();//初始化wiringPi
-        softPwmCreate(PWM_Pin,0,100);//当前pwmRange为100，频率为100Hz，若pwmRange为50时，频率为200，若pwmRange为2时，频率为5000。
-        softPwmWrite(PWM_Pin,50);//占空比 = value/pwmRange，当前占空比 = 50/100 = 50%
-         
+        softPwmCreate(PWM_Pin,0,100); //当前pwmRange为100，频率为100Hz，若pwmRange为50时，频率为200，若pwmRange为2时，频率为5000。
+	    softPwmWrite(PWM_Pin,50); //占空比 = value/pwmRange，当前占空比 = 50/100 = 50%
 
         g_fan.init = 1;
         ret =0;

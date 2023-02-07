@@ -12,12 +12,14 @@
 #include "kvmd/blikvm_oled/blikvm_oled.h"
 #include "kvmd/blikvm_switch/blikvm_switch.h"
 #include "common/blikvm_log/blikvm_log.h"
+#include "GPIO/armbianio.h"
 
 
 #define TAG "SERVER"
 /*******************************************************************************
  * private methods defination
  ******************************************************************************/
+static blikvm_int8_t blikvm_gpio_init();
 
 blikvm_int8_t blikvm_init( blikvm_config_t *config)
 {
@@ -26,6 +28,16 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
     {
         //1、init log moudle
         blikvm_log_init(&config->log);
+
+       if(blikvm_gpio_init() == 0)
+        {
+            BLILOG_D(TAG,"init gpio success\n");
+        }
+        else
+        {
+            BLILOG_E(TAG,"init gpio failed\n");
+            break;
+        }
 
         //2、init fan moudle
         if( blikvm_fan_init() == 0)
@@ -85,4 +97,20 @@ blikvm_int8_t blikvm_start()
     }while(0>1);
 
     return ret;
+}
+
+static blikvm_int8_t blikvm_gpio_init()
+{
+	// Initialize the library
+    blikvm_int8_t rc;
+    const blikvm_int8_t *szBoardName;
+	rc = AIOInit();
+	if (rc == 0)
+	{
+        BLILOG_E(TAG,"Problem initializing ArmbianIO library\n");
+		return -1;
+	}
+	szBoardName = AIOGetBoardName();
+    BLILOG_D(TAG,"Running on a %s\n", szBoardName);
+    return 0;
 }

@@ -88,7 +88,7 @@ blikvm_int8_t blikvm_file_rec_write(blikvm_uint32_t type, const blikvm_int8_t* d
 
 static blikvm_log_manager_t g_log = {0};
 static blikvm_file_rec_mgr_t g_filerec = {0};
-static char  blikvm_log_loop_thread_name[32];
+// static char  blikvm_log_loop_thread_name[32];
 static blikvm_int8_t g_in_buffer[1024] = {0};
 static blikvm_int8_t g_out_buffer[1024 + 32 + 4U] = {0};
 static blikvm_log_type_map_t g_type_map[BLI_LOG_TYPE_MAX] = {
@@ -190,8 +190,8 @@ static blikvm_int8_t blikvm_file_rec_write_task_init(void)
 			g_filerec.rotate[i].task.task_run = 1;
 			g_filerec.rotate[i].task.type = i;
 			pthread_create(&g_filerec.rotate[i].task.thread, NULL, &blikvm_file_rec_write_task, &g_filerec.rotate[i].task.type);
-			(void)snprintf(blikvm_log_loop_thread_name, sizeof(blikvm_log_loop_thread_name), "log_loop%d", i);
-			pthread_setname_np(g_filerec.rotate[i].task.thread, blikvm_log_loop_thread_name);
+			// (void)snprintf(blikvm_log_loop_thread_name, sizeof(blikvm_log_loop_thread_name), "log_loop%d", i);
+			// pthread_setname_np(g_filerec.rotate[i].task.thread, blikvm_log_loop_thread_name);
 			//buffer_init(&g_filerec.rotate[i].record, g_filerec.rotate[i].buffer, FR_MAX_FILE_BUFFER);
 		}
 	}

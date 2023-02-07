@@ -205,6 +205,7 @@ static blikvm_void_t *blikvm_switch_state_loop(void *_)
             fclose(g_switch.fp);
         }
     }while(0>1);
+    return NULL;
 }
 
 static blikvm_void_t *blikvm_switch_control_loop(void *_)
