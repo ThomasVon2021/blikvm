@@ -1,0 +1,17 @@
+CFLAGS=-c -Wall -O2
+LIBS= -lspi_lcd -lpthread -lm
+#LIBS= -lspi_lcd -lpigpio -lpthread -lm
+#LIBS= -lspi_lcd -lwiringPi -lm -lpthread
+#LIBS= -lspi_lcd -lbcm2835 -lm
+
+all: lcd
+
+lcd: make_sample main.o
+	$(CC) main.o $(LIBS) -o lcd
+
+main.o: main.c
+	$(CC) $(CFLAGS) main.c
+
+clean:
+	rm *.o lcd
+
