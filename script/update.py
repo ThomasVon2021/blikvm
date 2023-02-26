@@ -27,7 +27,7 @@ def main():
     while(a>0):
         # get tag 
         # tag=$(curl -s https://api.github.com/repos/ThomasVon2021/blikvm/releases/latest | grep tag_name | cut -f4 -d "\"")
-        cmd = "curl -s https://api.github.com/repos/ThomasVon2021/blikvm/releases/latest | grep tag_name | cut -f4 -d \"\\\"\""
+        cmd = "curl -ks https://api.github.com/repos/ThomasVon2021/blikvm/releases/latest | grep tag_name | cut -f4 -d \"\\\"\""
         try:
             output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
             tag = output.decode('utf-8')
@@ -35,7 +35,7 @@ def main():
             print("tag failed")
             break
         # download packjson first
-        cmd = "curl -LJo package.json https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/package.json"
+        cmd = "curl -kLJo package.json https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/package.json"
         try:
             output = subprocess.check_output(cmd, shell = True, cwd=download_path)
         except subprocess.CalledProcessError as e:
@@ -56,7 +56,7 @@ def main():
         if last_version != run_version :
             print("Fetched update version")
             # download tar pack
-            cmd = "curl -LJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release.tar.gz"
+            cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release.tar.gz"
             try:
                 output = subprocess.check_output(cmd, shell = True, cwd=download_path)
             except subprocess.CalledProcessError as e:
