@@ -2,7 +2,7 @@ export default {
     i:{
         modal:{
             okText:'ok',
-            cancelText:'cancle',
+            cancelText:'cancel',
         }
     },
     message:{
