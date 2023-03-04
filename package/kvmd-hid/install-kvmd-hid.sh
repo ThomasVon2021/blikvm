@@ -10,4 +10,4 @@ mkdir -p "/usr/lib/systemd/system"
 cp kvmd-hid.service "/usr/lib/systemd/system"
 
 systemctl enable kvmd-hid.service
-echo "install kvmd main ok"
+echo "install kvmd hid ok"

@@ -1,3 +1,3 @@
 #! /bin/sh
 
-python /usr/bin/blikvm-oled.py &
+python /usr/bin/blikvm/blikvm-oled.py &

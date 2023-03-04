@@ -1,24 +1,31 @@
 # base raspberry system
 - Raspberry Pi OS Lite
-- Release date: September 22nd 2022
-- System: 32-bit
+- Release date: 20230201
+- System: 64-bit
 - Kernel version: 5.15
 - Debian version: 11 (bullseye)
 
 # Main
 ```
 sudo -i
+mkdir /opt/bin
 
 #install wiringpi
-cd /tmp
-wget https://project-downloads.drogon.net/wiringpi-latest.deb
-sudo dpkg -i wiringpi-latest.deb
+#need to enable I2C on hardware(use raspi-config)
+git clone https://github.com/WiringPi/WiringPi.git
+./build
+
+#Some distributions do not have /usr/local/lib in the default LD_LIBRARY_PATH. To
+#fix this, you need to edit /etc/ld.so.conf and add in a single line:
+  /usr/local/lib
+#then run the ldconfig command.
+  sudo ldconfig
 
 # install Adafruit-SSD1306
 sudo apt install -y python3-pip
 pip install adafruit-circuitpython-ssd1306
 
-mkdir /opt/bin
+
 cd /opt/bin
 apt install git
 git clone https://github.com/ThomasVon2021/blikvm.git
@@ -91,12 +98,11 @@ mv \
 Finally, specify a qualifier for the shared memory object so that the µStreamer Janus plugin can read µStreamer's video data.
 
 ```
-mkdir -p /opt/janus/lib/janus/configs
-cat > /opt/janus/lib/janus/configs/janus.plugin.ustreamer.jcfg <<EOF
+vim /opt/janus/etc/janus/janus.plugin.ustreamer.jcfg
+#add 
 memsink: {
   object = "demo::ustreamer::h264"
 }
-EOF
 ```
 
 # web

@@ -1,17 +1,23 @@
 #!/bin/bash
 
-mkdir -p "/usr/bin"
-cp kvmd-web.sh /usr/bin/kvmd-web.sh
-chmod 777 /usr/bin/kvmd-web.sh
+if [ -d "/usr/bin/blikvm" ]
+then
+    echo '/usr/bin/blikvm exists'
+else
+    mkdir -p "/usr/bin/blikvm"
+fi
 
-cp kvm-link /usr/bin/kvm-link
-chmod 777 /usr/bin/kvm-link
+cp kvmd-web.sh /usr/bin/blikvm/kvmd-web.sh
+chmod 777 /usr/bin/blikvm/kvmd-web.sh
 
-cp config.ini /usr/bin/config.ini
-chmod 777 /usr/bin/config.ini
+cp kvm-link /usr/bin/blikvm/kvm-link
+chmod 777 /usr/bin/blikvm/kvm-link
 
-cp admin.ini /usr/bin/admin.ini
-chmod 777 /usr/bin/config.ini
+cp config.ini /usr/bin/blikvm/config.ini
+chmod 777 /usr/bin/blikvm/config.ini
+
+cp admin.ini /usr/bin/blikvm/admin.ini
+chmod 777 /usr/bin/blikvm/config.ini
 
 mkdir -p "/usr/lib/systemd/system"
 cp kvmd-web.service "/usr/lib/systemd/system"
