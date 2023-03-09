@@ -1,7 +1,7 @@
 <h1 align="center">BliKVM - Integrated software and hardware solution for KVM</h1>
 
 <p align="center">
-  <a href="https://www.blicube.com">BliKVM</a> is helps you to manage servers or workstations remotely, regardless of the health of the operating system or whether one is installed.
+  <a href="https://www.blicube.com">BliKVM</a> helps you to manage servers or workstations remotely, regardless of the health of the operating system or whether one is installed.
 </p>
 
 <p align="center">
