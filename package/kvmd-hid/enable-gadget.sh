@@ -23,15 +23,19 @@ USB_CONFIG_INDEX=1
 USB_CONFIG_DIR="configs/c.${USB_CONFIG_INDEX}"
 USB_ALL_CONFIGS_DIR="configs/*"
 USB_ALL_FUNCTIONS_DIR="functions/*"
+USB_MSD_DIR="/opt/bin/msd/ventoy"
 
 modprobe libcomposite
+
+#modprobe configfs
+modprobe usb_f_mass_storage
 
 cd "${USB_GADGET_PATH}"
 mkdir -p "${USB_DEVICE_DIR}"
 cd "${USB_DEVICE_DIR}"
 
 echo 0x1d6b > idVendor  # Linux Foundation
-echo 0x0104 > idProduct # Multifunction Composite Gadget
+echo 0x0106 > idProduct # Multifunction Composite Gadget
 echo 0x0100 > bcdDevice # v1.0.0
 echo 0x0200 > bcdUSB    # USB2
 
@@ -47,7 +51,6 @@ echo 1 > "${USB_KEYBOARD_FUNCTIONS_DIR}/subclass" # Boot interface subclass
 echo 8 > "${USB_KEYBOARD_FUNCTIONS_DIR}/report_length"
 # Write the report descriptor
 D=$(mktemp)
-
 {
   echo -ne \\x05\\x01       # Usage Page (Generic Desktop Ctrls)
   echo -ne \\x09\\x06       # Usage (Keyboard)
@@ -91,6 +94,7 @@ mkdir -p "$USB_MOUSE_FUNCTIONS_DIR"
 echo 0 > "${USB_MOUSE_FUNCTIONS_DIR}/protocol"
 echo 0 > "${USB_MOUSE_FUNCTIONS_DIR}/subclass"
 echo 7 > "${USB_MOUSE_FUNCTIONS_DIR}/report_length"
+
 # Write the report descriptor
 D=$(mktemp)
 {
@@ -134,6 +138,34 @@ echo -ne \\xC0           # END_COLLECTION
 } >> "$D"
 cp "$D" "${USB_MOUSE_FUNCTIONS_DIR}/report_desc"
 
+if [[ -f "${USB_MOUSE_FUNCTIONS_DIR}/no_out_endpoint" ]]; then
+  echo 1 > "${USB_MOUSE_FUNCTIONS_DIR}/no_out_endpoint"
+fi
+
+#MSD
+mkdir -p "$USB_MASS_STORAGE_FUNCTIONS_DIR"
+ 
+#配置U盘参数
+
+if [ -d "$USB_MSD_DIR" ]
+then
+	if [ -f  "$USB_MSD_DIR/ventoy.img" ] 
+	then
+		#echo "/var/sdcard/disk.img" > functions/mass_storage.0/lun.0/file
+		echo "$USB_MSD_DIR/ventoy.img" > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/file"
+
+		echo 1 > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/removable"
+		echo 0 > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/nofua"
+		#echo 0 > functions/mass_storage.0/lun.0/ro
+		#echo 1 > functions/mass_storage.0/lun.0/cdrom
+		#echo 0 > functions/mass_storage.0/stall
+	fi
+fi
+
+
+ 
+
+
 mkdir -p "${USB_CONFIG_DIR}"
 echo 250 > "${USB_CONFIG_DIR}/MaxPower"
 
@@ -143,6 +175,12 @@ echo "Config ${USB_CONFIG_INDEX}: ECM network" > "${CONFIGS_STRINGS_DIR}/configu
 
 ln -s "${USB_KEYBOARD_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
 ln -s "${USB_MOUSE_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
+
+#捆绑功能实例到配置config.1
+if [ -f "$USB_MSD_DIR/ventoy.img" ] 
+then
+	ln -s "${USB_MASS_STORAGE_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
+fi
 
 ls /sys/class/udc > "${USB_DEVICE_PATH}/UDC"
 chmod 777 /dev/hidg0

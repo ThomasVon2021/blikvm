@@ -1,28 +1,25 @@
 operation step:
 
-
-1> put the msd dir file into ~ dir:
+1> put the kvmd-msd dir file into /usr/bin/blikvm/
 
 include: 
-	--blikvm/
-	--iso
-	--disable_gadget.sh
-	--enable_gadget.sh
-	--msd.sh
+	--ventoy-1.0.88/
+	--kvmd-msd.sh
 
-2> In your PC ,through scp cmd send iso file to board.
-	scp ***.iso blikvm@xxx.xxx.xxx.xxx:~/iso/
-	
-3> excute msd cmd.wait until excute end.
-	cd ~
-	sudo bash msd.sh
-	
-4> excute disable_gadget.sh
-	sudo bash disable_gadget.sh
-	
-5> reconnect img, excute enable_gadget.sh
-	sudo bash enable_gadget.sh
-	
-6> throuht web restart PC, enter BIOS, modify boot priority,set blikvm USB first.
+2> sudo mkdir -p /opt/bin/msd/user/     && sudo mkdir -p /opt/bin/msd/ventoy/
 
-7> according to step, select operate system , format partition and install system.
+3> In your PC ,through scp cmd send iso file to board.
+	scp ***.iso blikvm@xxx.xxx.xxx.xxx:/opt/bin/msd/ventoy/
+	
+4> excute msd cmd.wait until excute end.
+	sudo bash /usr/bin/blikvm/kvmd-msd.sh
+	
+5> excute disable_gadget.sh
+	sudo bash /usr/bin/blikvm/disable-gadget.sh
+	
+6> reconnect img, excute enable_gadget.sh
+	sudo bash /usr/bin/blikvm/enable-gadget.sh
+	
+7> throuht web restart PC, enter BIOS, modify boot priority,set blikvm USB first.
+
+8> according to step, select operate system , format partition and install system.
