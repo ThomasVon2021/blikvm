@@ -15,6 +15,7 @@ typedef enum
 {
     OLED_SSD1306_128_32 = 0,
     OLED_SSD1306_128_64 = 1,
+    OLED_ST7789_240_240 = 2,
 }blikvm_oled_type_e;
 
 blikvm_int8_t blikvm_oled_init(blikvm_oled_type_e type);

@@ -145,7 +145,7 @@ typedef void (*AIOCALLBACK)(int iPin);
 // changes. AIOAddGPIO must be called first with direction
 // set to GPIO_IN
 //
-int AIOAddGPIOCallback(int iPin, AIOCALLBACK callback);
+int AIOAddGPIOCallback(long iPin, AIOCALLBACK callback);
 
 //
 // Set pointer in callback list to NULL and set edge
@@ -155,7 +155,7 @@ int AIORemoveGPIOCallback(int iPin);
 
 // The IR counterparts
 typedef void (*AIOIRCALLBACK)(int *codeArray);
-int AIOAddGPIOIRCallback(int iPin, AIOIRCALLBACK callback);
+int AIOAddGPIOIRCallback(long iPin, AIOIRCALLBACK callback);
 int AIORemoveGPIOIRCallback(int iPin);
 
 //

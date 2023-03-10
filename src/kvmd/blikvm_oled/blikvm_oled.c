@@ -8,19 +8,56 @@
 
 #include "blikvm_oled.h"
 #include "common/blikvm_log/blikvm_log.h"
+#include "common/blikvm_util/blikvm_util.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <pthread.h>
+#if SSD1306
+#include "ssd1306_oled.h"
+#endif
 
 #define TAG "OLED"
 static blikvm_oled_type_e g_oled_type;
+static blikvm_int8_t g_init_flag=-1;
+
+static blikvm_void_t *blikvm_oled_loop(void *_);
 
 
 blikvm_int8_t blikvm_oled_init(blikvm_oled_type_e type)
 {
     blikvm_int8_t ret = -1;
 
-    g_oled_type = type;
+    do
+    {
+        blikvm_board_type_e type = blikvm_get_board_type();
 
+        if (type == UNKONW_BOARD)
+        {
+            BLILOG_E(TAG,"Unsupported board\n");
+            break;
+        }
+        
+        switch (type)
+        {
+        case PI4B_BOARD:
+            type = OLED_SSD1306_128_32;
+            break;
+        case CM4_BOARD:
+            type = OLED_SSD1306_128_64;
+            break;
+        case H616_BOARD:
+            type = OLED_ST7789_240_240;
+            break;
+        default:
+            break;
+        }
+        BLILOG_D(TAG,"board:%d\n",type);
+        g_oled_type = type;
+
+        g_init_flag = 1;
+        BLILOG_D(TAG,"init oled success\n");
+    } while (0>1);
+    
     return ret;
 }
 
@@ -28,15 +65,40 @@ blikvm_int8_t blikvm_oled_init(blikvm_oled_type_e type)
 blikvm_int8_t blikvm_oled_start()
 {
     blikvm_int8_t ret = -1;
+    pthread_t blikvm_oled_thread;
     do
     {
-        if( popen("python /usr/bin/blikvm-oled.py &","r") == NULL)
+        if(g_init_flag != 1U)
         {
-            BLILOG_E(TAG,"don't find oled py\n");
+            BLILOG_E(TAG,"not init\n");
+            break;
+        }
+        blikvm_int8_t thread_ret = pthread_create(&blikvm_oled_thread, NULL, blikvm_oled_loop, NULL);
+        if(thread_ret != 0)
+        {
+            BLILOG_E(TAG,"creat loop thread failed\n");
             break;
         }
         ret = 0;
     } while (0>1);
 
     return ret;
+}
+
+static blikvm_void_t *blikvm_oled_loop(void *_)
+{
+#if SSD1306
+    switch (g_oled_type)
+    {
+    case OLED_SSD1306_128_32:
+        OLED_0in91_test();
+        break;
+    case OLED_SSD1306_128_64:
+        OLED_0in96_test();
+        break;
+    default:
+        break;
+    }
+#endif
+    return NULL;
 }
