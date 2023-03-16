@@ -23,3 +23,5 @@ chmod 755 -R /opt/bin/msd/
 chmod 755 /usr/bin/blikvm/kvmd-msd.sh
 echo "install msd ok"
 
+echo "install msd ok"
+
