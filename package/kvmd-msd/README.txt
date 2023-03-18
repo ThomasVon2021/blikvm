@@ -9,7 +9,7 @@ include:
 2> sudo mkdir -p /opt/bin/msd/user/     && sudo mkdir -p /opt/bin/msd/ventoy/
 
 3> In your PC ,through scp cmd send iso file to board.
-	scp ***.iso blikvm@xxx.xxx.xxx.xxx:/opt/bin/msd/ventoy/
+	scp ***.iso blikvm@xxx.xxx.xxx.xxx:/opt/bin/msd/user/
 	
 4> excute msd cmd.wait until excute end.
 	sudo bash /usr/bin/blikvm/kvmd-msd.sh
