@@ -83,12 +83,12 @@ then
 	echo "mount  $dev_name"p1" fail"
 fi
 
-sudo cp -r "/usr/bin/blikvm/ventoy-1.0.88/plugin/ventoy" "$mount_dist_dir"
+#sudo cp -r "/usr/bin/blikvm/ventoy-1.0.88/plugin/ventoy" "$mount_dist_dir"
 
-if [ $? -eq 0 ]
-then
-	echo "cp plugin ventoy sucess!!!"
-fi
+#if [ $? -eq 0 ]
+#then
+#	echo "cp plugin ventoy sucess!!!"
+#fi
 
 echo $PWD
 
