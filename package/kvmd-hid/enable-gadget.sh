@@ -145,7 +145,7 @@ fi
 #MSD
 mkdir -p "$USB_MASS_STORAGE_FUNCTIONS_DIR"
  
-#配置U盘参数
+#config msd paramter
 
 if [ -d "$USB_MSD_DIR" ]
 then
@@ -176,7 +176,7 @@ echo "Config ${USB_CONFIG_INDEX}: ECM network" > "${CONFIGS_STRINGS_DIR}/configu
 ln -s "${USB_KEYBOARD_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
 ln -s "${USB_MOUSE_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
 
-#捆绑功能实例到配置config.1
+#config config.1 link
 if [ -f "$USB_MSD_DIR/ventoy.img" ] 
 then
 	ln -s "${USB_MASS_STORAGE_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
