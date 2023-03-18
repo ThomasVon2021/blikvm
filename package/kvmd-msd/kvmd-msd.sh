@@ -146,5 +146,5 @@ else
 	echo "sorry, param error, need one, current: $#"
 	return 1
 fi
-sudo umount $dev_name"p1"
+sudo umount -f $dev_name"p1"
 sudo losetup -d $dev_name
