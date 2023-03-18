@@ -1,29 +1,48 @@
-operation step:
+# operation step:
 
-1> put the kvmd-msd dir file into /usr/bin/blikvm/
+1. Confirm that the following four paths exist. If you are using the official latest image of blikvm, and it is fully configured, there is no need to check.
+```
+	/usr/bin/blikvm/ventoy-1.0.88
+	/usr/bin/blikvm/kvmd-msd.sh
+	/opt/bin/msd/user    
+	/opt/bin/msd/ventoy
+```
 
-include: 
-	--ventoy-1.0.88/
-	--kvmd-msd.sh
+2. SSH logs in to blikvm, executes the rw command, and changes the system permission to writable.
+```
+	sudo rw
+```
 
-2> sudo mkdir -p /opt/bin/msd/user/     && sudo mkdir -p /opt/bin/msd/ventoy/
-
-3> In your PC ,through scp cmd send iso file to board.
+3. In your PC ,use scp cmd send iso file to kvm board. 
+```
 	scp ***.iso blikvm@xxx.xxx.xxx.xxx:/opt/bin/msd/user/
+```	
 	
-4> excute msd cmd.wait until excute end.
+4. excute msd cmd.wait until excute end. The default size of the USB flash disk is 5GB, if your iso is large than 5GB, you should modify kvmd-msd.sh.
+- If /opt/bin/msd/user this path only have one iso, you can use the follow command. 
+```
 	sudo bash /usr/bin/blikvm/kvmd-msd.sh
+```
+- If /opt/bin/msd/user this path have more than one iso, you can use the follow command. **xxx.iso** means the iso name.
+```
+	sudo bash /usr/bin/blikvm/kvmd-msd.sh xxx.iso
+```
+
+**Tips: cp progress slowly, Please be patient.**
+
+5. If you want to expand the USB flash size, find "sudo dd if=/dev/zero of=ventoy.img bs=1M count=5120 status=progress;" this line in kvmd-msd.sh, change the "count=5120". 
+
 	
-5> excute disable_gadget.sh
+6. excute disable_gadget.sh
+```
 	sudo bash /usr/bin/blikvm/disable-gadget.sh
-	
-6> reconnect img, excute enable_gadget.sh
+```
+		
+7. reconnect img, excute enable_gadget.sh
+```
 	sudo bash /usr/bin/blikvm/enable-gadget.sh
-	
-7> throuht web restart PC, enter BIOS, modify boot priority,set blikvm USB first.
+```
+		
+8. throuht web restart PC, enter BIOS, modify boot priority,set blikvm USB first.
 
-8> according to step, select operate system , format partition and install system.
-
-
-**Tips**
-**cp progress slowly, Please be patient.**
+9. according to step, select operate system , format partition and install system.
