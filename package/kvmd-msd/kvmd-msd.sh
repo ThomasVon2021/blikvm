@@ -61,7 +61,7 @@ else
 	fi
 	cd  $ventoy_dir
 	echo "update file not exist,please wait..."
-    sudo dd if=/dev/zero of=ventoy.img bs=1M count=4096 status=progress;
+    sudo dd if=/dev/zero of=ventoy.img bs=1M count=5120 status=progress;
 fi
 
 echo "blikvm" | sudo -S losetup -f ventoy.img
