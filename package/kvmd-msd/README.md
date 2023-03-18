@@ -23,3 +23,7 @@ include:
 7> throuht web restart PC, enter BIOS, modify boot priority,set blikvm USB first.
 
 8> according to step, select operate system , format partition and install system.
+
+
+**Tips**
+**cp progress slowly, Please be patient.**
