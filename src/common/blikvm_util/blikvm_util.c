@@ -79,7 +79,7 @@ blikvm_board_type_e blikvm_get_board_type()
     do
     {
         blikvm_int8_t *cmd = "cat /proc/cpuinfo";
-        blikvm_int8_t result[2048];
+        blikvm_int8_t result[2048]={0};
         
         execmd(cmd, result);
         if(strstr(result,pi4b_board) != NULL)

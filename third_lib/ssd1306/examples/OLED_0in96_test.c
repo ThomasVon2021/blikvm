@@ -31,8 +31,8 @@
 #include "ssd1306_oled.h"
 #include "OLED_0in96.h"
 #include "common/blikvm_util/blikvm_util.h"
-#include<time.h>
-#include<string.h> 
+#include <time.h>
+#include <string.h> 
 
 #define TAG "OLED"
 

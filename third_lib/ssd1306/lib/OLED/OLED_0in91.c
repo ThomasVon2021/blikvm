@@ -33,20 +33,6 @@
 
 /*******************************************************************************
 function:
-			Hardware reset
-*******************************************************************************/
-static void OLED_Reset(void)
-{
-    OLED_RST_1;
-    DEV_Delay_ms(100);
-    OLED_RST_0;
-    DEV_Delay_ms(100);
-    OLED_RST_1;
-    DEV_Delay_ms(100);
-}
-
-/*******************************************************************************
-function:
 			Write register address and data
 *******************************************************************************/
 static void OLED_WriteReg(uint8_t Reg)
@@ -112,9 +98,6 @@ function:
 ********************************************************************************/
 void OLED_0in91_Init()
 {
-    //Hardware reset
-    OLED_Reset();
-
     //Set the initialization register
     OLED_InitReg();
     DEV_Delay_ms(200);

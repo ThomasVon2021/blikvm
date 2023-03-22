@@ -56,7 +56,6 @@ blikvm_int8_t blikvm_oled_init(blikvm_oled_type_e type)
             break;
         }
         BLILOG_D(TAG,"board:%d\n",type);
-        g_oled_type = type;
 
         g_init_flag = 1;
         BLILOG_D(TAG,"init oled success\n");

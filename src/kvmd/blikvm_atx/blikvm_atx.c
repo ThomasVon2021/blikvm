@@ -52,6 +52,8 @@ blikvm_int8_t blikvm_atx_init()
         AIOAddGPIO(PIN_RESET, GPIO_OUT);
         AIOAddGPIO(PIN_LED_PWR, GPIO_IN);
         AIOAddGPIO(PIN_LED_HDD, GPIO_IN);
+        AIOWriteGPIO(PIN_POWER, GPIO_LOW);
+        AIOWriteGPIO(PIN_RESET, GPIO_LOW);
  
         if(access("/dev/shm/blikvm/",R_OK) != 0)
         {

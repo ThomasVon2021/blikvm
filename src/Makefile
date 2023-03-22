@@ -11,7 +11,7 @@ SOURCE_FILES += ./extern/wiringPi_mock.c
 endif
 
 ifeq ($(RPI),1)
-OFLAGS += -DPRI
+CFLAGS += -DPRI
 endif
 
 ifeq ($(SSD1306),1)

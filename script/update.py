@@ -44,7 +44,7 @@ def main():
 
         # compare download packjson version and run packjson version
         download_json = download_path + "package.json"
-        run_json = '/usr/bin/kvm_json/package.json'
+        run_json = '/usr/bin/blikvm/package.json'
         last_version = ''
         run_version = ''
         with open(download_json,'r',encoding='utf8')as fp_r:

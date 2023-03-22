@@ -30,10 +30,6 @@ def main():
     doArgParse()
     sh_path = os.path.split(os.path.realpath(__file__))[0]
     # kill run pthread
-    # kill blikvm-oled
-    cmd = "ps -aux | grep blikvm-oled | grep -v grep"
-    execute_cmd(cmd,sh_path)
-    print('kill oled done')
     
     # kill kvmd-main
     cmd = "ps -aux | grep kvmd-main | grep -v grep"
@@ -52,7 +48,7 @@ def main():
 
     # install all software
     if os.path.exists(gArgs.releasepath):
-        cmd = "mount -o remount,rw / && mount -o remount,rw /boot && bash install-kvmd-main.sh && bash install-ustreamer.sh && bash install-kvmd-oled.sh && bash install-kvmd-hid.sh \
+        cmd = "mount -o remount,rw / && mount -o remount,rw /boot && bash install-kvmd-main.sh && bash install-ustreamer.sh && bash install-kvmd-hid.sh \
         && bash install-kvmd-web.sh && bash install-kvmd-msd.sh && cp package.json /usr/bin/blikvm/package.json &&  mount -o remount,ro / && mount -o remount,ro /boot"
         subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
         # cmd = "cp package.json /usr/bin/kvm_json/package.json"

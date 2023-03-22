@@ -107,12 +107,12 @@ if [ $# == 1 ];then
 		fi
 		sleep 3
 		echo "$iso_dir/${file_name}"
-		sudo cp "$iso_dir/${file_name}" "$mount_dist_dir";
+		cp "$iso_dir/${file_name}" "$mount_dist_dir"
 		if [ $? -ne 0 ]
 		then
 			echo "cp failed"
 		else 
-			echo "cp ${file_name} sucess!"
+			echo "cp $iso_dir/${file_name} sucess!"
 		fi
 		sync
 		
@@ -134,7 +134,7 @@ elif  [ $# == 0 ];then
 		fi
 		sleep 3
 		echo "${name} again!"
-		sudo cp "${name}" "$mount_dist_dir";
+		cp "${name}" "$mount_dist_dir";
 		if [ $? -ne 0 ]
 		then
 			echo "default cp failed"
@@ -147,5 +147,5 @@ else
 	echo "sorry, param error, need one, current: $#"
 	return 1
 fi
-sudo umount -f $dev_name"p1"
-sudo losetup -d $dev_name
+umount -f $dev_name"p1"
+losetup -d $dev_name
