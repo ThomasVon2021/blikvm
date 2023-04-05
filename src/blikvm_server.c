@@ -60,11 +60,24 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         }
 
         //4. init switch mouudle
-        blikvm_switch_init();
+        if (blikvm_switch_init() >= 0)
+        {
+            BLILOG_D(TAG,"init switch success\n");
+        }
+        else
+        {
+            BLILOG_E(TAG,"init switch failed\n");
+        }
 
         //5、init oled moudle
-        blikvm_oled_init(config->oled_type);
-
+        if(blikvm_oled_init(config->oled_type) >= 0)
+        {
+            BLILOG_D(TAG,"init oled success\n");
+        }
+        else
+        {
+            BLILOG_E(TAG,"init oled failed\n");
+        }
         //5、init dtc moudle
 
     } while (0>1);

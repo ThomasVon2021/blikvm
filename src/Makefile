@@ -26,7 +26,19 @@ SOURCE_FILES += ../third_lib/ssd1306/lib/Config/*.c
 SOURCE_FILES += ../third_lib/ssd1306/lib/Fonts/font12.c
 SOURCE_FILES += ../third_lib/ssd1306/lib/GUI/*.c
 SOURCE_FILES += ../third_lib/ssd1306/lib/OLED/*.c
+CFLAGS += -DSSD1306=$(SSD1306)
 endif
+
+ifeq ($(ST7789),1)
+INCLUDE_PATH += ../third_lib/SPI_LCD/
+SOURCE_FILES += ../third_lib/SPI_LCD/spi_lcd.c
+SOURCE_FILES += ../third_lib/SPI_LCD/oled_run.c
+SOURCE_FILES += ../third_lib/SPI_LCD/fonts.c
+SOURCE_FILES += ../third_lib/SPI_LCD/Fonts/*.c
+SOURCE_FILES += ../third_lib/SPI_LCD/GUI/*.c
+CFLAGS += -DST7789=$(ST7789)
+endif
+
 
 SOURCE_FILES += ./common/blikvm_log/blikvm_log.c
 SOURCE_FILES += ./common/blikvm_uart/blikvm_uart.c
@@ -52,13 +64,13 @@ LIBS    +=  -lpthread -lm
 
 IFLAGS += $(foreach path,$(INCLUDE_PATH),-I$(path))
 
-CFLAGS = ${IFLAGS} ${OFLAGS}
+CFLAGS += ${IFLAGS} ${OFLAGS}
 
 .PHONY:clean
 
 all:clean kvmd-main
 # $(SOURCE_FILES)
 kvmd-main:demo.c $(SOURCE_FILES)
-	$(CC) -DSSD1306=$(SSD1306) ${CFLAGS} $^ -o $@ ${LIBS}
+	$(CC) -D_GNU_SOURCE ${CFLAGS} $^ -o $@ ${LIBS}
 clean:
 	@rm -f kvmd-main

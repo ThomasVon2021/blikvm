@@ -1,17 +1,42 @@
-CFLAGS=-c -Wall -O2
 LIBS= -lspi_lcd -lpthread -lm
 #LIBS= -lspi_lcd -lpigpio -lpthread -lm
 #LIBS= -lspi_lcd -lwiringPi -lm -lpthread
 #LIBS= -lspi_lcd -lbcm2835 -lm
 
-all: lcd
+INCLUDE_PATH += ./GUI
+INCLUDE_PATH += ./Fonts
 
-lcd: make_sample main.o
-	$(CC) main.o $(LIBS) -o lcd
+CFLAGS=-g -Wall #-O2
 
-main.o: main.c
-	$(CC) $(CFLAGS) main.c
+SOURCE_FILES += ./GUI/GUI_BMP.c
+SOURCE_FILES += ./GUI/GUI_Paint.c
+SOURCE_FILES += ./GUI/LCD_1in3.c
+SOURCE_FILES += ./Fonts/font8.c
+SOURCE_FILES += ./Fonts/font12.c
+SOURCE_FILES += ./Fonts/font12CN.c
+SOURCE_FILES += ./Fonts/font16.c
+SOURCE_FILES += ./Fonts/font20.c
+SOURCE_FILES += ./Fonts/font24.c
+SOURCE_FILES += ./Fonts/font24CN.c
+SOURCE_FILES += ./Fonts/font48.c
+SOURCE_FILES += ./Fonts/font50.c
+
+IFLAGS += $(foreach path,$(INCLUDE_PATH),-I$(path))
+
+CC = gcc
+.PHONY:clean
+all:clean lcd
+# all: lcd
+
+# lcd: make_sample main.o 
+# 	gcc $(IFLAGS) -g main.o $(LIBS) -o lcd
+
+# main.o: main.c 
+# 	gcc $(IFLAGS) $(CFLAGS) main.c
+
+lcd:main.c $(SOURCE_FILES)
+	$(CC) $(IFLAGS) ${CFLAGS} $^ -o $@ -Wl,-rpath=./lib -Llib ${LIBS}
 
 clean:
-	rm *.o lcd
+	@rm -f lcd
 

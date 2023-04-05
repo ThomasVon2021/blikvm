@@ -12,9 +12,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
-#if SSD1306
+#ifdef SSD1306
 #include "ssd1306_oled.h"
 #endif
+#ifdef ST7789
+#include "st7789_oled.h"
+#endif
+
 
 #define TAG "OLED"
 static blikvm_oled_type_e g_oled_type;
@@ -40,13 +44,13 @@ blikvm_int8_t blikvm_oled_init(blikvm_oled_type_e type)
         switch (type)
         {
         case PI4B_BOARD:
-            type = OLED_SSD1306_128_32;
+            g_oled_type = OLED_SSD1306_128_32;
             break;
         case CM4_BOARD:
-            type = OLED_SSD1306_128_64;
+            g_oled_type = OLED_SSD1306_128_64;
             break;
         case H616_BOARD:
-            type = OLED_ST7789_240_240;
+            g_oled_type = OLED_ST7789_240_240;
             break;
         default:
             break;
@@ -56,6 +60,7 @@ blikvm_int8_t blikvm_oled_init(blikvm_oled_type_e type)
 
         g_init_flag = 1;
         BLILOG_D(TAG,"init oled success\n");
+        ret = 0;
     } while (0>1);
     
     return ret;
@@ -87,7 +92,7 @@ blikvm_int8_t blikvm_oled_start()
 
 static blikvm_void_t *blikvm_oled_loop(void *_)
 {
-#if SSD1306
+#ifdef SSD1306
     switch (g_oled_type)
     {
     case OLED_SSD1306_128_32:
@@ -99,6 +104,10 @@ static blikvm_void_t *blikvm_oled_loop(void *_)
     default:
         break;
     }
+#endif
+
+#ifdef ST7789
+    oled_240_240_run();
 #endif
     return NULL;
 }

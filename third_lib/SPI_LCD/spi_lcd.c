@@ -3,7 +3,7 @@
 // email: bitbank@pobox.com
 // Project started 5/15/2017
 //
-// This program is free software: you can redistribute it and/or modify
+// This program is free soft1are: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License, or
 // (at your option) any later version.
@@ -85,12 +85,9 @@ static int iLCDType;
 static int iWidth, iHeight;
 static int iCurrentWidth, iCurrentHeight; // reflects virtual size due to orientation
 
-static void spilcdWriteCommand(unsigned char);
-static void spilcdWriteData8(unsigned char c);
-static void spilcdWriteData16(unsigned short us);
+
 static void spilcdSetPosition(int x, int y, int w, int h);
-static void spilcdWriteDataBlock(unsigned char *pData, int iLen);
-static void myPinWrite(int iPin, int iValue);
+void spilcdWriteDataBlock(unsigned char *pData, int iLen);
 int spilcdFill(unsigned short usData);
 
 // For Raspberry Pi boards, we can use the generic GPIO/SPI access too
@@ -366,7 +363,7 @@ static void myspiWrite(unsigned char *pBuf, int iLen)
 //
 // Wrapper function to control a GPIO line
 //
-static void myPinWrite(int iPin, int iValue)
+void myPinWrite(int iPin, int iValue)
 {
 #ifdef USE_GENERIC
 int rc;
@@ -1116,7 +1113,7 @@ void spilcdShutdown(void)
 // In SPI 8-bit mode, the D/C line must be set
 // high during the write
 //
-static void spilcdWriteCommand(unsigned char c)
+void spilcdWriteCommand(unsigned char c)
 {
 unsigned char buf[2];
 
@@ -1129,7 +1126,7 @@ unsigned char buf[2];
 //
 // Write a single byte of data
 //
-static void spilcdWriteData8(unsigned char c)
+void spilcdWriteData8(unsigned char c)
 {
 unsigned char buf[2];
 
@@ -1143,7 +1140,7 @@ unsigned char buf[2];
 // The ILI9341 receives data in big-endian order
 // (MSB first)
 //
-static void spilcdWriteData16(unsigned short us)
+void spilcdWriteData16(unsigned short us)
 {
 unsigned char buf[2];
 
@@ -1257,9 +1254,9 @@ int t;
 // of characters/tiles by setting the appropriate window size
 // and doing the write in one shot.
 //
-static void spilcdWriteDataBlock(unsigned char *ucBuf, int iLen)
+void spilcdWriteDataBlock(unsigned char *ucBuf, int iLen)
 {
-        myspiWrite(ucBuf, iLen);
+    myspiWrite(ucBuf, iLen);
 } /* spilcdWriteDataBlock() */
 
 //

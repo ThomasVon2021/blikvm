@@ -27,6 +27,11 @@
 #include <time.h>
 #include <spi_lcd.h>
 
+#include "LCD_1in3.h"
+#include "GUI_Paint.h"
+#include "GUI_BMP.h"
+#include "fonts.h"
+
 unsigned short usColors[8] = {0xf800, 0x7e0, 0x1f, 0xffff, 0xffe0, 0x7ff, 0xf81f, 0x7bef};
 
 //#define LCD LCD_ST7735
@@ -85,17 +90,55 @@ int i;
 	// The pin numbers are for 40-pin headers on RPi2, RPi3, RPi0
 	// Pass it the GPIO pin numbers used for the following:31250000
 	// Nano Pi NEO SPI0 channel
-	//rc = spilcdInit(LCD, 0, 0, 40000000, 11, 12, 22); // LCD type, flip 180, SPI Channel, D/C, RST, LED
-	// Nano Pi NEO SPI1 channel
-	rc = spilcdInit(LCD, 0, 1, 40000000, 22, 31, 11); // LCD type, flip 180, SPI Channel, D/C, RST, LED
-	if (rc != 0)
-	{
-		printf("Problem initializing spilcd library\n");
-		return 0;
-	}
+	printf("start\n");
+	rc = spilcdInit(LCD, 0, 0, 40000000, 11, 12, 22); // LCD type, flip 180, SPI Channel, D/C, RST, LED
 
-    // Scroll the display while drawing tiles in the landscape orientation
-	spilcdSetOrientation(LCD_ORIENTATION_ROTATED);
+    UWORD *BlackImage;
+    UDOUBLE Imagesize = LCD_1IN3_HEIGHT*LCD_1IN3_WIDTH*2;
+    printf("Imagesize = %d\r\n", Imagesize);
+    if((BlackImage = (UWORD *)malloc(Imagesize)) == NULL) 
+	{
+        printf("Failed to apply for black memory...\r\n");
+        exit(0);
+    }
+    // /*1.Create a new image cache named IMAGE_RGB and fill it with white*/
+    Paint_NewImage(BlackImage, LCD_1IN3_WIDTH, LCD_1IN3_HEIGHT, 0, WHITE, 16);
+    Paint_Clear(WHITE);
+	Paint_SetRotate(ROTATE_180);
+
+    // /* GUI */
+    printf("drawing...\r\n");
+
+    // Paint_DrawString_EN(5, 90, "waveshare", &Font20, RED, IMAGE_BACKGROUND);
+
+    // Paint_DrawNum(5, 160, 123456789, &Font20, GREEN, IMAGE_BACKGROUND);
+	// Paint_DrawString_CN(5,200, "΢ѩ����",  &Font24CN,IMAGE_BACKGROUND,BLUE);   
+        
+    // /*3.Refresh the picture in RAM to LCD*/
+    // LCD_1IN3_Display(BlackImage);
+    //usleep(2000000);
+
+	    // /* show bmp */
+	printf("show bmp\r\n");
+	GUI_ReadBmp("./pic/oled_info.bmp");
+	Paint_DrawString_EN( 70, 10, "BLIKVM", &Font24, WHITE ,BLACK);
+	//GUI_ReadBmp("./pic/LCD_1inch3.bmp");
+    
+    LCD_1IN3_Display(BlackImage);
+	usleep(2000000);
+
+
+
+	// Nano Pi NEO SPI1 channel
+	//rc = spilcdInit(LCD, 0, 1, 40000000, 22, 31, 11); // LCD type, flip 180, SPI Channel, D/C, RST, LED
+	// if (rc != 0)
+	// {
+	// 	printf("Problem initializing spilcd library\n");
+	// 	return 0;
+	// }
+	// printf("spi lcd init ok\n");
+    // // Scroll the display while drawing tiles in the landscape orientation
+	// spilcdSetOrientation(LCD_ORIENTATION_ROTATED);
 	// for (x=0; x<=height; x++)
 	// {
 	// 	if ((x & 15) == 0)
@@ -108,10 +151,10 @@ int i;
 	// 	spilcdScroll(1, -1);
 	// 	usleep(20000);
 	// }
-	spilcdFill(255);
-	usleep(2000000);
+	// spilcdFill(255);
+	// usleep(2000000);
 
-    // Measure the maximum screen refresh rate in FPS
+    // // Measure the maximum screen refresh rate in FPS
 	// iTime = MilliTime();
 	// for (rc=0; rc<10; rc++)
 	// {

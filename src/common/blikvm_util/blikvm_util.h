@@ -33,6 +33,8 @@ float GetCPULoad();
 int GetMemUsage(char* mem);
 int GetCPUTemp() ;
 int GetIP(char* ip);
+char* GetUptime(); 
+int GetMemUsageShort(char* mem);
 blikvm_board_type_e blikvm_get_board_type();
 
 #endif

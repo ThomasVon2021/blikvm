@@ -6,11 +6,13 @@
  * 2022-12-29 | 0.1       | Thmoasvon     |                 create
  ******************************************************************************/
 
- #include <stdio.h>
- #include <string.h>
- #include <sys/time.h>
- #include <fcntl.h>
- #include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/time.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <time.h>
+#include <stdlib.h>
 
  #include "blikvm_util.h"
 
@@ -77,7 +79,7 @@ blikvm_board_type_e blikvm_get_board_type()
     do
     {
         blikvm_int8_t *cmd = "cat /proc/cpuinfo";
-        blikvm_int8_t result[1024];
+        blikvm_int8_t result[2048];
         
         execmd(cmd, result);
         if(strstr(result,pi4b_board) != NULL)
@@ -147,7 +149,15 @@ int GetMemUsage(char* mem)
 {
     char* cmd = "df -h | awk '$NF==\"/\"{printf \"%d/%dGB %s\", $3,$2,$5}'";
     execterminal(cmd,mem);
-    printf("mem:%s\n",mem);
+    //printf("mem:%s\n",mem);
+    return 0; 
+}
+
+int GetMemUsageShort(char* mem) 
+{
+    char* cmd = "df -h | awk '$NF==\"/\"{printf \"%d/%dG\", $3,$2}'";
+    execterminal(cmd,mem);
+    //printf("mem:%s\n",mem);
     return 0; 
 }
 
@@ -171,6 +181,22 @@ int GetIP(char* ip)
 {                                          
     char* cmd = "hostname -I | cut -d\' \' -f1";
     execterminal(cmd,ip);
-    printf("ip:%s\n",ip);
+    //printf("ip:%s\n",ip);
     return 0;
+}
+
+char * GetUptime() 
+{
+    FILE *fp;
+    char buffer[256];
+    char *uptime_string;
+    fp = fopen("/proc/uptime", "r");
+    fgets(buffer, 256, fp);
+    double uptime_seconds = atof(buffer);
+    int uptime_days = uptime_seconds / 86400;
+    int uptime_hours = (uptime_seconds / 3600) - (uptime_days * 24);
+    int uptime_minutes = (uptime_seconds / 60) - (uptime_days * 1440) - (uptime_hours * 60);
+    asprintf(&uptime_string, "%dd %dh %dm", uptime_days, uptime_hours, uptime_minutes);
+    fclose(fp);
+    return uptime_string;
 }

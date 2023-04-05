@@ -129,6 +129,11 @@ int spilcdSetPixel(int x, int y, unsigned short usPixel);
 // Set the software orientation
 int spilcdSetOrientation(int iOrientation);
 
+void spilcdWriteCommand(unsigned char);
+void myPinWrite(int iPin, int iValue);
+void spilcdWriteData8(unsigned char c);
+void spilcdWriteData16(unsigned short us);
+void spilcdWriteDataBlock(unsigned char *pData, int iLen);
 //
 // Treat the LCD as a 240x320 portrait-mode image
 // or a 320x240 landscape mode image
