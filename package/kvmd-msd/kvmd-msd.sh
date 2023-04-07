@@ -98,7 +98,7 @@ if [ $# == 1 ];then
 	then
 		echo "param correct"
 		echo $mount_dist_dir${file_name##*/}
-		if [ -f $mount_dist_dir${file_name##*/} && -f "$iso_dir/${file_name}" ]
+		if [[ -f $mount_dist_dir${file_name##*/} && -f "$iso_dir/${file_name}" ]]
 		then
 			echo "exist update file: ${file_name},rm it "
 			
