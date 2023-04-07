@@ -97,11 +97,12 @@ if [ $# == 1 ];then
     if [ "${file_name##*.}"x = "iso"x ]
 	then
 		echo "param correct"
-		echo $mount_dist_dir${name##*/}
-		if [ -f $mount_dist_dir${name##*/} && -f "$iso_dir/${file_name}" ]
+		echo $mount_dist_dir${file_name##*/}
+		if [ -f $mount_dist_dir${file_name##*/} && -f "$iso_dir/${file_name}" ]
 		then
-			echo "exist update file: ${name},rm it "
-			echo "blikvm" | sudo -S rm -f $mount_dist_dir${name##*/}
+			echo "exist update file: ${file_name},rm it "
+			
+			echo "blikvm" | sudo -S rm -f $mount_dist_dir${file_name##*/}
 			sync
 		fi
 		sleep 3
@@ -111,7 +112,7 @@ if [ $# == 1 ];then
 		then
 			echo "cp failed"
 		else 
-			echo "cp ${name} sucess!"
+			echo "cp ${file_name} sucess!"
 		fi
 		sync
 		
