@@ -31,7 +31,7 @@
 //#define USE_NANOPI2
 //#define USE_NANOPIK2
 //#define USE_NANOPIDUO
-#define USE_NANOPINEO
+//#define USE_NANOPINEO
 //define USE_NANOPIM1
 //#define USE_RPI
 //#define USE_ORANGEPIZERO
@@ -40,6 +40,7 @@
 //#define USE_BANANAPIM2MAGIC
 //#define USE_NANOPINEOCORE
 //#define USE_ORANGEPIZEROPLUS2
+#define USE_MANGOPI
 
 #include <unistd.h>
 #include <stdio.h>
@@ -69,7 +70,7 @@
 static struct spi_ioc_transfer xfer;
 #define GPIO_OUT 0
 #define GPIO_IN 1
-static int iPinHandles[256]; // keep file handles open for GPIO access
+static int iPinHandles[512]; // keep file handles open for GPIO access
 #endif // USE_GENERIC
 
 extern unsigned char ucFont[];
@@ -165,6 +166,16 @@ static int iGenericPins[] = {-1,-1,-1,12,-1,11,-1,203,198,-1,
                         363,17,-1,-1,-1,-1,-1,-1,-1,4,
                         5};
 #endif // USE_NANOPINEO
+
+#ifdef USE_MANGOPI
+static int iGenericPins[] = {-1,-1,-1,264,-1,263,-1,266,112,-1,
+                                111,47,257,79,-1,269,270,-1,228,44,
+                                -1,77,262,-1,-1,-1,-1,266,265,267,
+                                -1,268,261,271,-1,258,234,272,260,-1,
+                                259};
+#endif
+
+
 #ifdef USE_PIGPIO
 static int iPIGPins[] = {-1,-1,-1,2,-1,3,-1,4,14,-1,15,
                        17,18,27,-1,22,23,-1,24,10,-1,9,25,11,8,-1,7,0,1,

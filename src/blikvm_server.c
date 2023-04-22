@@ -40,7 +40,7 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         }
 
         //2、init fan moudle
-        if( blikvm_fan_init() == 0)
+        if( blikvm_fan_init() >= 0)
         {
             BLILOG_D(TAG,"init fan success\n");
         }

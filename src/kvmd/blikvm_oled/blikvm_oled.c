@@ -55,7 +55,7 @@ blikvm_int8_t blikvm_oled_init(blikvm_oled_type_e type)
         default:
             break;
         }
-        BLILOG_D(TAG,"board:%d\n",type);
+        BLILOG_D(TAG,"board:%d oled:%d\n",type, g_oled_type);
 
         g_init_flag = 1;
         BLILOG_D(TAG,"init oled success\n");
@@ -99,6 +99,9 @@ static blikvm_void_t *blikvm_oled_loop(void *_)
         break;
     case OLED_SSD1306_128_64:
         OLED_0in96_test();
+        break;
+    case OLED_ST7789_240_240:
+        oled_240_240_run();
         break;
     default:
         break;

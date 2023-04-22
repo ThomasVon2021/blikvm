@@ -16,7 +16,9 @@ int oled_240_240_run()
 {
 	int rc;
 	// Nano Pi NEO SPI0 channel
-	rc = spilcdInit(LCD, 0, 0, 40000000, 11, 12, 22); // LCD type, flip 180, SPI Channel, D/C, RST, LED
+	//rc = spilcdInit(LCD, 0, 0, 40000000, 11, 12, 22); // LCD type, flip 180, SPI Channel, D/C, RST, LED
+	// Mango Pi Mcore SPI1 channel
+	rc = spilcdInit(LCD, 0, 1, 40000000, 40,22 , 38); // LCD type, flip 180, SPI Channel, D/C, RST, LED
 	if(rc != 0)
 	{
 		BLILOG_E(TAG,"init spi failed:%d\n",rc);

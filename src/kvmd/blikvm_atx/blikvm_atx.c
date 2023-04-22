@@ -15,10 +15,21 @@
 #include "GPIO/softPwm.h"     //添加库文件
 
 #define TAG "ATX"
+
+#ifdef  RPI
 #define PIN_POWER 16  //BCM23 
 #define PIN_RESET 13  //BCM27
 #define PIN_LED_PWR 18  //BCM24 
 #define PIN_LED_HDD 15  //BCM22
+#endif
+
+#ifdef  H616
+#define PIN_POWER 18   //GPIO 228
+#define PIN_RESET 37   //GPIO 272
+#define PIN_LED_PWR 36 //GPIO 234   
+#define PIN_LED_HDD 41  //GPIO 233
+#endif
+
 #define ATX_CYCLE 500 //unit:ms
 
 
@@ -239,6 +250,6 @@ static blikvm_uint8_t blikvm_read_atx_state()
         }
 
     } while (0>1);
-    BLILOG_D(TAG,"atx state ret:%02X\n",ret);
+    //BLILOG_D(TAG,"atx state ret:%02X\n",ret);
     return ret;
 }

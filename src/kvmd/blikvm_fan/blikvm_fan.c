@@ -12,8 +12,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#include "wiringPi.h"     //添加库文件
-#include "softPwm.h"     //添加库文件
+// #include "wiringPi.h"    
+#include "softPwm.h"    
 
 #include "blikvm_fan.h"
 #include "common/blikvm_log/blikvm_log.h"
@@ -22,7 +22,8 @@
 #define TAG "FAN"
 #define TEMP_PATH "/sys/class/thermal/thermal_zone0/temp"
 #define MAX_SIZE 32
-#define PWM_Pin 32         //定义PWM_Pin引脚  wPi
+
+#define FAN_PIN 32  // BCM
 
 typedef struct 
 {
@@ -103,9 +104,14 @@ blikvm_int8_t blikvm_fan_init()
         }
         g_fan.socket_addr.send_addr_len = sizeof(g_fan.socket_addr.send_addr);
 
+        
+        //BliKVM V4 don't have a fan.
+        #ifdef H616
+            return ret;
+        #endif
         //init gpio control
-        softPwmCreate(PWM_Pin,0,100); //当前pwmRange为100，频率为100Hz，若pwmRange为50时，频率为200，若pwmRange为2时，频率为5000。
-	    softPwmWrite(PWM_Pin,50); //占空比 = value/pwmRange，当前占空比 = 50/100 = 50%
+        softPwmCreate(FAN_PIN,0,100); //当前pwmRange为100，频率为100Hz，若pwmRange为50时，频率为200，若pwmRange为2时，频率为5000。
+	    softPwmWrite(FAN_PIN,50); //占空比 = value/pwmRange，当前占空比 = 50/100 = 50%
 
         g_fan.init = 1;
         ret =0;
@@ -121,6 +127,10 @@ blikvm_int8_t blikvm_fan_start()
     pthread_t blikvm_fan_thread_monitor;
     do
     {
+        #ifdef H616
+            BLILOG_I(TAG,"don't need fan\n");
+            return 0;
+        #endif
         if(g_fan.init != 1)
         {
             BLILOG_E(TAG,"not init\n");
@@ -199,13 +209,13 @@ static blikvm_void_t *blikvm_fan_loop(void *_)
             {
                 fan_enable = 1;
                 Duty = GetDuty(temp);
-                softPwmWrite(PWM_Pin,Duty);
+                softPwmWrite(FAN_PIN,Duty);
                 BLILOG_D(TAG,"temp: %.2f,Duty: %d\n", temp, Duty);
             }
             else
             {
                 fan_enable = 0; 
-                softPwmWrite(PWM_Pin,0);
+                softPwmWrite(FAN_PIN,0);
             }
 
             // blikvm_int32_t ret = recvfrom(g_fan.socket,(void *)g_rev_buff.recvBuf,DEFAULT_BUF_LEN,
@@ -249,7 +259,7 @@ static blikvm_void_t *blikvm_fan_loop(void *_)
             // {
             //     BLILOG_E(TAG,"recv error len:%d\n",ret);
             // }
-            delay(1000*10);
+            sleep(10);
         }
     } while (0>1);
     return NULL;

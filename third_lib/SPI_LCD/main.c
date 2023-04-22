@@ -91,7 +91,7 @@ int i;
 	// Pass it the GPIO pin numbers used for the following:31250000
 	// Nano Pi NEO SPI0 channel
 	printf("start\n");
-	rc = spilcdInit(LCD, 0, 0, 40000000, 11, 12, 22); // LCD type, flip 180, SPI Channel, D/C, RST, LED
+	rc = spilcdInit(LCD, 0, 1, 40000000, 11, 12, 22); // LCD type, flip 180, SPI Channel, D/C, RST, LED
 
     UWORD *BlackImage;
     UDOUBLE Imagesize = LCD_1IN3_HEIGHT*LCD_1IN3_WIDTH*2;

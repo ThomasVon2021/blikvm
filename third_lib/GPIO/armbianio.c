@@ -150,16 +150,22 @@ static int iRadxaZeroPins[] = {-1,-1,-1,490,-1,491,-1,415,412,-1,
                                -1,-1,416,-1,-1,420,451,421,422,-1,
                                423};
 
+static int iMangoPiPins[] = {-1,-1,-1,264,-1,263,-1,266,112,-1,
+                                111,47,257,79,-1,269,270,-1,228,44,
+                                -1,77,262,-1,-1,-1,-1,266,265,267,
+                                -1,268,261,271,-1,258,234,272,260,-1,
+                                259,233};
+
 static int *iPinLists[] = {ipotatoPins, iBPIZPins, iRPIPins, iOPIZPPins, iOPIZP2ins, iOPIZPins, iOPI1Pins, iOPI1Pins,
                            iNPDPins, iNP2Pins, iNPK2Pins, iNPNPins, iNPNPins, iNPNPins, iNPM4Pins, iNPM4Pins,
-                           iTinkerPins, iRadxaZeroPins};
+                           iTinkerPins, iRadxaZeroPins,iMangoPiPins};
 static const char *szBoardNames[] = {"Le potato\n","Banana Pi M2 Zero\n","Raspberry Pi\n","Orange Pi Zero Plus\n",
                                      "Orange Pi Zero Plus 2\n","Orange Pi Zero\n","Orange Pi Lite\n","Orange Pi One\n",
                                      "NanoPi Duo\n", "NanoPi 2\n", "Nanopi K2\n", "NanoPi Neo\n", "NanoPi Air\n",
                                      "NanoPi Neo 2\n", "NanoPi M4\n", "NanoPi M4V2\n", "Tinkerboard\n", "Radxa Zero\n",
-                                     NULL};
+                                     "Mango Pi Mcore\n",NULL};
 static int iBoardType;
-static int iPinCount[] = {40,40,40,29,29,29,43,43,32,40,40,40,40,40,40, 41,41, 40}; // number of pins in the header
+static int iPinCount[] = {40,40,40,29,29,29,43,43,32,40,40,40,40,40,40, 41,41, 40,41}; // number of pins in the header
 // GPIO number of on-board IR receiver
 static int iIR_GPIO[] = {7, 0, 0, 363, 363, 363, 363, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
@@ -226,7 +232,7 @@ int i;
 		i++;
 	}
 	// Pi image not have /run/machine.id
-	#ifdef  PRI
+	#ifdef  RPI
 	iBoardType = 2;
 	#endif
 	if (iBoardType == -1) // not found
@@ -429,14 +435,22 @@ int *pPins;
 //
 int AIOWriteGPIO(int iPin, int iValue)
 {
-int rc, iGPIO;
-char szTemp[64];
-int *pPins;
+	int rc, iGPIO;
+	char szTemp[64];
+	int *pPins;
 
 	if (iBoardType == -1) // not initialized
+	{
+		printf("not init the iBoardType\n");
 		return 0;
+	}
+		
 	if (iPin < 1 || iPin > iPinCount[iBoardType])
+	{
+		printf("iPin:%d is not ok  max:%d\n",iPin,iPinCount[iBoardType]);
 		return 0;
+	}
+		
 	if (iPinHandles[iPin] == -1) // not open yet
 	{
 		pPins = iPinLists[iBoardType];
@@ -444,10 +458,13 @@ int *pPins;
 		sprintf(szTemp, "/sys/class/gpio/gpio%d/value", iGPIO);
 		iPinHandles[iPin] = open(szTemp, O_WRONLY);
 	}
-	if (iValue) rc = write(iPinHandles[iPin], "1", 1);
-	else rc = write(iPinHandles[iPin], "0", 1);
+	if (iValue) 
+		rc = write(iPinHandles[iPin], "1", 1);
+	else 
+		rc = write(iPinHandles[iPin], "0", 1);
 	if (rc < 0) // error
-	{ // do something
+	{ 
+		printf("write pin %d failed\n",iPinHandles[iPin]);
 	}
 	return 1;
 } /* AIOWriteGPIO() */

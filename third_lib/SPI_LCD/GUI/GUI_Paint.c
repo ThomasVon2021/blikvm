@@ -95,7 +95,7 @@ parameter:
 void Paint_SetRotate(UWORD Rotate)
 {
     if(Rotate == ROTATE_0 || Rotate == ROTATE_90 || Rotate == ROTATE_180 || Rotate == ROTATE_270) {
-        DEBUG("Set image Rotate %d\r\n", Rotate);
+        //DEBUG("Set image Rotate %d\r\n", Rotate);
         Paint.Rotate = Rotate;
     if(Rotate == ROTATE_0 || Rotate == ROTATE_180) {
         Paint.Width = Paint.WidthMemory;

@@ -284,7 +284,7 @@ static blikvm_void_t *blikvm_switch_monitor_loop(void *_)
                 char *cmd = (char*)"ls /dev/ttyUSB*";
                 if( execmd(cmd,result) == 1 )
                 {
-                    BLILOG_I(TAG,"len:%d result:%s\n",strlen(result),result);
+                    //BLILOG_I(TAG,"len:%d result:%s\n",strlen(result),result);
                     char *revbuf[4] = {0}; //存放分割后的子字符串 
                     //分割后子字符串的个数
                     int num = 0;
