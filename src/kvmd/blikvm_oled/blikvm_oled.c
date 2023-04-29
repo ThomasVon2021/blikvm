@@ -91,25 +91,24 @@ blikvm_int8_t blikvm_oled_start()
 
 static blikvm_void_t *blikvm_oled_loop(void *_)
 {
-#ifdef SSD1306
+
     switch (g_oled_type)
     {
+#ifdef SSD1306
     case OLED_SSD1306_128_32:
         OLED_0in91_test();
         break;
     case OLED_SSD1306_128_64:
         OLED_0in96_test();
         break;
+#endif
+#ifdef ST7789
     case OLED_ST7789_240_240:
         oled_240_240_run();
         break;
+#endif
     default:
         break;
     }
-#endif
-
-#ifdef ST7789
-    oled_240_240_run();
-#endif
     return NULL;
 }

@@ -1,12 +1,14 @@
 [Unit]
 Description=BLIKVM - video controller daemon
-After=syslog.target
+After=network.target busybox-syslogd.service
+Requires=network.target busybox-syslogd.service
 
 [Service]
-Type=oneshot
+Type=simple
 User=root
 ExecStart=/usr/bin/blikvm/kvmd-video.sh
 RemainAfterExit=true
+Restart=always
 
 [Install]
 WantedBy=local-fs.target

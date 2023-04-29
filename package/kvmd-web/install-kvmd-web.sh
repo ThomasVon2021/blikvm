@@ -1,10 +1,16 @@
 #!/bin/bash
-
+proc_name="kvmlink:master"
 if [ -d "/usr/bin/blikvm" ]
 then
     echo '/usr/bin/blikvm exists'
 else
     mkdir -p "/usr/bin/blikvm"
+fi
+
+pid=$(ps -ef | grep "${proc_name}" | grep -v grep | awk '{print $2}')
+if [ -n "${pid}" ]; then
+  echo "Process $proc_name is running, killing it ..."
+  kill -9 "${pid}"
 fi
 
 cp kvmd-web.sh /usr/bin/blikvm/kvmd-web.sh

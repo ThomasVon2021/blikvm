@@ -1,12 +1,14 @@
 [Unit]
 Description=BLIKVM - web controller daemon
-After=syslog.target
+After=network.target busybox-syslogd.service
+Requires=network.target busybox-syslogd.service
 
 [Service]
 Type=simple
 User=root
 ExecStart=/usr/bin/blikvm/kvmd-web.sh
 RemainAfterExit=true
+Restart=always
 
 [Install]
 WantedBy=local-fs.target

@@ -1,6 +1,6 @@
 [Unit]
 Description=Initialize USB gadgets
-After=syslog.target
+After=busybox-syslogd.service
 
 [Service]
 Type=oneshot
