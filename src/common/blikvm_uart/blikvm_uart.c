@@ -37,10 +37,10 @@ blikvm_int32_t open_serial_dev(const blikvm_int8_t* serial_dev, blikvm_int32_t b
 
     blikvm_int32_t fd =0;
 
-    /* O_RDWR Read/Write access to serial port           */
-    /* O_NOCTTY - No terminal will control the process   */
-    /* O_NDELAY -Non Blocking Mode,Does not care about-  */
-    /* -the status of DCD line,Open() returns immediatly */
+    /* O_RDWR Read/Write access to serial port            */
+    /* O_NOCTTY - No terminal will control the process    */
+    /* O_NDELAY -Non Blocking Mode,Does not care about-   */
+    /* -the status of DCD line,Open() returns immediately */
     fd = open(serial_dev, O_RDWR | O_NONBLOCK | O_NOCTTY);  // open serial
     if (fd == -1) {
         BLILOG_E(TAG,"open :%s failed \n", serial_dev);
@@ -48,7 +48,7 @@ blikvm_int32_t open_serial_dev(const blikvm_int8_t* serial_dev, blikvm_int32_t b
     }
     else {
         BLILOG_I(TAG,"communicate baut is %d \n", baut);
-        blikvm_int32_t set_ret = set_serial_opt(fd, baut, 8, 'N', 1);  // CHANG BUAD
+        blikvm_int32_t set_ret = set_serial_opt(fd, baut, 8, 'N', 1);  // CHANG BAUD
         if (set_ret == -1) {
             BLILOG_E(TAG,"failed to change baut:%d \n", baut);
             return -1;
