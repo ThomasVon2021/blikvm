@@ -27,7 +27,7 @@ typedef struct
 {
     blikvm_uint8_t recvBuf[DEFAULT_BUF_LEN];         ///< receive data buffer, default length = 1024 * 2
     blikvm_uint8_t leftDataBuf[DEFAULT_BUF_LEN * 2]; ///< transfer data buffer, default length = 1024 * 4
-    char mSunPath[BLIKVM_DOMAIN_PATH_MAX_LENGTH];    ///< domain socket adress,default length = 30
+    char mSunPath[BLIKVM_DOMAIN_PATH_MAX_LENGTH];    ///< domain socket address,default length = 30
 }blikvm_domainsocker_rev_t;
 
 typedef struct 

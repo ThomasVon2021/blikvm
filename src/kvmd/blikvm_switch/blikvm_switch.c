@@ -96,7 +96,7 @@ blikvm_int8_t blikvm_switch_start()
     {
         if(g_switch.init == 0)
         {
-            BLILOG_E(TAG,"switch moudle status is not ok\n");
+            BLILOG_E(TAG,"switch module status is not ok\n");
             break;
         }
 

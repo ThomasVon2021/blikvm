@@ -79,7 +79,7 @@ typedef enum
 
 typedef struct
 {
-	blikvm_uint8_t      enable;							//file type is enbale
+	blikvm_uint8_t      enable;							//file type is enable
 	blikvm_int8_t       file_name[BLI_MAX_FILE_NAME];  	//file name like "qx_ids"
 	blikvm_uint32_t     max_size;     					//max len of file, unit KB
 	blikvm_uint32_t     nums;         					//max number of rotate writes per file

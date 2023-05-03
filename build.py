@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # build project
 # python3 build.py --platform pi
 # python3 build.py --platform h616

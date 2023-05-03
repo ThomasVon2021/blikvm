@@ -17,7 +17,7 @@
 
 #define TAG "SERVER"
 /*******************************************************************************
- * private methods defination
+ * private methods definition
  ******************************************************************************/
 static blikvm_int8_t blikvm_gpio_init();
 
@@ -26,7 +26,7 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
     blikvm_int8_t ret = -1;
     do
     {
-        //1、init log moudle
+        //1. init log module
         blikvm_log_init(&config->log);
 
        if(blikvm_gpio_init() == 0)
@@ -39,7 +39,7 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
             break;
         }
 
-        //2、init fan moudle
+        //2. init fan module
         if( blikvm_fan_init() >= 0)
         {
             BLILOG_D(TAG,"init fan success\n");
@@ -49,7 +49,7 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
             BLILOG_E(TAG,"init fan failed\n");
         }
 
-        //3、init atx moudle
+        //3. init atx module
         if(blikvm_atx_init() == 0)
         {
             BLILOG_D(TAG,"init atx success\n");
@@ -59,7 +59,7 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
             BLILOG_E(TAG,"init atx failed\n");
         }
 
-        //4. init switch mouudle
+        //4. init switch module
         if (blikvm_switch_init() >= 0)
         {
             BLILOG_D(TAG,"init switch success\n");
@@ -69,7 +69,7 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
             BLILOG_E(TAG,"init switch failed\n");
         }
 
-        //5、init oled moudle
+        //5. init oled module
         if(blikvm_oled_init(config->oled_type) >= 0)
         {
             BLILOG_D(TAG,"init oled success\n");
@@ -78,7 +78,7 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         {
             BLILOG_E(TAG,"init oled failed\n");
         }
-        //5、init dtc moudle
+        //5. init dtc module
 
     } while (0>1);
     return ret;    

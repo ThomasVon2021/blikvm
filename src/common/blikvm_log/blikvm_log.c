@@ -69,7 +69,7 @@ typedef struct
 {
 	blikvm_uint8_t inited;							//module is initialized
 	pthread_mutex_t mutex;							//pthread mutex
-	blikvm_int8_t		write_dir[BLI_LOG_FILE_PATH];	//file record dirctory
+	blikvm_int8_t		write_dir[BLI_LOG_FILE_PATH];	//file record directory
 	blikvm_file_rec_rotate_t   rotate[BLI_LOG_FILE_NUM];	//file roteate config
 	blikvm_file_rec_cfg_t      config;						//module config
 }blikvm_file_rec_mgr_t;
@@ -82,7 +82,7 @@ static blikvm_void_t*  blikvm_file_rec_write_task(void* param);
 static blikvm_int8_t blikvm_file_rec_write_task_init(void);
 static blikvm_int8_t blikvm_file_rec_rotate_file_create(blikvm_file_rec_rotate_t* rotate);
 blikvm_int32_t blikvm_get_date_ms(blikvm_int8_t *date);
-blikvm_int8_t blikvm_log_output_to_channels(blikvm_log_level_e level,blikvm_log_file_type_e type, blikvm_int8_t *data, blikvm_uint32_t lenth);
+blikvm_int8_t blikvm_log_output_to_channels(blikvm_log_level_e level,blikvm_log_file_type_e type, blikvm_int8_t *data, blikvm_uint32_t length);
 blikvm_int8_t blikvm_file_rec_write(blikvm_uint32_t type, const blikvm_int8_t* data, blikvm_uint32_t len);
 
 
@@ -160,7 +160,7 @@ blikvm_int8_t blikvm_log_init(const blikvm_log_t *log)
                     // use default file max size
                     file_rec_cfg.unit_config[i].max_size = log->log_out.file.max_size[i];
                 }
-                // set file numers & name & buffer for each type
+                // set file numbers & name & buffer for each type
                 file_rec_cfg.unit_config[i].nums = g_type_map[i].nums;
                 (void)strncpy(file_rec_cfg.unit_config[i].file_name, g_type_map[i].file_name, BLI_MAX_FILE_NAME);
                 file_rec_cfg.unit_config[i].max_buffer = g_type_map[i].max_buffer;
@@ -296,7 +296,7 @@ blikvm_int8_t blikvm_file_rec_dir_init(const blikvm_int8_t* dir, blikvm_file_rec
 
 		if (access(g_filerec.write_dir, R_OK) != 0)
 		{
-			//dirctory not exist ,create it
+			//directory not exist ,create it
 			if(mkdir(g_filerec.write_dir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH) != 0)
 			{
 				printf("create %s failed:%s \n", g_filerec.write_dir, strerror(errno));
@@ -606,7 +606,7 @@ blikvm_void_t blikvm_log_output(blikvm_log_file_type_e type, blikvm_log_level_e 
 
     do
     {
-        //logger not inited or module disbale or type invalid
+        //logger not inited or module disable or type invalid
         if ((1U != g_log.inited) || (1U != g_log.enable) || (type >= BLI_LOG_FILE_NUM))
         {
             break;
@@ -694,7 +694,7 @@ blikvm_int8_t blikvm_file_rec_write(blikvm_uint32_t type, const blikvm_int8_t* d
 }
 
 blikvm_int8_t out_buffer[1024] = {0};
-blikvm_int8_t blikvm_log_output_to_channels(blikvm_log_level_e level,blikvm_log_file_type_e type, blikvm_int8_t *data, blikvm_uint32_t lenth)
+blikvm_int8_t blikvm_log_output_to_channels(blikvm_log_level_e level,blikvm_log_file_type_e type, blikvm_int8_t *data, blikvm_uint32_t length)
 {
     do
     {
@@ -711,7 +711,7 @@ blikvm_int8_t blikvm_log_output_to_channels(blikvm_log_level_e level,blikvm_log_
         // if file record feature is enabled, then send data to file recorder
         if ((g_log.config.channel & (blikvm_uint32_t)BLI_LOG_CHANNEL_FILE) != 0U)
         {
-            (void)blikvm_file_rec_write((blikvm_uint32_t)type, data, lenth);
+            (void)blikvm_file_rec_write((blikvm_uint32_t)type, data, length);
         }
     } while (0 == 1);
 
