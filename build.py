@@ -23,8 +23,11 @@ def main():
     cmd = ""
     if gArgs.platform == "pi":
         cmd += "make RPI=1 SSD1306=1"
+    elif gArgs.platform == "h616":
+        cmd += "make H616=1 ST7789=1"
     else:
         print("input error platform")
+        return
     output = subprocess.check_output(cmd, shell = True, cwd=make_path )
 
     # package binary  rm -rf release && rm -r release.tar.gz && 
