@@ -18,24 +18,36 @@ def main():
     doArgParse()
     sh_path = os.path.split(os.path.realpath(__file__))[0]
     make_path = sh_path + '/src'
+    release_folder_path = sh_path + '/release'
+    if os.path.exists(release_folder_path):
+        os.system(f'rm -rf {release_folder_path}')
+        print("Release folder deleted.")
 
     # build demo.bin
-    cmd = ""
+    cmd_make = ""
+    cmd_pack = "mkdir release && "
     if gArgs.platform == "pi":
-        cmd += "make RPI=1 SSD1306=1"
+        cmd_make += "make RPI=1 SSD1306=1"
+        cmd_pack += "cp package/kvmd-web/binary/pi/* release/ && cp package/ustreamer/binary/pi/* release/ && "
     elif gArgs.platform == "h616":
-        cmd += "make H616=1 ST7789=1"
+        cmd_make += "make H616=1 ST7789=1"
+        cmd_pack += "cp package/kvmd-web/binary/h616/* release/ && cp package/ustreamer/binary/h616/* release/ && "
     else:
         print("input error platform")
         return
-    output = subprocess.check_output(cmd, shell = True, cwd=make_path )
+    print("command: ",cmd_make, " start to make")
+    output = subprocess.check_output(cmd_make, shell = True, cwd=make_path )
+    print("make success")
 
-    # package binary  rm -rf release && rm -r release.tar.gz && 
-    cmd = "mkdir release && cp package/kvmd-hid/* release/ && cp package/kvmd-main/* release/ && \
-    cp package/kvmd-web/* release/ && cp package/ustreamer/* release/ && \
-    cp src/kvmd-main release/ && cp -R package/kvmd-msd/* release/ && \
-    cp src/config/package.json release/ && tar -zcvf release.tar.gz release && rm -rf release"
-    output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
+    cmd_pack += "cp package/kvmd-hid/* release/ && cp package/kvmd-main/* release/ && \
+        find package/kvmd-web/ -maxdepth 1 -type f -exec cp {} release/ \; && \
+        find package/ustreamer/ -maxdepth 1 -type f -exec cp {} release/ \; && \
+        cp src/kvmd-main release/ && cp -R package/kvmd-msd/* release/ && \
+        cp src/config/package.json release/ && tar -zcvf release.tar.gz release && rm -rf release"
+    
+    print("pack relase package, command: ", cmd_pack)
+    output = subprocess.check_output(cmd_pack, shell = True, cwd=sh_path )
+    print("pack success")
 
     # modify package.json
     file_path = sh_path + "/src/config/package.json"

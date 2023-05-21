@@ -36,9 +36,9 @@ int oled_240_240_run()
 	while(1) 
 	{
 		Paint_Clear(WHITE);
-		Paint_SetRotate(ROTATE_180);
+		Paint_SetRotate(ROTATE_270);
         GUI_ReadBmp("/usr/bin/blikvm/oled_info.bmp");
-	    Paint_DrawString_EN( 70, 10, "BliKVM", &Font24, WHITE ,BLACK);
+	    Paint_DrawString_EN( 60, 10, "BliKVM V4", &Font24, WHITE ,BLACK);
 
 		// IP addresss
 		char ip[20]={0};

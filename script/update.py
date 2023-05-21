@@ -16,6 +16,10 @@ pi4b_board = "Raspberry Pi 4 Model B"
 cm4b_board = "Raspberry Pi Compute Module 4"
 h616_board = "Mango Pi Mcore"
 
+code_owner = "ThomasVon2021"
+code_repo = "blikvm"
+file_name = ""
+
 class BoardType(Enum):
     UNKNOWN = 0
     V1_CM4 = 1
@@ -69,7 +73,6 @@ def download_release_file(owner, repo, tag_name, file_name, download_path):
         print(f'Error getting release information: {response.content}')
         return False
     release_data = response.json()
-
     # Find the file in the release assets
     asset = next((a for a in release_data['assets'] if a['name'] == file_name), None)
     if asset is None:
@@ -123,6 +126,7 @@ def main():
             print("The latest release tag for blikvm is ", latest_version)
         else:
             print("Cannot find the latest release tag")
+            return
         # get local tag
         run_json = '/usr/bin/blikvm/package.json'
         if not os.path.exists(run_json):
@@ -138,27 +142,30 @@ def main():
             print("Upgrading ", run_version , " ==> ", latest_version)
             # download tar pack
             cmd = ""
-            if board_type == BoardType.V1_CM4 or BoardType.board_type == V2_HAT or BoardType.board_type == V3_PCIE:
-                cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release.tar.gz"
+            if board_type == BoardType.V1_CM4 or board_type == BoardType.V2_HAT or board_type == BoardType.V3_PCIE:
+                # cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release.tar.gz"
+                file_name = "release.tar.gz"
             elif board_type == BoardType.V4_H616:
-                cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release-h616-v4.tar.gz"
+                # cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release-h616-v4.tar.gz"
+                file_name = "release-h616-v4.tar.gz"
             else:
                 print("get unknow board")
             try:
-                print("download package ", cmd)
-                output = subprocess.check_output(cmd, shell = True, cwd=download_path)
+                print("download package ", file_name, " waitting ")
+                download_release_file(code_owner,code_repo,latest_version, file_name, download_path)
+                # output = subprocess.check_output(cmd, shell = True, cwd=download_path)
             except subprocess.CalledProcessError as e:
                 print("Download release package failed, check network")
                 break
-            return  
-            # release_tar = download_path + "release.tar.gz"
-            # if os.path.exists(release_tar):   
-            #     cmd = "tar -zxvf release.tar.gz"
-            #     output = subprocess.check_output(cmd, shell = True, cwd=download_path)
-            #     cmd = "python3 install_release.py"
-            #     output = subprocess.check_output(cmd, shell = True, cwd=sh_path)        
-            #     update_result = True
-            #     print("Upgrade success")
+            print("Download release package success, start to install, waitting")
+            release_tar = download_path + file_name
+            if os.path.exists(release_tar):   
+                cmd = "tar -zxvf " + file_name
+                output = subprocess.check_output(cmd, shell = True, cwd=download_path)
+                cmd = "python3 install_release.py"
+                output = subprocess.check_output(cmd, shell = True, cwd=sh_path)        
+                update_result = True
+                print("Upgrade success")
         else:
             print("Don't need update")
         a = 0
