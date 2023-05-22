@@ -73,12 +73,11 @@ int OLED_0in91_test(void)
 			GetIP(ip);
 			char ip_str[128]={0};
 			sprintf(ip_str,"IP:%s",ip);
-			Paint_DrawString_EN(10, 0, ip_str, &Font12, WHITE, WHITE);
-
+			Paint_DrawString_EN(0, 0, ip_str, &Font12, WHITE, WHITE);
 			// TEMP
 			char temp[20]={0};
 			sprintf(temp, "temp:%2dF/%2dC",(int)(GetCPUTemp()*1.8 + 32),GetCPUTemp());
-			Paint_DrawString_EN(10, 16, temp, &Font12, WHITE, WHITE);
+			Paint_DrawString_EN(0, 16, temp, &Font12, WHITE, WHITE);
 		}
 		else
 		{
