@@ -8,10 +8,10 @@
 
 <p align="center">
   <a href="https://github.com/ThomasVon2021/blikvm/stargazers">
-    <img alt="GitHub Stars" src="https://img.shields.io/github/stars/ThomasVon2021/blikvm?color=ffcb2f&label=%E2%AD%90%20在%20GitHub%20上">
+    <img alt="GitHub Stars" src="https://img.shields.io/github/stars/ThomasVon2021/blikvm?color=ffcb2f&label=%E2%AD%90%20on%20GitHub">
   </a>
   <a href="https://discord.gg/9Y374gUF6C">
-    <img alt="Discord 服务器" src="https://img.shields.io/discord/943534043515977768?color=0&label=discord%20服务器&logo=discord">
+    <img alt="Discord Server" src="https://img.shields.io/discord/943534043515977768?color=0&label=discord%20server&logo=discord">
   </a>
 </p>
 
