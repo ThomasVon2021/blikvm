@@ -1,6 +1,6 @@
 <h1 align="center">BliKVM - 开源软硬件一体KVM解决方案</h1>
 <p align="center">
-[English Documents](README.md)
+<a href="README.md">English Documents</a>
 </p>
 <p align="center">
   <a href="https://www.blicube.com">BliKVM</a> 帮助您远程管理服务器或工作站，无论操作系统的健康状况如何或是否已安装。
