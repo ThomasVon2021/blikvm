@@ -1,5 +1,7 @@
 <h1 align="center">BliKVM - Integrated software and hardware solution for KVM</h1>
-
+<p align="center">
+[中文说明](README_CN.md)
+</p>
 <p align="center">
   <a href="https://www.blicube.com">BliKVM</a> helps you to manage servers or workstations remotely, regardless of the health of the operating system or whether one is installed.
 </p>
