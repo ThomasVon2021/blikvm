@@ -22,4 +22,6 @@ blikvm_int8_t blikvm_oled_init(blikvm_oled_type_e type);
 
 blikvm_int8_t blikvm_oled_start();
 
- #endif
+blikvm_int8_t blikvm_oled_stop();
+
+#endif

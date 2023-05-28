@@ -16,6 +16,7 @@ endif
 
 ifeq ($(H616),1)
 CFLAGS += -DH616
+CFLAGS += -DVER4
 endif
 
 ifeq ($(SSD1306),1)
@@ -55,6 +56,7 @@ SOURCE_FILES += ./kvmd/blikvm_switch/blikvm_switch.c
 SOURCE_FILES += ../third_lib/GPIO/armbianio.c
 SOURCE_FILES += ../third_lib/GPIO/softPwm.c
 SOURCE_FILES += ./kvmd/blikvm_oled/blikvm_oled.c
+SOURCE_FILES += ./kvmd/blikvm_gpio/blikvm_gpio.c
 
 CC = gcc
 

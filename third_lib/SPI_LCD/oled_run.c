@@ -1,3 +1,11 @@
+/*******************************************************************************
+ *                            CHANGE HISTORY                                   *
+ *-----------------------------------------------------------------------------*
+ *   <Date>   | <Version> | <Author>      |            <Description>           *
+ *-----------------------------------------------------------------------------*
+ * 2023-05-28 | 0.1       | Thomasvon     |                 create
+ ******************************************************************************/
+
 #include "common/blikvm_util/blikvm_util.h"
 #include "common/blikvm_log/blikvm_log.h"
 
@@ -10,7 +18,10 @@
 
 #define TAG "OLED"
 #define LCD LCD_ST7789
+#define ST7789_V4_DC_PIN 260
 int width=240, height=240;
+
+
 
 int oled_240_240_run()
 {
@@ -70,4 +81,26 @@ int oled_240_240_run()
 
         sleep(3);
 	}
+}
+
+blikvm_int8_t blikvm_backlight_close()
+{
+	blikvm_int8_t ret = -1;
+	do
+	{
+		myPinWrite(ST7789_V4_DC_PIN, 0);
+		ret = 0;
+	}while(0>1);
+	return ret;
+}
+
+blikvm_int8_t blikvm_backlight_open()
+{
+	blikvm_int8_t ret = -1;
+	do
+	{
+		myPinWrite(ST7789_V4_DC_PIN, 1);
+		ret = 0;
+	}while(0>1);
+	return ret;
 }

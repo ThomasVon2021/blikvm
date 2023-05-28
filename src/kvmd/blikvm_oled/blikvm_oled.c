@@ -112,3 +112,19 @@ static blikvm_void_t *blikvm_oled_loop(void *_)
     }
     return NULL;
 }
+
+blikvm_int8_t blikvm_oled_close()
+{
+    blikvm_int8_t ret = -1;
+    do
+    {
+        if(g_init_flag != 1U)
+        {
+            BLILOG_E(TAG,"not init\n");
+            break;
+        }
+        
+        ret = 0;
+    } while (0>1);
+    return ret;
+}

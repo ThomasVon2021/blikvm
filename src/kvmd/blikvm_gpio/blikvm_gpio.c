@@ -1,0 +1,133 @@
+/*******************************************************************************
+ *                            CHANGE HISTORY                                   *
+ *-----------------------------------------------------------------------------*
+ *   <Date>   | <Version> | <Author>      |            <Description>           *
+ *-----------------------------------------------------------------------------*
+ * 2022-09-05 | 0.1       | Thomasvon     |                 create
+ ******************************************************************************/
+
+#include "blikvm_gpio.h"
+#include "GPIO/armbianio.h"
+
+#include <pthread.h>
+#include <stdio.h>
+#include <unistd.h>
+
+#define TAG "GPIO"
+
+#ifdef  VER4
+#include "st7789_oled.h"
+#define SW1 12   //GPIO 257
+#define SW2 35   //GPIO 258
+#endif
+
+#define GPIO_CYCLE  100  //ms
+
+typedef struct 
+{
+    blikvm_int8_t init;
+}blikvm_gpio_t;
+
+typedef struct 
+{
+    blikvm_uint8_t count;
+    blikvm_int8_t state; // 0:low 1:high
+    blikvm_int8_t triggered; 
+}blikvm_gpio_state_t;
+
+
+blikvm_gpio_t g_gpio = {0};
+
+static blikvm_void_t *blikvm_gpio_loop(void *_);
+
+blikvm_int8_t blikvm_gpio_init()
+{
+	// Initialize the library
+    blikvm_int8_t ret = -1;
+    do
+    {
+        const blikvm_int8_t *szBoardName;
+        blikvm_int8_t rc = AIOInit();
+        if (rc == 0)
+        {
+            BLILOG_E(TAG,"Problem initializing ArmbianIO library\n");
+            break;
+        }
+        szBoardName = AIOGetBoardName();
+
+#ifdef  VER4        
+        AIOAddGPIO(SW2, GPIO_IN);
+#endif
+        g_gpio.init = 1;
+        ret = 0;
+        BLILOG_D(TAG,"Running on a %s\n", szBoardName);
+    } while (0>1);
+
+    return ret;
+}
+
+blikvm_int8_t blikvm_gpio_start()
+{
+    blikvm_int8_t ret = -1;
+    pthread_t blikvm_gpio_thread;
+    do
+    {
+        if(g_gpio.init != 1U)
+        {
+            BLILOG_E(TAG,"not init\n");
+            break;
+        }
+#ifdef  VER4   
+        blikvm_int8_t thread_ret = pthread_create(&blikvm_gpio_thread, NULL, blikvm_gpio_loop, NULL);
+        if(thread_ret != 0)
+        {
+            BLILOG_E(TAG,"creat loop thread failed\n");
+            break;
+        }
+#endif
+        ret = 0;
+    } while (0>1);
+    return ret;
+}
+
+// now only v4 have button event.
+
+static blikvm_void_t *blikvm_gpio_loop(void *_)
+{
+    static blikvm_gpio_state_t sw2 = {0};
+
+    while (1)
+    {
+#ifdef  VER4 
+        if(AIOReadGPIO(SW2) == 1)
+        {
+            sw2.count = (sw2.count + 1) % 6;
+        }
+        else
+        {
+            sw2.count = 0;
+            sw2.triggered = 0;
+        }
+        if( sw2.count >= 5)
+        {
+            // if oled is open, change it to close; if oled is close, change it to open; 
+            if((sw2.state == 1) && !sw2.triggered  )
+            {
+                BLILOG_D(TAG,"open oled\n");
+                blikvm_backlight_open();
+                sw2.state = 0;
+                sw2.triggered = 1;
+            }
+            else if((sw2.state == 0) && !sw2.triggered  )
+            {
+                BLILOG_D(TAG,"close oled\n");
+                blikvm_backlight_close();
+                sw2.state = 1;
+                sw2.triggered = 1;
+            }
+        }
+#endif
+        usleep(100*1000);
+    }
+    return NULL;
+}

@@ -157,7 +157,7 @@ static blikvm_void_t *blikvm_switch_state_loop(void *_)
                 BLILOG_E(TAG,"select failed\n");
             }
             else if (n == 0) {
-                BLILOG_E(TAG,"serial read timeout in :%d (ms)\n",SERIAL_TIME_OUT_MS);
+                BLILOG_D(TAG,"serial read timeout in :%d (ms)\n",SERIAL_TIME_OUT_MS);
             }
             else {
                 /* We have input */

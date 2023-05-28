@@ -6,13 +6,12 @@
  * 2023-05-28 | 0.1       | Thomasvon     |                 create
  ******************************************************************************/
 
-#ifndef __BLIKVM_ST7789_OLED_H__
-#define __BLIKVM_ST7789_OLED_H__
+#ifndef __BLIKVM_GPIO_H__
+#define __BLIKVM_GPIO_H__
 
-#include "common/blikvm_type.h"
+#include "common/blikvm_log/blikvm_log.h"
 
-int oled_240_240_run();
-blikvm_int8_t blikvm_backlight_close();
-blikvm_int8_t blikvm_backlight_open();
 
+blikvm_int8_t blikvm_gpio_init();
+blikvm_int8_t blikvm_gpio_start();
 #endif
