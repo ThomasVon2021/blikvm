@@ -10,7 +10,7 @@ set -x
 set -u
 
 iso_file_name=()
-ventoy_dir="/opt/bin/msd/ventoy"
+ventoy_dir="/mnt/msd/ventoy"
 iso_dir="/opt/bin/msd/user"
 mount_dist_dir="/media/blikvm/ventoy/"
 usb_gadget_sh="/usr/bin/blikvm/enable-gadget.sh"
