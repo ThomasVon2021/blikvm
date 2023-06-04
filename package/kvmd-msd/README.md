@@ -5,7 +5,7 @@
 	/usr/bin/blikvm/ventoy-1.0.88
 	/usr/bin/blikvm/kvmd-msd.sh
 	/opt/bin/msd/user    
-	/opt/bin/msd/ventoy
+	/mnt/msd/ventoy
 ```
 
 2. SSH logs in to blikvm, executes the rw command, and changes the system permission to writable.
