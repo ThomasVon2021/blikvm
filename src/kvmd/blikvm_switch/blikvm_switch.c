@@ -26,10 +26,12 @@ static blikvm_int8_t g_switch_enable = 0;
 
 static blikvm_void_t *blikvm_switch_state_loop(void *_);
 static blikvm_void_t *blikvm_switch_control_loop(void *_);
-static blikvm_void_t *blikvm_switch_monitor_loop(void *_);
+static blikvm_void_t blikvm_switch_monitor(void);
 static blikvm_int8_t blikvm_switch_serial_judge(blikvm_int32_t timeout);
 
-blikvm_int8_t blikvm_switch_init()
+static blikvm_switch_t g_switch_config = {0};
+
+blikvm_int8_t blikvm_switch_init(blikvm_switch_t* config)
 {
     blikvm_int8_t ret = -1;
     do
@@ -80,6 +82,8 @@ blikvm_int8_t blikvm_switch_init()
             break;
         }
         g_switch.socket_addr.send_addr_len = sizeof(g_switch.socket_addr.send_addr);
+        BLILOG_D(TAG,"config device:%s\n",config->device_path);
+        memcpy(&g_switch_config,config,sizeof(blikvm_switch_t));
 
         g_switch.init = 1;
     }while(0>1);
@@ -99,17 +103,11 @@ blikvm_int8_t blikvm_switch_start()
             BLILOG_E(TAG,"switch module status is not ok\n");
             break;
         }
-
-        pthread_t blikvm_switch_monitor_thread;
-        blikvm_int8_t thread_ret = pthread_create(&blikvm_switch_monitor_thread, NULL, blikvm_switch_monitor_loop, NULL);
-        if(thread_ret != 0)
-        {
-            BLILOG_E(TAG,"creat switch monitor loop thread failed\n");
-            break;
-        }
+        
+        blikvm_switch_monitor();
 
         pthread_t blikvm_switch_state_thread;
-        thread_ret = pthread_create(&blikvm_switch_state_thread, NULL, blikvm_switch_state_loop, NULL);
+        blikvm_int8_t thread_ret = pthread_create(&blikvm_switch_state_thread, NULL, blikvm_switch_state_loop, NULL);
         if(thread_ret != 0)
         {
             BLILOG_E(TAG,"creat switch state loop thread failed\n");
@@ -139,6 +137,11 @@ static blikvm_void_t *blikvm_switch_state_loop(void *_)
         blikvm_int32_t  n;
         while(1)
         {
+            if(g_switch_enable != 1)
+            {
+                usleep(2000*1000);
+                continue;
+            }
             /* Initialize the input set */
             FD_ZERO(&input);
             FD_SET(g_serial_fd, &input);
@@ -219,6 +222,11 @@ static blikvm_void_t *blikvm_switch_control_loop(void *_)
         }
         while(1)
         {
+            if(g_switch_enable != 1)
+            {
+                usleep(2000*1000);
+                continue;
+            }
             blikvm_int32_t ret = recvfrom(g_switch.socket,(void *)g_rev_buff.recvBuf,DEFAULT_BUF_LEN,
             0,(struct sockaddr *)&(g_switch.socket_addr.send_addr), &(g_switch.socket_addr.send_addr_len));
             if( ret == 1U)
@@ -257,9 +265,9 @@ static blikvm_void_t *blikvm_switch_control_loop(void *_)
 }
 
 /**
- * @brief : 每5s轮询一次，判断g_switch_enable是否为1，如果为1，则不进行后续逻辑判断，如果非1，则去进行逻辑处理
+ * @brief : 开机判断g_switch_enable是否为1，如果为1，则不进行后续逻辑判断，如果非1，则去进行逻辑处理
  */
-static blikvm_void_t *blikvm_switch_monitor_loop(void *_)
+static blikvm_void_t blikvm_switch_monitor()
 {
     do
     {
@@ -268,58 +276,60 @@ static blikvm_void_t *blikvm_switch_monitor_loop(void *_)
             BLILOG_E(TAG,"not init\n");
             break;
         }
-        while(1)
-        {
-            if(g_switch_enable == 1)
-            {
-                if(write(g_serial_fd, "1", 1) <= 0 )
-                {
-                    g_serial_fd = 0;
-                    g_switch_enable = 0;
-                }
-            }
-            else
-            {
-                char result[256] = {0};
-                char *cmd = (char*)"ls /dev/ttyUSB*";
-                if( execmd(cmd,result) == 1 )
-                {
-                    //BLILOG_I(TAG,"len:%d result:%s\n",strlen(result),result);
-                    char *revbuf[4] = {0}; //存放分割后的子字符串 
-                    //分割后子字符串的个数
-                    int num = 0;
 
-                    // 预处理，用#替换掉\n
-                    blikvm_int32_t len = strlen(result);
-                    for(blikvm_int32_t i=0; i<len; i++)
-                    {
-                        if(result[i] == '\n')
-                        {
-                            result[i] = '#';
-                        }
-                    }
-                    split(result,"#",revbuf,&num); //调用函数进行分割 
-                    //输出返回的每个内容
-                    for(int i = 0;i < num; i ++)
-                    {
-                        g_serial_fd = open_serial_dev(revbuf[i],19200);
-                        if( g_serial_fd < 0)
-                        {
-                            BLILOG_E(TAG,"open %s failed\n",revbuf[i]);
-                            continue;
-                        }
-                        blikvm_int8_t flag = blikvm_switch_serial_judge(5000);
-                        if(flag)
-                        {
-                            break;
-                        }       
-                    } 
+        if(strlen(g_switch_config.device_path) != 0)
+        {
+            g_serial_fd = open_serial_dev(g_switch_config.device_path,19200);
+            if( g_serial_fd < 0)
+            {
+                BLILOG_E(TAG,"open %s failed\n",g_switch_config.device_path);
+                break;
+            }
+            blikvm_int8_t flag = blikvm_switch_serial_judge(1000);
+            if(flag)
+            {
+                break;
+            }
+            close(g_serial_fd);   
+        }
+
+        char result[256] = {0};
+        char *cmd = (char*)"ls /dev/ttyUSB*";
+        if( execmd(cmd,result) == 1 )
+        {
+            //BLILOG_I(TAG,"len:%d result:%s\n",strlen(result),result);
+            char *revbuf[4] = {0}; //存放分割后的子字符串 
+            //分割后子字符串的个数
+            int num = 0;
+
+            // 预处理，用#替换掉\n
+            blikvm_int32_t len = strlen(result);
+            for(blikvm_int32_t i=0; i<len; i++)
+            {
+                if(result[i] == '\n')
+                {
+                    result[i] = '#';
                 }
             }
-            sleep(5);
+            split(result,"#",revbuf,&num); //调用函数进行分割 
+            //输出返回的每个内容
+            for(int i = 0;i < num; i ++)
+            {
+                g_serial_fd = open_serial_dev(revbuf[i],19200);
+                if( g_serial_fd < 0)
+                {
+                    BLILOG_E(TAG,"open %s failed\n",revbuf[i]);
+                    continue;
+                }
+                blikvm_int8_t flag = blikvm_switch_serial_judge(3000);
+                if(flag)
+                {
+                    break;
+                }
+                close(g_serial_fd);    
+            } 
         }
     }while(0>1);
-    return NULL;
 }
 
 static blikvm_int8_t blikvm_switch_serial_judge(blikvm_int32_t timeout)

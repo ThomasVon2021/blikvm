@@ -253,3 +253,39 @@ static blikvm_uint8_t blikvm_read_atx_state()
     //BLILOG_D(TAG,"atx state ret:%02X\n",ret);
     return ret;
 }
+
+blikvm_int8_t blikvm_atx_test()
+{
+    blikvm_uint8_t ret = -1;
+    do
+    {
+        if(g_atx.init != 1U)
+        {
+            BLILOG_E(TAG,"not init\n");
+            break;
+        }
+        AIOWriteGPIO(PIN_POWER, GPIO_LOW);
+        AIOWriteGPIO(PIN_RESET, GPIO_LOW);
+        usleep(10*1000);
+        blikvm_int32_t value1 = AIOReadGPIO(PIN_LED_PWR);
+        blikvm_int32_t value2 =  AIOReadGPIO(PIN_LED_HDD);
+        if(value1 != GPIO_LOW ||  value2 != GPIO_LOW)
+        {
+            BLILOG_E(TAG,"read gpio is not low %d %d\n",value1,value2);
+            break;
+        }
+        AIOWriteGPIO(PIN_POWER, GPIO_HIGH);
+        AIOWriteGPIO(PIN_RESET, GPIO_HIGH);
+        usleep(10*1000);
+        value1 = AIOReadGPIO(PIN_LED_PWR);
+        value2 = AIOReadGPIO(PIN_LED_HDD);
+        if(value1 != GPIO_HIGH || value2 != GPIO_HIGH)
+        {
+            BLILOG_E(TAG,"read gpio is not high %d %d\n", value1,value2);
+            break;
+        }
+        ret = 0;
+        
+    }while(0>1);
+    return ret;
+}

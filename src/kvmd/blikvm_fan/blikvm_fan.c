@@ -227,7 +227,6 @@ static blikvm_void_t *blikvm_fan_loop(void *_)
                 blikvm_uint8_t state[1];
                 blikvm_uint8_t last_state[1];
                 blikvm_int32_t ret_len;
-                // printf("fan open:%u speed:%u\n",fan_open,fan_speed);
                 if(state != last_state)
                 {
                     g_fan.fp = fopen("/dev/shm/blikvm/fan","wb+");

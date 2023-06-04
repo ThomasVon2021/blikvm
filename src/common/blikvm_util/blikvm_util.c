@@ -14,13 +14,13 @@
 #include <time.h>
 #include <stdlib.h>
 
- #include "blikvm_util.h"
+#include "blikvm_util.h"
+
+#define MAX_BUFFER_SIZE 1024
 
 static blikvm_int8_t *pi4b_board = "Raspberry Pi 4 Model B";
 static blikvm_int8_t *cm4b_board = "Raspberry Pi Compute Module 4";
 static blikvm_int8_t *h616_board = "Mango Pi Mcore";
-
-
 
 blikvm_int32_t execmd(blikvm_int8_t* cmd, blikvm_int8_t* result) 
 {
@@ -153,7 +153,6 @@ int GetMemUsage(char* mem)
 {
     char* cmd = "df -h | awk '$NF==\"/\"{printf \"%d/%dGB %s\", $3,$2,$5}'";
     execterminal(cmd,mem);
-    //printf("mem:%s\n",mem);
     return 0; 
 }
 
@@ -161,7 +160,6 @@ int GetMemUsageShort(char* mem)
 {
     char* cmd = "df -h | awk '$NF==\"/\"{printf \"%d/%dG\", $3,$2}'";
     execterminal(cmd,mem);
-    //printf("mem:%s\n",mem);
     return 0; 
 }
 
@@ -203,4 +201,70 @@ char * GetUptime()
     asprintf(&uptime_string, "%dd %dh %dm", uptime_days, uptime_hours, uptime_minutes);
     fclose(fp);
     return uptime_string;
+}
+
+int getWifiSignalStrength(const char* interface, int* signalStrength) {
+    char command[100];
+    sprintf(command, "iwconfig %s | awk '/Signal level/ {print $4}'", interface);
+
+    FILE* fp = popen(command, "r");
+    if (fp == NULL) {
+        perror("Failed to execute command");
+        return -1;
+    }
+
+    char output[32];
+    if (fgets(output, sizeof(output), fp) == NULL) {
+        perror("Failed to read command output");
+        pclose(fp);
+        return -1;
+    }
+
+    pclose(fp);
+    int strength = atoi(&output[6]);
+    *signalStrength = strength;
+    return 0;
+}
+
+blikvm_int8_t isWifiCardAvailable() 
+{
+    blikvm_int8_t ret = -1;
+    FILE* fp;
+    char buffer[MAX_BUFFER_SIZE];
+    blikvm_int8_t wifiCardAvailable = 0;
+
+    // 执行 iwconfig 命令
+    fp = popen("ifconfig wlan0 | grep UP", "r");
+    if (fp == NULL) {
+        perror("Failed to execute iwconfig");
+        return -1;
+    }
+
+    // 读取命令输出并解析
+    while (fgets(buffer, sizeof(buffer), fp) != NULL) 
+    {
+        // 检查是否存在无线网卡
+        if (strstr(buffer, "UP") != NULL) 
+        {
+            wifiCardAvailable = 1; // 网卡正常
+            break;
+        }
+    }
+    pclose(fp);
+    if( wifiCardAvailable ==  1)
+    {
+        blikvm_int32_t strength;
+        if(getWifiSignalStrength("wlan0", &strength) == 0)
+        {
+            if( strength > 40)
+            {
+                ret = 0;
+            }
+        }
+        else
+        {
+            printf("get wifi strength failed\n");
+        }
+    }
+    return ret; // 返回0表示正常，返回-1表示不正常
 }

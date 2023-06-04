@@ -17,6 +17,11 @@ endif
 ifeq ($(H616),1)
 CFLAGS += -DH616
 CFLAGS += -DVER4
+ifeq ($(TEST_HARDWARE),1)
+INCLUDE_PATH += ../test/hardware/
+SOURCE_FILES += ../test/hardware/blikvm_test_v4.c
+CFLAGS += -DTEST_HARDWARE
+endif
 endif
 
 ifeq ($(SSD1306),1)
@@ -25,6 +30,7 @@ INCLUDE_PATH += ../third_lib/ssd1306/lib/Config/
 INCLUDE_PATH += ../third_lib/ssd1306/lib/Fonts/
 INCLUDE_PATH += ../third_lib/ssd1306/lib/GUI/
 INCLUDE_PATH += ../third_lib/ssd1306/lib/OLED/
+
 SOURCE_FILES += ../third_lib/ssd1306/examples/OLED_0in91_test.c
 SOURCE_FILES += ../third_lib/ssd1306/examples/OLED_0in96_test.c
 SOURCE_FILES += ../third_lib/ssd1306/lib/Config/*.c
@@ -57,6 +63,7 @@ SOURCE_FILES += ../third_lib/GPIO/armbianio.c
 SOURCE_FILES += ../third_lib/GPIO/softPwm.c
 SOURCE_FILES += ./kvmd/blikvm_oled/blikvm_oled.c
 SOURCE_FILES += ./kvmd/blikvm_gpio/blikvm_gpio.c
+SOURCE_FILES += ./kvmd/blikvm_rtc/blikvm_rtc.c
 
 CC = gcc
 

@@ -24,7 +24,6 @@
 #define SERIAL_TIME_OUT_MS  (5050)
 
 blikvm_int8_t g_fd = 0;
-static blikvm_int32_t set_serial_opt(blikvm_int32_t fd, blikvm_int32_t nSpeed, blikvm_int32_t nBits, blikvm_int8_t nEvent, blikvm_int32_t nStop);
 
 /**
  * @brief open serial device and set baut
@@ -62,7 +61,7 @@ blikvm_int32_t open_serial_dev(const blikvm_int8_t* serial_dev, blikvm_int32_t b
 /**
  *  change baut rate and set flags.
  */
-static blikvm_int32_t
+blikvm_int32_t
 set_serial_opt(blikvm_int32_t fd, blikvm_int32_t nSpeed, blikvm_int32_t nBits, blikvm_int8_t nEvent, blikvm_int32_t nStop)
 {
     struct termios newtio = { 0 };
@@ -112,6 +111,10 @@ set_serial_opt(blikvm_int32_t fd, blikvm_int32_t nSpeed, blikvm_int32_t nBits, b
     case 19200:
         cfsetispeed(&newtio, B19200);
         cfsetospeed(&newtio, B19200);
+        break;
+    case 38400:
+        cfsetispeed(&newtio, B38400);
+        cfsetospeed(&newtio, B38400);
         break;
     case 115200:
         cfsetispeed(&newtio, B115200);

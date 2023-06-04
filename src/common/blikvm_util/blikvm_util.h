@@ -36,5 +36,6 @@ int GetIP(char* ip);
 char* GetUptime(); 
 int GetMemUsageShort(char* mem);
 blikvm_board_type_e blikvm_get_board_type();
+blikvm_int8_t isWifiCardAvailable();
 
 #endif

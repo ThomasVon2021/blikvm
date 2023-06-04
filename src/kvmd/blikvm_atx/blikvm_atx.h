@@ -13,4 +13,5 @@
 
 blikvm_int8_t blikvm_atx_init();
 blikvm_int8_t blikvm_atx_start();
+blikvm_int8_t blikvm_atx_test();
 #endif

@@ -15,6 +15,12 @@
 #include "Fonts/fonts.h"
 #include "spi_lcd.h"
 
+#ifdef TEST_HARDWARE
+	#ifdef VER4
+#include "blikvm_test.h"
+	#endif
+#endif
+
 
 #define TAG "OLED"
 #define LCD LCD_ST7789
@@ -77,8 +83,41 @@ int oled_240_240_run()
 		GetMemUsageShort(mem_str);
 		Paint_DrawString_EN(170, 175, mem_str, &Font16, WHITE, BLACK);
 
-        LCD_1IN3_Display(BlackImage);
+#ifdef TEST_HARDWARE
+	#ifdef VER4
+		blikvm_test_result_t* test_result;
+		test_result = blikvm_get_test_result();
+		char test_str[20]= {0};
+		if(test_result->test_flag == 0)
+		{
+			Paint_DrawString_EN(60, 210, "Testing", &Font24, WHITE, RED);
+		}
+		else if(test_result->uart_flag == 0)
+		{
+			BLILOG_E(TAG,"uart:%d, test failed:%d\n",test_result->uart_flag, test_result->code);
+			sprintf(test_str, "uart fail: %d",test_result->code);
+			Paint_DrawString_EN(10, 210, test_str, &Font24, WHITE, RED);
+		}else if(test_result->rtc_flag == 0)
+		{
+			sprintf(test_str, "rtc fail: %d",test_result->code);
+			Paint_DrawString_EN(10, 210, test_str, &Font24, WHITE, RED);
+		}else if(test_result->wifi_flag == 0)
+		{
+			sprintf(test_str, "wifi fail: %d",test_result->code);
+			Paint_DrawString_EN(10, 210, test_str, &Font24, WHITE, RED);
+		}else if(test_result->atx_flag == 0)
+		{
+			sprintf(test_str, "atx fail: %d",test_result->code);
+			Paint_DrawString_EN(10, 210, test_str, &Font24, WHITE, RED);
+		}else
+		{
+			Paint_DrawString_EN(60, 210, "test OK!", &Font24, WHITE, GREEN);
+		}
+	#endif
+#endif
 
+        LCD_1IN3_Display(BlackImage);
+		//BLILOG_D(TAG,"oled loop\n");
         sleep(3);
 	}
 }

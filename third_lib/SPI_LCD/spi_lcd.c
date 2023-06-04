@@ -1639,7 +1639,8 @@ int spilcdDrawMaskedTile(int x, int y, unsigned char *pTile, int iPitch, int iCo
 {
 unsigned char ucTemp[512]; // fix the byte order first to write it more quickly
 int i, j;
-unsigned char *s, *d;
+unsigned char *s = NULL;
+unsigned char *d = NULL;
 int iNumCols, iNumRows, iTotalSize;
 
 	iNumCols = __builtin_popcount(iColMask);

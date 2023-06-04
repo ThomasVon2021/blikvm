@@ -5,15 +5,20 @@
  *-----------------------------------------------------------------------------*
  * 2022-09-02 | 0.1       | Thmoasvon     |                 create
  ******************************************************************************/
+#include <string.h>
 
 #include "blikvm_server.h"
 #include "kvmd/blikvm_fan/blikvm_fan.h"
 #include "kvmd/blikvm_atx/blikvm_atx.h"
 #include "kvmd/blikvm_oled/blikvm_oled.h"
 #include "kvmd/blikvm_switch/blikvm_switch.h"
+#include "kvmd/blikvm_rtc/blikvm_rtc.h"
 #include "kvmd/blikvm_gpio/blikvm_gpio.h"
 #include "common/blikvm_log/blikvm_log.h"
 
+#ifdef TEST_HARDWARE
+#include "blikvm_test.h"
+#endif
 
 #define TAG "SERVER"
 /*******************************************************************************
@@ -59,7 +64,9 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         }
 
         //4. init switch module
-        if (blikvm_switch_init() >= 0)
+        blikvm_switch_t switch_config = {0};
+        memcpy(switch_config.device_path, config->switch_device, strlen(config->switch_device));
+        if (blikvm_switch_init(&switch_config) >= 0)
         {
             BLILOG_D(TAG,"init switch success\n");
         }
@@ -77,7 +84,8 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         {
             BLILOG_E(TAG,"init oled failed\n");
         }
-        //5. init dtc module
+        //5. init rtc module
+        blikvm_rtc_init();
 
     } while (0>1);
     return ret;    
@@ -123,6 +131,9 @@ blikvm_int8_t blikvm_start()
         {
             BLILOG_D(TAG,"oled start ok\n");
         }
+#ifdef TEST_HARDWARE
+        blikvm_hardware_test();
+#endif
         ret =0;
     }while(0>1);
 

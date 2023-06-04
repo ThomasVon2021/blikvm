@@ -1,22 +1,17 @@
-#ifndef __BLIKVM_SWITCH_H__
-#define __BLIKVM_SWITCH_H__
-
 /*******************************************************************************
  *                            CHANGE HISTORY                                   *
  *-----------------------------------------------------------------------------*
  *   <Date>   | <Version> | <Author>      |            <Description>           *
  *-----------------------------------------------------------------------------*
- * 2022-12-29 | 0.1       | Thomasvon     |                 create
+ * 2023-06-04 | 0.1       | Thomasvon     |                 create
  ******************************************************************************/
 
-#include "common/blikvm_log/blikvm_log.h"
+#ifndef __BLIKVM_RTC_H__
+#define __BLIKVM_RTC_H__
 
-typedef struct
-{
-    blikvm_int8_t device_path[32];
-}blikvm_switch_t;
+#include "common/blikvm_type.h"
 
-blikvm_int8_t blikvm_switch_init(blikvm_switch_t* config);
-blikvm_int8_t blikvm_switch_start();
 
- #endif
+blikvm_int8_t blikvm_rtc_init();
+
+#endif

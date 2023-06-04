@@ -9,6 +9,10 @@ make RPI=1 SSD1306=1
 ```
 make H616=1 ST7789=1 
 ```
+## TEST_HARDWARE macro if for factory test hardware
+```
+make H616=1 ST7789=1 TEST_HARDWARE=1
+```
 
 ## On x86 Linux
 ```
