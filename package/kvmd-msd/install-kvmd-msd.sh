@@ -1,14 +1,14 @@
 #!/bin/bash
 
 
-if [ ! -d  "opt/bin/msd/user" ] 
+if [ ! -d  "/opt/bin/msd/user" ] 
 then
   mkdir -p /opt/bin/msd/user/
 fi
 
-if [ ! -d  "opt/bin/msd/ventoy" ] 
+if [ ! -d  "/mnt/msd/ventoy" ] 
 then
-  mkdir -p /opt/bin/msd/ventoy/
+  mkdir -p /mnt/msd/ventoy/
 fi
 
 if [ ! -d  "/usr/bin/blikvm" ] 
