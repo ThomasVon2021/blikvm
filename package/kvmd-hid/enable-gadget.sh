@@ -23,7 +23,7 @@ USB_CONFIG_INDEX=1
 USB_CONFIG_DIR="configs/c.${USB_CONFIG_INDEX}"
 USB_ALL_CONFIGS_DIR="configs/*"
 USB_ALL_FUNCTIONS_DIR="functions/*"
-USB_MSD_DIR="/opt/bin/msd/ventoy"
+USB_MSD_DIR="/mnt/msd/ventoy"
 
 modprobe libcomposite
 
