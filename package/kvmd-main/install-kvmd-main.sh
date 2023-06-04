@@ -13,7 +13,7 @@ if [ -n "${pid}" ]; then
   kill -9 "${pid}"
 fi
 
-cp /opt/bin/blikvm/src/kvmd-main /usr/bin/blikvm/kvmd-main
+cp kvmd-main /usr/bin/blikvm/kvmd-main
 
 mkdir -p "/usr/lib/systemd/system"
 cp kvmd-main.service "/usr/lib/systemd/system"
