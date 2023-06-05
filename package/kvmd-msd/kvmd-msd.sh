@@ -150,8 +150,9 @@ case ${CMD} in
 		return 1
 	fi
 	umount -f $dev_name"p1"
+	sleep 3
 	losetup -d $dev_name
-
+	echo "blikvm" | sudo -S mount -o remount,ro /
 	;;
 
 	conn)
