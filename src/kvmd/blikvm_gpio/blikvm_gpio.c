@@ -69,7 +69,7 @@ blikvm_int8_t blikvm_gpio_init()
 blikvm_int8_t blikvm_gpio_start()
 {
     blikvm_int8_t ret = -1;
-    pthread_t blikvm_gpio_thread;
+    
     do
     {
         if(g_gpio.init != 1U)
@@ -78,6 +78,7 @@ blikvm_int8_t blikvm_gpio_start()
             break;
         }
 #ifdef  VER4   
+        pthread_t blikvm_gpio_thread;
         blikvm_int8_t thread_ret = pthread_create(&blikvm_gpio_thread, NULL, blikvm_gpio_loop, NULL);
         if(thread_ret != 0)
         {
@@ -94,8 +95,9 @@ blikvm_int8_t blikvm_gpio_start()
 
 static blikvm_void_t *blikvm_gpio_loop(void *_)
 {
+#ifdef  VER4 
     static blikvm_gpio_state_t sw2 = {0};
-
+#endif
     while (1)
     {
 #ifdef  VER4 

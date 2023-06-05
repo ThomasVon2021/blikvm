@@ -151,14 +151,16 @@ float GetCPULoad()
 
 int GetMemUsage(char* mem) 
 {
-    char* cmd = "df -h | awk '$NF==\"/\"{printf \"%d/%dGB %s\", $3,$2,$5}'";
+    //char* cmd = "df -h | awk '$NF==\"/\"{size=$2; used=$3} $NF==\"/mnt\"{size+=$2; used+=$3} END{printf \"%d/%dG %d%%\", used, size, used*100/size}'";
+    char* cmd = "df -h | awk '$NF==\"/\"{size=$2; used=$3} $NF==\"/mnt\"{size+=$2; used+=$3} END{printf \"%d/%dG %d%%\", used, size, used*100/size}'";
     execterminal(cmd,mem);
     return 0; 
 }
 
 int GetMemUsageShort(char* mem) 
 {
-    char* cmd = "df -h | awk '$NF==\"/\"{printf \"%d/%dG\", $3,$2}'";
+    char* cmd = "df -h | awk '$NF==\"/\"{size=$2; used=$3} $NF==\"/mnt\"{size+=$2; used+=$3} END{printf \"%d/%dG\", used, size}'";
+    
     execterminal(cmd,mem);
     return 0; 
 }
