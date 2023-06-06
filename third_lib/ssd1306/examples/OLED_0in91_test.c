@@ -91,7 +91,7 @@ int OLED_0in91_test(void)
 			GetMemUsage(mem_str);
 			Paint_DrawString_EN(10, 16, mem_str, &Font12, WHITE, WHITE);
 		}
-		i++;
+		i = (i + 1)%2;
         OLED_0in91_Display(BlackImage);
         DEV_Delay_ms(3000); 
         Paint_Clear(BLACK); 		

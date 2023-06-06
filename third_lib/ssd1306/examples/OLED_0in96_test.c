@@ -56,42 +56,58 @@ int OLED_0in96_test(void)
         BLILOG_E(TAG,"Failed to apply for black memory...\n");
         return -1;
     }
+
     Paint_NewImage(BlackImage, OLED_0in96_WIDTH, OLED_0in96_HEIGHT, 90, BLACK);  
 
     //1.Select Image
     Paint_SelectImage(BlackImage);
     DEV_Delay_ms(500);
     Paint_Clear(BLACK);
+    static int i=0;
     while(1)
-    {        
-        // IP address
-        char ip[20]={0};
-        GetIP(ip);
-        char ip_str[128]={0};
-        sprintf(ip_str,"IP:%s",ip);
-        Paint_DrawString_EN(0, 0, ip_str, &Font12, WHITE, WHITE);
+    {    
+        if(i%2 == 0 )
+		{
+            char hardware[20] = "BliKVM";
+            Paint_DrawString_EN(36, 0, hardware, &Font12, WHITE, WHITE);
 
-        // TEMP
-        char temp[20]={0};
-        sprintf(temp, "temp:%2dF/%2dC",(int)(GetCPUTemp()*1.8 + 32),GetCPUTemp());
-        Paint_DrawString_EN(0, 12, temp, &Font12, WHITE, WHITE);
+            // IP address
+            char ip[20]={0};
+            GetIP(ip);
+            char ip_str[128]={0};
+            sprintf(ip_str,"IP:%s",ip);
+            Paint_DrawString_EN(0, 12, ip_str, &Font12, WHITE, WHITE);
 
-        // CPU LOAD
-        char cpu_loading[20]={0};
-        sprintf(cpu_loading, "CPU LOAD:%.2f",GetCPULoad());
-        Paint_DrawString_EN(0, 24, cpu_loading, &Font12, WHITE, WHITE);
+            // TEMP
+            char temp[20]={0};
+            sprintf(temp, "temp:%2dF/%2dC",(int)(GetCPUTemp()*1.8 + 32),GetCPUTemp());
+            Paint_DrawString_EN(0, 24, temp, &Font12, WHITE, WHITE);
 
-        //Mem 
-        char mem[20]={0};
-        GetMemUsage(mem);
-        char mem_str[28]={0};
-        sprintf(mem_str,"Disk:%s",mem);
-        Paint_DrawString_EN(0, 36, mem_str, &Font12, WHITE, WHITE);
-
+            // CPU LOAD
+            char cpu_loading[20]={0};
+            sprintf(cpu_loading, "CPU LOAD:%.2f",GetCPULoad());
+            Paint_DrawString_EN(0, 36, cpu_loading, &Font12, WHITE, WHITE);
+        } 
+        else
+        {
+            //Mem 
+            char mem[20]={0};
+            GetMemUsage(mem);
+            char mem_str[28]={0};
+            sprintf(mem_str,"Disk:%s",mem);
+            Paint_DrawString_EN(0, 12, mem_str, &Font12, WHITE, WHITE);
+            //uptime
+            char *uptime_str;
+            uptime_str = GetUptime();
+            char up_str[28]={0};
+            sprintf(up_str,"up:%s",uptime_str);
+            Paint_DrawString_EN(0, 36, up_str, &Font12, WHITE, WHITE);
+            free(uptime_str);
+        }
+        i = (i + 1)%2;
         OLED_0in96_display(BlackImage);
         DEV_Delay_ms(3000); 
         Paint_Clear(BLACK);   
-
     }
 }
 
