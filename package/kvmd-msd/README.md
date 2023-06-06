@@ -10,7 +10,7 @@
 
 2. SSH logs in to blikvm, executes the rw command, and changes the system permission to writable.
 ```
-	sudo rw
+	rw
 ```
 
 3. In your PC ,use scp cmd send iso file to kvm board. 
