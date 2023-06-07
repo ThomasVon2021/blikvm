@@ -4,7 +4,7 @@
 ```
 	/usr/bin/blikvm/ventoy-1.0.88
 	/usr/bin/blikvm/kvmd-msd.sh
-	/opt/bin/msd/user    
+	/mnt/msd/user    
 	/mnt/msd/ventoy
 ```
 
@@ -15,15 +15,15 @@
 
 3. In your PC ,use scp cmd send iso file to kvm board. 
 ```
-	scp ***.iso blikvm@xxx.xxx.xxx.xxx:/opt/bin/msd/user/
+	scp ***.iso blikvm@xxx.xxx.xxx.xxx:/mnt/msd/user/
 ```	
 	
 4. excute msd cmd.wait until excute end. The default size of the USB flash disk is 5GB, if your iso is large than 5GB, you should modify kvmd-msd.sh.
-- If /opt/bin/msd/user this path only have one iso, you can use the follow command. 
+- If /mnt/msd/user this path only have one iso, you can use the follow command. 
 ```
 	sudo bash /usr/bin/blikvm/kvmd-msd.sh make
 ```
-- If /opt/bin/msd/user this path have more than one iso, you can use the follow command. **xxx.iso** means the iso name.
+- If /mnt/msd/user this path have more than one iso, you can use the follow command. **xxx.iso** means the iso name.
 ```
 	sudo bash /usr/bin/blikvm/kvmd-msd.sh make xxx.iso
 ```

@@ -15,6 +15,7 @@
 #include "kvmd/blikvm_rtc/blikvm_rtc.h"
 #include "kvmd/blikvm_gpio/blikvm_gpio.h"
 #include "common/blikvm_log/blikvm_log.h"
+#include "config/blikvm_config.h"
 
 #ifdef TEST_HARDWARE
 #include "blikvm_test.h"
@@ -41,6 +42,15 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         {
             BLILOG_E(TAG,"init gpio failed\n");
             break;
+        }
+
+        if(blikvm_config_init() == 0)
+        {
+            BLILOG_D(TAG,"config check success\n");
+        }
+        else
+        {
+            BLILOG_E(TAG,"config check failed\n");
         }
 
         //2. init fan module

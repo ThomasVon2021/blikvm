@@ -11,7 +11,7 @@ set -u
 
 iso_file_name=()
 ventoy_dir="/mnt/msd/ventoy"
-iso_dir="/opt/bin/msd/user"
+iso_dir="/mnt/msd/user"
 mount_dist_dir="/media/blikvm/ventoy/"
 usb_gadget_sh="/usr/bin/blikvm/enable-gadget.sh"
 usb_dis_gadget_sh="/usr/bin/blikvm/disable-gadget.sh"

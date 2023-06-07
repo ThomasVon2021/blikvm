@@ -1,9 +1,9 @@
 #!/bin/bash
 
 
-if [ ! -d  "/opt/bin/msd/user" ] 
+if [ ! -d  "/mnt/msd/user" ] 
 then
-  mkdir -p /opt/bin/msd/user/
+  mkdir -p /mnt/msd/user/
 fi
 
 if [ ! -d  "/mnt/msd/ventoy" ] 
@@ -19,7 +19,7 @@ fi
 cp kvmd-msd.sh "/usr/bin/blikvm/kvmd-msd.sh"
 cp -r ventoy-1.0.88 "/usr/bin/blikvm/"
 
-chmod 777 -R /opt/bin/msd/
+chmod 777 -R /mnt/msd/
 chmod 777 /usr/bin/blikvm/kvmd-msd.sh
 echo "install msd ok"
 
