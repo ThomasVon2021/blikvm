@@ -7,6 +7,7 @@ Requires=network.target busybox-syslogd.service
 Type=simple
 User=root
 ExecStart=/usr/bin/blikvm/kvmd-video.sh
+TimeoutStartSec=100s
 RemainAfterExit=true
 Restart=always
 
