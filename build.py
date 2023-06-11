@@ -43,6 +43,7 @@ def main():
         find package/kvmd-web/ -maxdepth 1 -type f -exec cp {} release/ \; && \
         find package/ustreamer/ -maxdepth 1 -type f -exec cp {} release/ \; && \
         cp src/kvmd-main release/ && cp -R package/kvmd-msd/* release/ && \
+        cp script/install_release.py release/ && \
         cp src/config/package.json release/ && tar -zcvf release.tar.gz release && rm -rf release"
     
     print("pack relase package, command: ", cmd_pack)
