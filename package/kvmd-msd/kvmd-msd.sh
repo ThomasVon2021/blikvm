@@ -153,7 +153,7 @@ case ${CMD} in
 	sleep 3
 	losetup -d $dev_name
 	echo "blikvm" | sudo -S mount -o remount,ro /
-	echo "sucess" >> /mnt/msd/connect.txt
+	touch /mnt/msd/success
 	;;
 
 	conn)
