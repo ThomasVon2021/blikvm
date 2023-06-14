@@ -149,17 +149,21 @@ mkdir -p "$USB_MASS_STORAGE_FUNCTIONS_DIR"
 
 if [ -d "$USB_MSD_DIR" ]
 then
-	if [ -f  "$USB_MSD_DIR/ventoy.img" ] 
-	then
-		#echo "/var/sdcard/disk.img" > functions/mass_storage.0/lun.0/file
-		echo "$USB_MSD_DIR/ventoy.img" > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/file"
-
-		echo 1 > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/removable"
-		echo 0 > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/nofua"
-		#echo 0 > functions/mass_storage.0/lun.0/ro
-		#echo 1 > functions/mass_storage.0/lun.0/cdrom
-		#echo 0 > functions/mass_storage.0/stall
-	fi
+	for file in $USB_MSD_DIR/*.img
+	do
+		if [[ $file == *.img ]] 
+		then
+			MSD_FILE=$file
+			echo "$USB_MSD_DIR/$file" > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/file"
+			echo 1 > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/removable"
+			echo 0 > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/nofua"
+			#echo 0 > functions/mass_storage.0/lun.0/ro
+			#echo 1 > functions/mass_storage.0/lun.0/cdrom
+			#echo 0 > functions/mass_storage.0/stall
+			break
+		fi
+	done
+	
 fi
 
 
@@ -177,7 +181,7 @@ ln -s "${USB_KEYBOARD_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
 ln -s "${USB_MOUSE_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
 
 #config config.1 link
-if [ -f "$USB_MSD_DIR/ventoy.img" ] 
+if [ -f "$USB_MSD_DIR/$MSD_FILE" ] 
 then
 	ln -s "${USB_MASS_STORAGE_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
 fi
