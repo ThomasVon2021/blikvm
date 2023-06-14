@@ -18,7 +18,11 @@
 	scp ***.iso blikvm@xxx.xxx.xxx.xxx:/mnt/msd/user/
 ```	
 	
-4. excute msd cmd.wait until excute end. The default size of the USB flash disk is 5GB.
+4. excute msd cmd.wait until excute end. 
+- If you don't use option paramter：
+- The default size of the USB flash disk is 5GB.
+- The default filename is scan /mnt/msd/user dir.
+- The default msd name is ventoy.
 ```
 	sudo bash /usr/bin/blikvm/kvmd-msd.sh -c make -s 5 -n ventoy -f xxx.iso
 ```
@@ -27,7 +31,7 @@
 - If you need specify iso ,you can use -f xxx.iso. 
 - If you want to specify the msd name, you can use -n xxx. 
 
-**Tips: cp progress slowly, Please be patient.  **
+- Tips: cp progress slowly, Please be patient. 
 	
 5. connect msd
 ```
