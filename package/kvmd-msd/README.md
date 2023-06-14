@@ -24,12 +24,15 @@
 - The default filename is scan /mnt/msd/user dir.
 - The default msd name is ventoy.
 ```
-	sudo bash /usr/bin/blikvm/kvmd-msd.sh -c make -s 5 -n ventoy -f xxx.iso
+	sudo bash /usr/bin/blikvm/kvmd-msd.sh -c make
 ```
 - If you want to excute other cmd, you can use other option. c option contain :  make/conn/disconn/clean
 - If your iso is large than 5GB.You can specify the optional parameter - s xxx, xxx is the Size.
 - If you need specify iso ,you can use -f xxx.iso. 
 - If you want to specify the msd name, you can use -n xxx. 
+```
+	sudo bash /usr/bin/blikvm/kvmd-msd.sh -c make -s 5 -n ventoy -f xxx.iso
+```
 
 - Tips: cp progress slowly, Please be patient. 
 	
