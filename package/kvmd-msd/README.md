@@ -28,25 +28,22 @@
 - If you want to specify the msd name, you can use -n xxx. 
 
 **Tips: cp progress slowly, Please be patient.  **
-
-5. If you want to expand the USB flash size, find "sudo dd if=/dev/zero of=ventoy.img bs=1M count=5120 status=progress;" this line in kvmd-msd.sh, change the "count=5120". 
-
 	
-6. connect msd
+5. connect msd
 ```
 	sudo bash  /usr/bin/blikvm/kvmd-msd.sh -c conn
 ```
 		
-7. disconnect msd
+6. disconnect msd
 ```
 	sudo bash  /usr/bin/blikvm/kvmd-msd.sh -c disconn
 ```
 
-8. clean msd
+7. clean msd
 ```
 	sudo bash  /usr/bin/blikvm/kvmd-msd.sh -c clean
 ```
 		
-9. throuht web restart PC, enter BIOS, modify boot priority,set blikvm USB first.
+8. throuht web restart PC, enter BIOS, modify boot priority,set blikvm USB first.
 
-10. according to step, select operate system , format partition and install system.
+9. according to step, select operate system , format partition and install system.
