@@ -1,8 +1,5 @@
 #!/bin/bash
 
-CMD=$1
-FILE=$2
-
 set -e
 
 set -x
@@ -10,13 +7,43 @@ set -x
 set -u
 
 iso_file_name=()
+count_value=0
 ventoy_dir="/mnt/msd/ventoy"
 iso_dir="/mnt/msd/user"
 mount_dist_dir="/media/blikvm/ventoy/"
 usb_gadget_sh="/usr/bin/blikvm/enable-gadget.sh"
 usb_dis_gadget_sh="/usr/bin/blikvm/disable-gadget.sh"
 
+
+while getopts "c:f:s:n:" opt; do
+  case $opt in
+    f)
+		FILE="$OPTARG"
+		;;
+    s)
+		VENTORY_SIZE="$OPTARG"
+		;;
+    n)
+		MSD_NAME="$OPTARG"
+		;;
+	c)
+		CMD="$OPTARG"
+		;;
+    \?)
+		echo "Invalid option: -$OPTARG" >&2
+		exit 1
+		;;
+  esac
+done
+
+
 CMD=${CMD:-"unset"}
+FILE=${FILE:-"*"}
+VENTORY_SIZE=${VENTORY_SIZE:-5}
+MSD_NAME=${MSD_NAME:-"ventoy"}
+
+ 
+
 
 traverse_dir()
 {
@@ -49,33 +76,37 @@ check_suffix()
 	# fi    
 }
 
-
 case ${CMD} in
 	make)
-	if [ $# -gt 2 ]
-	then
-		echo "param need point one, or default 0 use iso all img."
-	fi
+#	if [ $# -gt 2 ]
+#	then
+#		echo "param need point one, or default 0 use iso all img."
+#	fi
 
 	echo "blikvm" | sudo -S mount -o remount,rw /
 
-	if [ -f  "$ventoy_dir/ventoy.img" ] 
+
+	
+	if [ ! -d  $ventoy_dir ]
 	then
-		echo "update file exist"
-		cd  $ventoy_dir
-	else
-		if [ ! -d  $ventoy_dir ]
-		then
-			echo "blikvm" | sudo -S mkdir -p  $ventoy_dir
-		fi
-		cd  $ventoy_dir
-		echo "update file not exist,please wait..."
-		sudo dd if=/dev/zero of=ventoy.img bs=1M count=5120 status=progress;
+		echo "blikvm" | sudo -S mkdir -p  $ventoy_dir
 	fi
+	
+	cd  $ventoy_dir
+	
+	for file in *.img
+	do
+		sudo rm -f $file
+	done
+	
+	echo "update file not exist,please wait..."
+	
+	sudo dd if=/dev/zero of=$MSD_NAME".img" bs=1M count=$((VENTORY_SIZE*1024)) status=progress;
+	
 
-	echo "blikvm" | sudo -S losetup -f ventoy.img
+	echo "blikvm" | sudo -S losetup -f $MSD_NAME".img"
 
-	echo "blikvm" | sudo -S losetup -l | grep ventoy
+	echo "blikvm" | sudo -S losetup -l | grep $MSD_NAME
 
 	dev_name=`echo "blikvm" | sudo -S losetup -l | grep ventoy | awk 'NR==1{print $1}'`
 
@@ -99,9 +130,10 @@ case ${CMD} in
 	#	echo "cp plugin ventoy sucess!!!"
 	#fi
 
-	echo $PWD
+	#echo $PWD
 
-	if [ $# == 2 ];then
+	echo "yueliang:"${FILE}
+	if [ "${FILE}" != "*" ];then
 		file_name=${FILE}
 		echo "param correct"
 		echo $mount_dist_dir${file_name##*/}
@@ -118,11 +150,16 @@ case ${CMD} in
 		if [ $? -ne 0 ]
 		then
 			echo "cp failed"
-		else 
+		else              
 			echo "cp $iso_dir/${file_name} sucess!"
 		fi
 		sync
-	elif  [ $# == 1 ];then
+	else
+		if [ ! -d  $iso_dir ]
+		then
+			echo "blikvm" | sudo -S mkdir -p  $iso_dir
+			exit 1
+		fi
 		traverse_dir $iso_dir
 		for name in ${iso_file_name[@]}
 		do
@@ -145,44 +182,44 @@ case ${CMD} in
 			fi
 			sync
 		done
-	else
-		echo "sorry, param error, need one, current: $#"
-		return 1
 	fi
-	umount -f $dev_name"p1"
+	sudo umount -f $dev_name"p1"
 	sleep 3
-	losetup -d $dev_name
+	sudo losetup -d $dev_name
 	echo "blikvm" | sudo -S mount -o remount,ro /
-	touch /mnt/msd/success
+	sudo touch /mnt/msd/success
 	;;
 
 	conn)
 	cd  $ventoy_dir
-	if [ -f  "$ventoy_dir/ventoy.img_bak" ] 
+	if [ -f  $ventoy_dir/$MSD_NAME".img_bak" ] 
 	then
-		echo "blikvm" | sudo -S mv ventoy.img_bak ventoy.img
+		echo "blikvm" | sudo -S mv $MSD_NAME".img_bak" $MSD_NAME".img"
 	fi
 	bash $usb_dis_gadget_sh
 	bash $usb_gadget_sh
+	sudo touch /mnt/msd/success
 	;;
 
 	disconn)
 	cd  $ventoy_dir
-	if [ -f  "$ventoy_dir/ventoy.img" ] 
+	if [ -f  $ventoy_dir/$MSD_NAME".img" ] 
 	then
-		echo "blikvm" | sudo -S mv ventoy.img ventoy.img_bak
+		echo "blikvm" | sudo -S mv $MSD_NAME".img" $MSD_NAME".img_bak"
 	fi
 	bash $usb_dis_gadget_sh
 	bash $usb_gadget_sh
+	sudo rm -f  /mnt/msd/success
 	;;
 
 	clean)
-	if [[ -f  "$ventoy_dir/ventoy.img" || -f  "$ventoy_dir/ventoy.img_bak" ]]
+	if [[ -f  $ventoy_dir/$MSD_NAME".img" || -f  $ventoy_dir/$MSD_NAME".img_bak" ]]
 	then
-		echo "blikvm" | sudo -S rm -f $ventoy_dir/ventoy.*
+		echo "blikvm" | sudo -S rm -f $ventoy_dir/*
 	fi
 	bash $usb_dis_gadget_sh
 	bash $usb_gadget_sh
+	sudo rm -f  /mnt/msd/success
 	;;
 	*)
 	echo "unset param, please use param: make,conn,disconn..."
