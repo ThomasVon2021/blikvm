@@ -24,6 +24,7 @@ USB_CONFIG_DIR="configs/c.${USB_CONFIG_INDEX}"
 USB_ALL_CONFIGS_DIR="configs/*"
 USB_ALL_FUNCTIONS_DIR="functions/*"
 USB_MSD_DIR="/mnt/msd/ventoy"
+MSD_FILE="none.txt"
 
 modprobe libcomposite
 
@@ -146,7 +147,7 @@ fi
 mkdir -p "$USB_MASS_STORAGE_FUNCTIONS_DIR"
  
 #config msd paramter
-
+shopt -s nullglob
 if [ -d "$USB_MSD_DIR" ]
 then
 	for file in $USB_MSD_DIR/*.img
@@ -181,7 +182,7 @@ ln -s "${USB_KEYBOARD_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
 ln -s "${USB_MOUSE_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
 
 #config config.1 link
-if [ -f "$USB_MSD_DIR/$MSD_FILE" ] 
+if [ -f "$MSD_FILE" ] 
 then
 	ln -s "${USB_MASS_STORAGE_FUNCTIONS_DIR}" "${USB_CONFIG_DIR}/"
 fi
