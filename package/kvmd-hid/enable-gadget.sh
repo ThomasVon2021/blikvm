@@ -154,7 +154,7 @@ then
 		if [[ $file == *.img ]] 
 		then
 			MSD_FILE=$file
-			echo "$USB_MSD_DIR/$file" > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/file"
+			echo "$file" > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/file"
 			echo 1 > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/removable"
 			echo 0 > "${USB_MASS_STORAGE_FUNCTIONS_DIR}/lun.0/nofua"
 			#echo 0 > functions/mass_storage.0/lun.0/ro
