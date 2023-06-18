@@ -64,6 +64,7 @@ SOURCE_FILES += ../third_lib/GPIO/softPwm.c
 SOURCE_FILES += ./kvmd/blikvm_oled/blikvm_oled.c
 SOURCE_FILES += ./kvmd/blikvm_gpio/blikvm_gpio.c
 SOURCE_FILES += ./kvmd/blikvm_rtc/blikvm_rtc.c
+SOURCE_FILES += ./kvmd/blikvm_dtc/blikvm_dtc.c
 SOURCE_FILES += ./config/blikvm_config.c
 
 CC = gcc

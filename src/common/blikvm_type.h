@@ -31,6 +31,14 @@ typedef double blikvm_float64_t;
 
 typedef void blikvm_void_t;
 
-
+typedef enum
+{
+    BLI_THREAD_IDLE = 0U,
+    BLI_THREAD_INIT,
+    BLI_THREAD_START,
+    BLI_THREAD_STOP,
+    BLI_THREAD_DESTORY,
+    BLI_THREAD_MAX,
+}blikvm_thread_state_e;
 
 #endif

@@ -40,6 +40,13 @@
 #include <math.h>
 
 int OLED_0in91_test(void);
+
 int OLED_0in96_test(void);
+
+int oled_extra_show(char* buff);
+
+blikvm_int8_t oled_0in91_extra_show(blikvm_int8_t* buff);
+
+blikvm_int8_t oled_0in96_extra_show(blikvm_int8_t* buff);
 
 #endif

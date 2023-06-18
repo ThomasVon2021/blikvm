@@ -35,7 +35,7 @@
 #include <string.h> 
 
 #define TAG "OLED"
-
+static UBYTE *BlackImage = NULL;
 int OLED_0in96_test(void)
 {
     
@@ -48,7 +48,7 @@ int OLED_0in96_test(void)
     OLED_0in96_Init();
     DEV_Delay_ms(500);  
     // 0.Create a new image cache
-    UBYTE *BlackImage;
+    
     UWORD Imagesize = ((OLED_0in96_WIDTH%8==0)? (OLED_0in96_WIDTH/8): (OLED_0in96_WIDTH/8+1)) * OLED_0in96_HEIGHT;
     BLILOG_D(TAG,"Imagesize:%d\n",Imagesize);
     if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) 
@@ -109,5 +109,28 @@ int OLED_0in96_test(void)
         DEV_Delay_ms(3000); 
         Paint_Clear(BLACK);   
     }
+}
+
+blikvm_int8_t oled_0in96_extra_show(blikvm_int8_t* buff)
+{
+	blikvm_int8_t ret = -1;
+	do
+	{	
+		if(buff == NULL)
+		{
+			BLILOG_E(TAG,"buff is NULL\n");
+			break;
+		}
+		if(BlackImage == NULL)
+		{
+			BLILOG_E(TAG,"BlackImage is NULL\n");
+			break;
+		}
+		Paint_Clear(BLACK);
+		Paint_DrawString_EN(10, 12, buff, &Font12, WHITE, WHITE);
+		OLED_0in96_display(BlackImage);
+		ret = 0;
+	}while(0>1);
+	return ret;
 }
 

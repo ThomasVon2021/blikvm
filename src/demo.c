@@ -2,15 +2,20 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <signal.h>
 #include <common/blikvm_util/cJSON.h>
 #include "blikvm_server.h"
+#include "kvmd/blikvm_dtc/blikvm_dtc.h"
 #define TAG "MAIN"
 
 
+
+static blikvm_int8_t blikvm_parse_config(blikvm_int8_t* file_path);
+static void handle_signal(int signal);
+
+static blikvm_config_t g_config;
 static char* config_json_path= (char*)"/usr/bin/blikvm/package.json";
 static char* jsonFromFile(char* filename);
-static blikvm_int8_t blikvm_parse_config(blikvm_int8_t* file_path);
-static blikvm_config_t g_config;
 
 int main(int argc, char *argv[])
 {
@@ -25,6 +30,12 @@ int main(int argc, char *argv[])
     blikvm_parse_config(config_json_path);
     blikvm_init(&g_config);
     blikvm_start();
+
+    // Register Signal Handler
+    signal(SIGINT, handle_signal);
+    signal(SIGTERM, handle_signal);
+    signal(SIGKILL, handle_signal);
+    
     while (1)
     {
         usleep(10000*1000);
@@ -32,6 +43,20 @@ int main(int argc, char *argv[])
     
     return 0;
 }
+
+static void handle_signal(int signal) 
+{
+    if (signal == SIGINT) {
+        printf("get SIGINT\n");
+        blikvm_dtc_signal_sigint_handler();
+        exit(0);
+    } else if (signal == SIGTERM || signal == SIGKILL) {
+        printf("get signal:%d\n",signal);
+        blikvm_dtc_signal_sigterm_handler();
+        exit(0);
+    }
+}
+
 
 blikvm_int8_t blikvm_parse_config(blikvm_int8_t* file_path)
 {

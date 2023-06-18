@@ -1,29 +1,30 @@
-#ifndef __BLIKVM_OLED_H__
-#define __BLIKVM_OLED_H__
-
 /*******************************************************************************
  *                            CHANGE HISTORY                                   *
  *-----------------------------------------------------------------------------*
  *   <Date>   | <Version> | <Author>      |            <Description>           *
  *-----------------------------------------------------------------------------*
- * 2022-09-10 | 0.1       | Thomasvon     |                 create
+ * 2023-06-18 | 0.1       | Thomasvon     |                 create
  ******************************************************************************/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-#include "common/blikvm_type.h"
+#include "blikvm_dtc.h"
+#include "../blikvm_oled/blikvm_oled.h"
 
-typedef enum
+#include "common/blikvm_log/blikvm_log.h"
+
+#define TAG "DTC"
+
+blikvm_int8_t blikvm_dtc_signal_sigint_handler()
 {
-    OLED_SSD1306_128_32 = 0,
-    OLED_SSD1306_128_64 = 1,
-    OLED_ST7789_240_240 = 2,
-}blikvm_oled_type_e;
+    blikvm_oled_info("main exit");
+    return 0;
+}
 
-blikvm_int8_t blikvm_oled_init(blikvm_oled_type_e type);
+blikvm_int8_t blikvm_dtc_signal_sigterm_handler()
+{
+    blikvm_oled_info("rebooting");
+    return 0;
+}
 
-blikvm_int8_t blikvm_oled_start();
-
-blikvm_int8_t blikvm_oled_stop();
-
-blikvm_int8_t blikvm_oled_info(blikvm_int8_t* buff);
-
-#endif

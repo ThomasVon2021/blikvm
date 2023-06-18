@@ -60,6 +60,9 @@ def main():
         json_data['md5value'] = output.decode('utf-8')[0:32]
         with open(file_path,'w',encoding='utf8')as fp_w:
 	        json.dump(json_data,fp_w,ensure_ascii=False)
+    
+    if gArgs.platform == "h616":
+        subprocess.check_output("mv release.tar.gz release-h616-v4.tar.gz", shell = True, cwd=sh_path )
 
 if __name__ == '__main__':
     main()

@@ -35,6 +35,7 @@
 
 
 #define TAG "OLED"
+static UBYTE *BlackImage = NULL;
 
 int OLED_0in91_test(void)
 {
@@ -49,7 +50,7 @@ int OLED_0in91_test(void)
 	OLED_0in91_Clear();
 
 	// 0.Create a new image cache
-	UBYTE *BlackImage;
+	
 	UWORD Imagesize = ((OLED_0in91_WIDTH%8==0)? (OLED_0in91_WIDTH/8): (OLED_0in91_WIDTH/8+1)) * OLED_0in91_HEIGHT;
 	if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) 
 	{
@@ -97,5 +98,28 @@ int OLED_0in91_test(void)
         Paint_Clear(BLACK); 		
 	
 	}
+}
+
+blikvm_int8_t oled_0in91_extra_show(blikvm_int8_t* buff)
+{
+	blikvm_int8_t ret = -1;
+	do
+	{	
+		if(buff == NULL)
+		{
+			BLILOG_E(TAG,"buff is NULL\n");
+			break;
+		}
+		if(BlackImage == NULL)
+		{
+			BLILOG_E(TAG,"BlackImage is NULL\n");
+			break;
+		}
+		Paint_Clear(BLACK);
+		Paint_DrawString_EN(10, 12, buff, &Font12, WHITE, WHITE);
+		OLED_0in91_Display(BlackImage);
+		ret = 0;
+	}while(0>1);
+	return ret;
 }
 

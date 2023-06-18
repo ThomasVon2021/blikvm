@@ -6,6 +6,8 @@
  * 2023-05-28 | 0.1       | Thomasvon     |                 create
  ******************************************************************************/
 
+#include <string.h>
+
 #include "common/blikvm_util/blikvm_util.h"
 #include "common/blikvm_log/blikvm_log.h"
 
@@ -25,9 +27,10 @@
 #define TAG "OLED"
 #define LCD LCD_ST7789
 #define ST7789_V4_DC_PIN 260
-int width=240, height=240;
 
 
+
+static UWORD *BlackImage = NULL;
 
 int oled_240_240_run()
 {
@@ -41,7 +44,6 @@ int oled_240_240_run()
 		BLILOG_E(TAG,"init spi failed:%d\n",rc);
 	}
 
-    UWORD *BlackImage;
     UDOUBLE Imagesize = LCD_1IN3_HEIGHT*LCD_1IN3_WIDTH*2;
 	BLILOG_D(TAG,"Imagesize = %d\n",Imagesize);
     if((BlackImage = (UWORD *)malloc(Imagesize)) == NULL) 
@@ -52,6 +54,7 @@ int oled_240_240_run()
 
 	while(1) 
 	{
+
 		Paint_Clear(WHITE);
 		Paint_SetRotate(ROTATE_270);
         GUI_ReadBmp("/usr/bin/blikvm/oled_info.bmp");
@@ -120,6 +123,30 @@ int oled_240_240_run()
 		//BLILOG_D(TAG,"oled loop\n");
         sleep(3);
 	}
+}
+
+blikvm_int8_t oled_extra_show(blikvm_int8_t* buff)
+{
+	blikvm_int8_t ret = -1;
+	do
+	{	
+		if(buff == NULL)
+		{
+			BLILOG_E(TAG,"buff is NULL\n");
+			break;
+		}
+		if(BlackImage == NULL)
+		{
+			BLILOG_E(TAG,"BlackImage is NULL\n");
+			break;
+		}
+		Paint_Clear(WHITE);
+		Paint_SetRotate(ROTATE_270);
+		Paint_DrawString_EN(10, 112, buff, &Font24, WHITE, RED);
+		LCD_1IN3_Display(BlackImage);
+		ret = 0;
+	}while(0>1);
+	return ret;
 }
 
 blikvm_int8_t blikvm_backlight_close()

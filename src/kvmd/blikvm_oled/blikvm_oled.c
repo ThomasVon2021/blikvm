@@ -128,3 +128,26 @@ blikvm_int8_t blikvm_oled_close()
     } while (0>1);
     return ret;
 }
+
+blikvm_int8_t blikvm_oled_info(blikvm_int8_t* buff)
+{
+    switch (g_oled_type)
+    {
+#ifdef SSD1306
+    case OLED_SSD1306_128_32:
+        oled_0in91_extra_show(buff);
+        break;
+    case OLED_SSD1306_128_64:
+        oled_0in96_extra_show(buff);
+        break;
+#endif
+#ifdef ST7789
+    case OLED_ST7789_240_240:
+        oled_extra_show(buff);
+        break;
+#endif
+    default:
+        break;
+    }
+    return 0;
+}
