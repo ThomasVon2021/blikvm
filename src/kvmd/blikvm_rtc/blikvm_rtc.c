@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "blikvm_rtc.h"
 #include "common/blikvm_log/blikvm_log.h"
@@ -30,6 +31,7 @@ blikvm_int8_t blikvm_rtc_init()
         }
         blikvm_int8_t* reg_command = {"echo pcf8563 0x51 > /sys/class/i2c-adapter/i2c-0/new_device"};
         popen(reg_command, "r");
+        usleep(500*1000);
         popen("hwclock -f /dev/rtc1 -w", "r");
 #endif 
         ret = 0;
