@@ -19,6 +19,7 @@
 #include "st7789_oled.h"
 #define SW1 12   //GPIO 257
 #define SW2 35   //GPIO 258
+#define SW2_LED 32   //GPIO 261 ==> act
 #endif
 
 #define GPIO_CYCLE  100  //ms
@@ -33,6 +34,8 @@ typedef struct
     blikvm_uint8_t count;
     blikvm_int8_t state; // 0:low 1:high
     blikvm_int8_t triggered; 
+    blikvm_int8_t act_cycle;
+    blikvm_int8_t last_act_state;
 }blikvm_gpio_state_t;
 
 
@@ -57,6 +60,7 @@ blikvm_int8_t blikvm_gpio_init()
 
 #ifdef  VER4        
         AIOAddGPIO(SW2, GPIO_IN);
+        AIOAddGPIO(SW2_LED, GPIO_OUT);
 #endif
         g_gpio.init = 1;
         ret = 0;
@@ -128,6 +132,17 @@ static blikvm_void_t *blikvm_gpio_loop(void *_)
                 sw2.triggered = 1;
             }
         }
+        if(sw2.act_cycle == 0 )
+        {
+            AIOWriteGPIO(SW2_LED, GPIO_LOW);
+            sw2.last_act_state = GPIO_LOW;
+        }
+        else if(sw2.last_act_state != GPIO_HIGH)
+        {
+            AIOWriteGPIO(SW2_LED,  GPIO_HIGH);
+            sw2.last_act_state = GPIO_HIGH;
+        }
+        sw2.act_cycle = (sw2.act_cycle+1)%20;
 #endif
         usleep(100*1000);
     }

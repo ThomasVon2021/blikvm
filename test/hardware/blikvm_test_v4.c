@@ -22,7 +22,6 @@
 #include "blikvm_test.h"
 
 #define SW1 12   //GPIO 257
-#define SW2_LED 32   //GPIO 261
 #define BUZZ 33   //GPIO 271
 #define BUFFER_SIZE 1024
 #define TAG "TEST"
@@ -165,7 +164,6 @@ blikvm_int8_t blikvm_hardware_test()
         pthread_t blikvm_test_thread;
         AIOAddGPIO(SW1, GPIO_IN);
         AIOAddGPIO(BUZZ, GPIO_OUT);
-        AIOAddGPIO(SW2_LED, GPIO_OUT);
         ret = pthread_create(&blikvm_test_thread, NULL, blikvm_test_loop, NULL);
     } while (0>1);
     
@@ -174,8 +172,6 @@ blikvm_int8_t blikvm_hardware_test()
 
 static blikvm_void_t *blikvm_test_loop(void *_)
 {
-    blikvm_int8_t trigger_led = 0;
-
     usleep(5000*1000);
 
     while(1)
@@ -190,18 +186,6 @@ static blikvm_void_t *blikvm_test_loop(void *_)
         else
         {
             AIOWriteGPIO(BUZZ, GPIO_LOW);
-        }
-
-        //test sw2 led
-        if(trigger_led ==  0)
-        {
-            AIOWriteGPIO(SW2_LED, GPIO_HIGH);
-            trigger_led = 1;
-        }
-        else
-        {
-            AIOWriteGPIO(SW2_LED, GPIO_LOW);
-            trigger_led = 0;
         }
         
         //test uart and usb port
