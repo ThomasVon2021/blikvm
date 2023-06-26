@@ -162,8 +162,9 @@ def main():
             if os.path.exists(release_tar):   
                 cmd = "tar -zxvf " + file_name
                 output = subprocess.check_output(cmd, shell = True, cwd=download_path)
+                install_path = download_path + "release"
                 cmd = "python3 install_release.py"
-                output = subprocess.check_output(cmd, shell = True, cwd=sh_path)        
+                output = subprocess.check_output(cmd, shell = True, cwd=install_path)        
                 update_result = True
                 print("Upgrade success")
         else:
