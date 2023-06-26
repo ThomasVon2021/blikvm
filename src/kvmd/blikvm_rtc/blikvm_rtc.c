@@ -40,10 +40,6 @@ blikvm_int8_t blikvm_rtc_init()
     return ret;
 }
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 static blikvm_int8_t i2cdetect_check(blikvm_int8_t* command)
 {
     blikvm_int8_t result = -1;
