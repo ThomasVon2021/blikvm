@@ -53,3 +53,8 @@
 8. throuht web restart PC, enter BIOS, modify boot priority,set blikvm USB first.
 
 9. according to step, select operate system , format partition and install system.
+
+10. notice: need install jq tool to support modify json file
+```
+	sudo apt install jq
+```
