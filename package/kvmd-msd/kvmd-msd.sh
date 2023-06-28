@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#CMD=$1
+
+
 set -e
 
 set -x
@@ -13,6 +16,9 @@ iso_dir="/mnt/msd/user"
 mount_dist_dir="/media/blikvm/ventoy/"
 usb_gadget_sh="/usr/bin/blikvm/enable-gadget.sh"
 usb_dis_gadget_sh="/usr/bin/blikvm/disable-gadget.sh"
+msd_config_dir="/mnt/msd/user/config/"
+msd_shm_dir="/dev/shm/blikvm/"
+msd_json="msd.json"
 
 
 while getopts "c:f:s:n:" opt; do
@@ -43,6 +49,12 @@ VENTORY_SIZE=${VENTORY_SIZE:-5}
 MSD_NAME=${MSD_NAME:-"ventoy"}
 
  
+update_json() 
+{
+	sudo jq --arg key $1 --arg value $2 '.[$key] = $value' $msd_config_dir$msd_json > /home/blikvm/temp.json
+	sudo mv /home/blikvm/temp.json $msd_config_dir$msd_json
+	sudo cp $msd_config_dir$msd_json $msd_shm_dir$msd_json
+}
 
 
 traverse_dir()
@@ -76,6 +88,17 @@ check_suffix()
 	# fi    
 }
 
+if [ ! -d $msd_config_dir ]
+then
+	mkdir -p $msd_config_dir
+fi
+if [ ! -f  $msd_config_dir$msd_json ] 
+then
+	sudo touch $msd_config_dir$msd_json
+	sudo echo '{"msd_status": "not_connected","msd_img_created": false}' | jq '.' > $msd_config_dir$msd_json
+
+fi
+
 case ${CMD} in
 	make)
 #	if [ $# -gt 2 ]
@@ -85,24 +108,20 @@ case ${CMD} in
 
 	echo "blikvm" | sudo -S mount -o remount,rw /
 
-
-	
-	if [ ! -d  $ventoy_dir ]
+	if [ -f  "$ventoy_dir/"$MSD_NAME".img" ] 
 	then
-		echo "blikvm" | sudo -S mkdir -p  $ventoy_dir
+		echo "update file exist"
+		cd  $ventoy_dir
+	else
+		if [ ! -d  $ventoy_dir ]
+		then
+			echo "blikvm" | sudo -S mkdir -p  $ventoy_dir
+		fi
+		cd  $ventoy_dir
+		echo "update file not exist,please wait..."
+		
+		sudo dd if=/dev/zero of=$MSD_NAME".img" bs=1M count=$((VENTORY_SIZE*1024)) status=progress;
 	fi
-	
-	cd  $ventoy_dir
-	
-	for file in *.img
-	do
-		sudo rm -f $file
-	done
-	
-	echo "update file not exist,please wait..."
-	
-	sudo dd if=/dev/zero of=$MSD_NAME".img" bs=1M count=$((VENTORY_SIZE*1024)) status=progress;
-	
 
 	echo "blikvm" | sudo -S losetup -f $MSD_NAME".img"
 
@@ -186,8 +205,10 @@ case ${CMD} in
 	sudo umount -f $dev_name"p1"
 	sleep 3
 	sudo losetup -d $dev_name
-	echo "blikvm" | sudo -S mount -o remount,ro /
-	sudo touch /mnt/msd/success
+
+	update_json  msd_img_created true 
+	sudo mount -o remount,ro /
+
 	;;
 
 	conn)
@@ -198,7 +219,7 @@ case ${CMD} in
 	fi
 	bash $usb_dis_gadget_sh
 	bash $usb_gadget_sh
-	sudo touch /mnt/msd/success
+	update_json msd_status connected
 	;;
 
 	disconn)
@@ -209,7 +230,7 @@ case ${CMD} in
 	fi
 	bash $usb_dis_gadget_sh
 	bash $usb_gadget_sh
-	sudo rm -f  /mnt/msd/success
+	update_json msd_status not_connected
 	;;
 
 	clean)
@@ -219,7 +240,6 @@ case ${CMD} in
 	fi
 	bash $usb_dis_gadget_sh
 	bash $usb_gadget_sh
-	sudo rm -f  /mnt/msd/success
 	;;
 	*)
 	echo "unset param, please use param: make,conn,disconn..."
