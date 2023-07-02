@@ -240,6 +240,8 @@ case ${CMD} in
 	fi
 	bash $usb_dis_gadget_sh
 	bash $usb_gadget_sh
+	update_json  msd_img_created false 
+	update_json msd_status not_connected
 	;;
 	*)
 	echo "unset param, please use param: make,conn,disconn..."
