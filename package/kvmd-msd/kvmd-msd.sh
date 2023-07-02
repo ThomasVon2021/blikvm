@@ -219,7 +219,7 @@ case ${CMD} in
 	fi
 	bash $usb_dis_gadget_sh
 	bash $usb_gadget_sh
-	update_json msd_status connected
+	update_json msd_status created
 	;;
 
 	disconn)
@@ -240,7 +240,7 @@ case ${CMD} in
 	fi
 	bash $usb_dis_gadget_sh
 	bash $usb_gadget_sh
-	update_json  msd_img_created false 
+	update_json  msd_img_created not_created 
 	update_json msd_status not_connected
 	;;
 	*)
