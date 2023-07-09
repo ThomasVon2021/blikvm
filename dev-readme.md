@@ -226,6 +226,9 @@ cd /opt/bin/blikvm/package/kvmd-oled
 # Install the fan service
 cd /opt/bin/blikvm/package/kvmd-fan
 ./install-kvmd-fan.sh
+
+# Copy the package.json file
+cp /opt/bin/blikvm/src/config/package.json /usr/bin/blikvm
 ```
 
 # Reboot
