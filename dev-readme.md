@@ -30,6 +30,7 @@ pip install adafruit-circuitpython-ssd1306
 cd /opt/bin
 apt install git
 git clone https://github.com/ThomasVon2021/blikvm.git
+git submodule update --init --recursive
 cd blikvm/src
 make
 # For ARM based systems (like the Raspberry Pi), use:
