@@ -1,4 +1,5 @@
-# Raspberry base system
+# Raspberry Pi system specification under test
+
 - Raspberry Pi OS Lite
 - Release date: 20230201
 - System: 64-bit
