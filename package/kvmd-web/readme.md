@@ -1,16 +1,16 @@
-# install kvmd ustreamer
+# Install kvmd web
 
-1、if you want to disable fan
+1. If you want to disable kvmd-web
 ```
 systemctl disable kvmd-web
 ```
 
-2、if you want to start fan
+2. If you want to start kvmd-web
 ```
 systemctl enable kvmd-web
 ```
 
-3、if you want to see the fan work status
+3. If you want to see the kvmd-web status
 ```
 systemctl status kvmd-web
 ```
