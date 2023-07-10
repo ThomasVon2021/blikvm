@@ -1,28 +1,31 @@
-# install kvmd ustreamer
-## Points to be optimized
-When starting ustreamer, you need to start http. If the network card is not successfully started at this time, the binding address will fail, which will lead to the failure of the startup of ustreamer. At present, the strategy is that the startup of ustreamer is delayed for a total of 21 seconds, which is not robust. Everyone has a better solution, welcome to PR.
+# Install kvmd ustreamer
 
-1、if you use pikvm image, login as root
+## Points to be optimized
+
+When starting ustreamer, you need to start http. If the network card is not successfully started at this time, the binding address will fail, which will lead to the failure of the startup of ustreamer. At present, the strategy is that the startup of ustreamer is delayed for a total of 100 seconds, which is not robust. Everyone has a better solution, welcome to PR.
+
+1. Install the ustream service
+
 ```
-su -
-rw
 git clone https://github.com/ThomasVon2021/blikvm.git
 cd blikvm/package/ustreamer
-bash install.sh
-ro
+sudo bash install-ustreamer.sh
 ```
 
-2、if you want to disable fan
+2. If you want to disable ustreamer service
+
 ```
 systemctl disable kvmd-video
 ```
 
-3、if you want to start fan
+3. If you want to start ustreamer service
+
 ```
 systemctl enable kvmd-video
 ```
 
-4、if you want to see the fan work status
+4. If you want to see the ustreamer service status
+
 ```
 systemctl status kvmd-video
 ```
