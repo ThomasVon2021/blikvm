@@ -1,4 +1,5 @@
-# base raspberry system
+# Raspberry Pi system specification under test
+
 - Raspberry Pi OS Lite
 - Release date: 20230201
 - System: 64-bit
@@ -6,11 +7,12 @@
 - Debian version: 11 (bullseye)
 
 # Main
+
 ```
 sudo -i
-mkdir /opt/bin
+mkdir -p /opt/bin
 
-#install wiringpi
+# install wiringpi
 #need to enable I2C on hardware(use raspi-config)
 git clone https://github.com/WiringPi/WiringPi.git
 ./build
@@ -25,16 +27,20 @@ git clone https://github.com/WiringPi/WiringPi.git
 sudo apt install -y python3-pip
 pip install adafruit-circuitpython-ssd1306
 
-
 cd /opt/bin
 apt install git
 git clone https://github.com/ThomasVon2021/blikvm.git
+git submodule update --init --recursive
 cd blikvm/src
 make
+# For ARM based systems (like the Raspberry Pi), use:
+#make RPI=1 SSD1306=1
 ```
 
+# Janus
 
-# janus
+Install dependencies:
+
 ```
 sudo apt install libmicrohttpd-dev libjansson-dev \
     libssl-dev libsrtp2-dev libsofia-sip-ua-dev libglib2.0-dev \
@@ -42,18 +48,26 @@ sudo apt install libmicrohttpd-dev libjansson-dev \
     libconfig-dev pkg-config libtool automake libnice-dev
 
 sudo apt-get install build-essential libspeex-dev libspeexdsp-dev libpulse-dev
+```
 
+Clone and install libwebsockets:
+
+```
 git clone https://libwebsockets.org/repo/libwebsockets
 cd libwebsockets
 # If you want the stable version of libwebsockets, uncomment the next line
-# git checkout v3.2-stable
+# git checkout v4.3-stable
 mkdir build
 cd build
 # See https://github.com/meetecho/janus-gateway/issues/732 re: LWS_MAX_SMP
 # See https://github.com/meetecho/janus-gateway/issues/2476 re: LWS_WITHOUT_EXTENSIONS
 cmake -DLWS_MAX_SMP=1 -DLWS_WITHOUT_EXTENSIONS=0 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DCMAKE_C_FLAGS="-fpic" ..
 make && sudo make install
+```
 
+Clone and install Janus:
+
+```
 cd /opt/bin
 
 git clone https://github.com/meetecho/janus-gateway.git
@@ -67,14 +81,19 @@ make install
 make configs
 ```
 
-# ustreamer
-```
-apt-get install libasound2-dev
+# µStreamer
+
+Additional required dependencies for µStreamer:
+
+```bash
+apt-get install -y libasound2-dev
 ```
 
-```
+Clone and compile µStreamer:
+
+```bash
 cd /opt/bin
-apt install build-essential libevent-dev libjpeg-dev libbsd-dev
+apt install -y build-essential libevent-dev libjpeg-dev libbsd-dev
 git clone --depth=1 https://github.com/pikvm/ustreamer
 cd ustreamer
 
@@ -87,48 +106,62 @@ sed \
 make WITH_JANUS=1
 ```
 
-The WITH\_JANUS option compiles the µStreamer Janus plugin and outputs it to janus/libjanus\_ustreamer.so. Move this file to the plugin directory of your Janus installation.
+With the `WITH_JANUS` option you compile the µStreamer Janus plugin and outputs is at: `janus/libjanus_ustreamer.so`. Move this file to the plugin directory of your Janus installation.
 
-```
+```bash
 mv \
   janus/libjanus_ustreamer.so \
   /opt/janus/lib/janus/plugins/libjanus_ustreamer.so
 ```
 
-Finally, specify a qualifier for the shared memory object so that the µStreamer Janus plugin can read µStreamer's video data.
+Finally, create a configuration file for the shared memory object, so that the µStreamer Janus plugin can read µStreamer's video data.
 
-```
-vim /opt/janus/etc/janus/janus.plugin.ustreamer.jcfg
+```bash
+nano /opt/janus/etc/janus/janus.plugin.ustreamer.jcfg
 #add 
 memsink: {
   object = "demo::ustreamer::h264"
 }
 ```
 
-# web
+# Prepare web server
 
+Install dependencies:
+
+```bash
+apt install -y libcurl4-openssl-dev
 ```
-apt install -y vim libcurl4-openssl-dev
+
+Install PHP (see below for PHP v8.2):
+
+```bash
 apt install -y  php7.4-bz2 php7.4-cli php7.4-curl php7.4-dev php7.4-json php7.4-mbstring php7.4-xml php7.4-zip php7.4-mysql
+```
+
+Or when PHP v8.2 is available on your system use:
+
+```bash
+apt install -y php8.2-bz2 php8.2-cli php8.2-curl php8.2-dev php8.2-mbstring php8.2-xml php8.2-zip php8.2-mysql
 ```
 
 Optionally, if you would like to change the timezone, edit the `php.ini` file:
 
-```
-vim /etc/php/7.4/cli/php.ini
+```bash
+nano /etc/php/7.4/cli/php.ini
 ```
 
 Look for `timezone` there and uncomment or add your timezone, for example:
-```
+
+```ini
 date.timezone = Asia/Shanghai
 ```
 
 Install `pecl` and install `swoole` and `inotify` with it:
 
-```
+```bash
 apt install php-pear
 
-pecl install http://pecl.php.net/get/swoole-4.8.9.tgz
+pecl install http://pecl.php.net/get/swoole-5.0.3.tgz
 #all is yes
 echo "extension=swoole.so" > /etc/php/7.4/cli/conf.d/swoole.ini
 
@@ -136,23 +169,28 @@ pecl install inotify
 echo "extension=inotify.so" > /etc/php/7.4/cli/conf.d/inotify.ini
 ```
 
-## webclient
+## Web client
 
 Install NodeJS first:
-```
-curl -fsSL https://deb.nodesource.com/setup_18.x | bash - &&\
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - &&\
 apt-get install -y nodejs
 ```
 
-```
+Then go the `package/blikvm-webclient` folder and execute:
+
+```bash
 npm install
-npm run serve
+npm run serve # If you wish to run/test development
 npm run build
 ```
 
-# Config in raspberry 
-in the /boot/config.txt end, add the following content
-```
+# Config overlays in Raspberry Pi
+
+In the` /boot/config.txt` end, add the following content:
+
+```conf
 dtoverlay=tc358743
 dtoverlay=tc358743-audio
 dtoverlay=dwc2
@@ -160,16 +198,41 @@ dtoverlay=dwc2
 
 # Install kvmd services
 
-```
-for service in fan hid main oled web
-do
-    cd /opt/bin/blikvm/package/kvmd-$service
-    bash install.sh
-done
+```bash
+# Install the main controller service
+cd /opt/bin/blikvm/package/kvmd-main
+./install-kvmd-main.sh
+
+# Install the ustreamer service
+cd /opt/bin/blikvm/package/ustreamer
+./install-ustreamer.sh 
+
+# Install the HID service
+cd /opt/bin/blikvm/package/kvmd-hid
+./install-kvmd-hid.sh
+
+# Install the web service
+cd /opt/bin/blikvm/package/kvmd-web
+./install-kvmd-web.sh
+
+# Install the MSD service
+cd /opt/bin/blikvm/package/kvmd-msd
+./install-kvmd-msd.sh
+
+# Install the OLED service
+cd /opt/bin/blikvm/package/kvmd-oled
+./install-kvmd-oled.sh
+
+# Install the fan service
+cd /opt/bin/blikvm/package/kvmd-fan
+./install-kvmd-fan.sh
+
+# Copy the package.json file
+cp /opt/bin/blikvm/src/config/package.json /usr/bin/blikvm
 ```
 
 # Reboot
 
-```
+```bash
 sudo systemctl reboot
 ```
