@@ -51,8 +51,8 @@ MSD_NAME=${MSD_NAME:-"ventoy"}
  
 update_json() 
 {
-	sudo jq --arg key $1 --arg value $2 '.[$key] = $value' $msd_config_dir$msd_json > /home/blikvm/temp.json
-	sudo mv /home/blikvm/temp.json $msd_config_dir$msd_json
+	sudo jq --arg key $1 --arg value $2 '.[$key] = $value' $msd_config_dir$msd_json > /mnt/msd/config/temp.json
+	sudo mv /mnt/msd/config/temp.json $msd_config_dir$msd_json
 	sudo cp $msd_config_dir$msd_json $msd_shm_dir$msd_json
 }
 
@@ -219,7 +219,7 @@ case ${CMD} in
 	fi
 	bash $usb_dis_gadget_sh
 	bash $usb_gadget_sh
-	update_json msd_status created
+	update_json msd_status connected
 	;;
 
 	disconn)
