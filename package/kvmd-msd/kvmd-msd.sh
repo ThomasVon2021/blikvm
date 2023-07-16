@@ -95,7 +95,7 @@ fi
 if [ ! -f  $msd_config_dir$msd_json ] 
 then
 	sudo touch $msd_config_dir$msd_json
-	sudo echo '{"msd_status": "not_connected","msd_img_created": false}' | jq '.' > $msd_config_dir$msd_json
+	sudo echo '{"msd_status": "not_connected","msd_img_created": not_created}' | jq '.' > $msd_config_dir$msd_json
 
 fi
 
@@ -206,7 +206,7 @@ case ${CMD} in
 	sleep 3
 	sudo losetup -d $dev_name
 
-	update_json  msd_img_created true 
+	update_json  msd_img_created created 
 	sudo mount -o remount,ro /
 
 	;;
