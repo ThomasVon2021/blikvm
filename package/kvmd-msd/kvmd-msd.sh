@@ -95,7 +95,7 @@ fi
 if [ ! -f  $msd_config_dir$msd_json ] 
 then
 	sudo touch $msd_config_dir$msd_json
-	sudo echo '{"msd_status": "not_connected","msd_img_created": not_created}' | jq '.' > $msd_config_dir$msd_json
+	sudo echo '{"msd_status": "not_connected","msd_img_created": "not_created"}' | jq '.' > $msd_config_dir$msd_json
 
 fi
 
