@@ -2,3 +2,5 @@
 .vscode
 # Ignore log directory
 blikvm_log/
+# Ignore binary
+kvmd-main
