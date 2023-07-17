@@ -1,2 +1,4 @@
 .DS_Store
 .vscode
+# Ignore log directory
+blikvm_log/
