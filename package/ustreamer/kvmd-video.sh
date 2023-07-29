@@ -61,7 +61,23 @@ if [[ "$board_type" == "$v2_hat" ]] || [[ "$board_type" == "$v3_pcie" ]]; then
     v4l2-ctl --set-dv-bt-timings query
     /usr/bin/blikvm/ustreamer.bin --device=/dev/video0 --persistent --dv-timings --format=uyvy --encoder=omx --workers=3 --quality=80 --desired-fps=30 --drop-same-frames=30 --last-as-blank=0 --h264-sink=demo::ustreamer::h264
 elif [[ "$board_type" == "$v4_h616" ]]; then
-    /usr/bin/blikvm/ustreamer.bin --format=MJPEG --device=/dev/video1 --resolution=1920x1080 --host=0.0.0.0 --port=8008
+  # init device var
+  jpeg_supported_device=""
+  # ergodic /dev/video device
+  for device in /dev/video*; do
+    # check support JPEG
+    if v4l2-ctl --list-formats-ext -d "$device" | grep -q "JPEG"; then
+        jpeg_supported_device="$device"
+        break  # find JPEG device
+    fi
+  done
+  if [ -n "$jpeg_supported_device" ]; then
+      echo "find support JPEG video divice: $jpeg_supported_device"
+      /usr/bin/blikvm/ustreamer.bin --format=MJPEG --device=$jpeg_supported_device --resolution=1920x1080 --host=0.0.0.0 --port=8008 --drop-same-frames=30
+  else
+      echo "not find JPEG video device, use video1"
+      /usr/bin/blikvm/ustreamer.bin --format=MJPEG --device=/dev/video1 --resolution=1920x1080 --host=0.0.0.0 --port=8008 --drop-same-frames=30
+  fi
 else
   echo "Unknown board type. No action performed."
 fi
