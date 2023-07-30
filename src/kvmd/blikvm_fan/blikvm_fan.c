@@ -10,9 +10,7 @@
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <fcntl.h>
-
-// #include "wiringPi.h"    
+#include <fcntl.h>   
 #include "softPwm.h"    
 
 #include "blikvm_fan.h"
@@ -23,7 +21,16 @@
 #define TEMP_PATH "/sys/class/thermal/thermal_zone0/temp"
 #define MAX_SIZE 32
 
+#ifdef  RPI
 #define FAN_PIN 32  // BCM
+#endif
+
+#ifdef  H616
+#define FAN_PIN 15  // BCM269
+#endif
+
+#define TEMP_LEFT_LIMIT 55  //C
+#define TEMP_RIGHT_LIMIT 60  //C 
 
 typedef struct 
 {
@@ -32,8 +39,6 @@ typedef struct
     blikvm_int32_t socket;
     blikvm_domainsocket_addr_t socket_addr;
 }blikvm_fan_t;
-
-
 
 static blikvm_fan_t g_fan = {0};
 //static blikvm_domainsocker_rev_t g_rev_buff = {0};
@@ -104,11 +109,6 @@ blikvm_int8_t blikvm_fan_init()
         }
         g_fan.socket_addr.send_addr_len = sizeof(g_fan.socket_addr.send_addr);
 
-        
-        //BliKVM V4 don't have a fan.
-        #ifdef H616
-            return ret;
-        #endif
         //init gpio control
         softPwmCreate(FAN_PIN,0,100); //当前pwmRange为100，频率为100Hz，若pwmRange为50时，频率为200，若pwmRange为2时，频率为5000。
 	    softPwmWrite(FAN_PIN,50); //占空比 = value/pwmRange，当前占空比 = 50/100 = 50%
@@ -127,10 +127,6 @@ blikvm_int8_t blikvm_fan_start()
     pthread_t blikvm_fan_thread_monitor;
     do
     {
-        #ifdef H616
-            BLILOG_I(TAG,"don't need fan\n");
-            return 0;
-        #endif
         if(g_fan.init != 1)
         {
             BLILOG_E(TAG,"not init\n");
@@ -205,11 +201,11 @@ static blikvm_void_t *blikvm_fan_loop(void *_)
             // 关闭文件
             close(fd);
 
-            if(temp > 60.0 || (temp > 55 && fan_enable == 1))
+            if(temp > TEMP_RIGHT_LIMIT || (temp > TEMP_LEFT_LIMIT && fan_enable == 1))
             {
                 fan_enable = 1;
                 Duty = GetDuty(temp);
-                softPwmWrite(FAN_PIN,Duty);
+                softPwmWrite(FAN_PIN, Duty);
                 BLILOG_D(TAG,"temp: %.2f,Duty: %d\n", temp, Duty);
             }
             else
@@ -218,46 +214,35 @@ static blikvm_void_t *blikvm_fan_loop(void *_)
                 softPwmWrite(FAN_PIN,0);
             }
 
-            // blikvm_int32_t ret = recvfrom(g_fan.socket,(void *)g_rev_buff.recvBuf,DEFAULT_BUF_LEN,
-            // 0,(struct sockaddr *)&(g_fan.socket_addr.send_addr), &(g_fan.socket_addr.send_addr_len));
-            // if( ret == 1U)
-            // {
-                // blikvm_uint8_t fan_open = g_rev_buff.recvBuf[0] & 0x01;
-                // blikvm_uint8_t fan_speed =  g_rev_buff.recvBuf[0] >> 1;
-                blikvm_uint8_t state[1];
-                blikvm_uint8_t last_state[1];
-                blikvm_int32_t ret_len;
-                if(state != last_state)
+            blikvm_uint8_t state[1];
+            blikvm_uint8_t last_state[1];
+            blikvm_int32_t ret_len;
+            if(state != last_state)
+            {
+                g_fan.fp = fopen("/dev/shm/blikvm/fan","wb+");
+                switch (fan_enable)
                 {
-                    g_fan.fp = fopen("/dev/shm/blikvm/fan","wb+");
-                    switch (fan_enable)
-                    {
-                        case 1U:                 
-                            state[0] = 0b10000000;                        
-                        break;
-                        case 0U:
-                            state[0] = 0b00000000;
-                        break;
-                        default:
-                            BLILOG_E(TAG,"fan get error open value:%d\n",fan_enable);
-                        break;
-                    }
-                    
-                    ret_len = fwrite(state, sizeof(state) , 1, g_fan.fp);
-                    if(ret_len > 0)
-                    {
-                        BLILOG_D(TAG,"write ok: %d sizeof state:%d\n",ret_len,sizeof(state));
-                    }
-                    fflush(g_fan.fp);
-                    fclose(g_fan.fp);
-                    last_state[0] = state[0];
+                    case 1U:                 
+                        state[0] = 0b10000000;                        
+                    break;
+                    case 0U:
+                        state[0] = 0b00000000;
+                    break;
+                    default:
+                        BLILOG_E(TAG,"fan get error open value:%d\n",fan_enable);
+                    break;
                 }
                 
-            // }
-            // else
-            // {
-            //     BLILOG_E(TAG,"recv error len:%d\n",ret);
-            // }
+                ret_len = fwrite(state, sizeof(state) , 1, g_fan.fp);
+                if(ret_len > 0)
+                {
+                    BLILOG_D(TAG,"write ok: %d sizeof state:%d\n",ret_len,sizeof(state));
+                }
+                fflush(g_fan.fp);
+                fclose(g_fan.fp);
+                last_state[0] = state[0];
+            }
+                
             sleep(10);
         }
     } while (0>1);
