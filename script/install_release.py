@@ -26,6 +26,7 @@ def execute_cmd(cmd,sh_path):
         print("error code:",code, out_bytes)
 
 def main():
+    print("start install")
     global gArgs
     doArgParse()
     sh_path = os.path.split(os.path.realpath(__file__))[0]
@@ -37,7 +38,7 @@ def main():
     print('kill main done')
 
     # kill kvmd-web
-    cmd = "ps -aux | grep kvmd-web | grep -v grep"
+    cmd = "ps -aux | grep kvmlink | grep -v grep"
     execute_cmd(cmd,sh_path)
     print('kill web done')
 
@@ -51,10 +52,7 @@ def main():
         cmd = "bash install-kvmd-main.sh && bash install-ustreamer.sh && bash install-kvmd-hid.sh \
         && bash install-kvmd-web.sh && bash install-kvmd-msd.sh && cp package.json /usr/bin/blikvm/package.json"
         subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
-        # cmd = "cp package.json /usr/bin/kvm_json/package.json"
-        # subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
-        # cmd = "reboot"
-        # subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
+        print('install new version successful')
     else:
         print(gArgs.releasepath, ' not exit')
 
