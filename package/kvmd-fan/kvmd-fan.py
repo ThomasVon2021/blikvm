@@ -24,11 +24,11 @@ try:
 		cpu_temp = int(tmpFile.read())/1000
 		tmpFile.close()
 		print("Temp:",cpu_temp)
-		if (cpu_temp >= 60) or (cpu_temp > min_temp): 
+		if (cpu_temp >= max_temp) or (cpu_temp > min_temp): 
 			if(not running): #if fan not running, start fan
 				pwm.start(0)
 				running = True
-			if (cpu_temp >= 60): #For safety, temp exceeds 60 degrees, the fan speed is always set to 100%.
+			if (cpu_temp >= max_temp): #For safety, temp exceeds 60 degrees, the fan speed is always set to 100%.
 				set_speed = 100
 			else:
 				temp_speed = int((cpu_temp - min_temp) / (max_temp - min_temp) * 100) # set 0~100% for min and max temp ranges
