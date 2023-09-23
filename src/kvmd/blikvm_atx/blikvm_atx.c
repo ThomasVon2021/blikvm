@@ -185,7 +185,7 @@ static blikvm_void_t *blikvm_atx_loop(void *_)
                         break;
                     case ATX_LONG:
                         AIOWriteGPIO(PIN_POWER, GPIO_HIGH);
-                        usleep(2000*1000);
+                        usleep(5000*1000);
 		                AIOWriteGPIO(PIN_POWER, GPIO_LOW);
                         BLILOG_D(TAG,"atx power off\n");
                         break;

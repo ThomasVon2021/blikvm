@@ -24,10 +24,10 @@
 
 ## Features
 
-- Support Raspberry Pi 4B and CM4, PCIe card.
 - **Video capture** (HDMI/DVI/VGA)
 - **Keyboard forwarding**
 - **Mouse forwarding**
+- **Mass Storage Drive**
 - **ATX** Control the server power using ATX functions
 - **Fullscreen mode**
 - Access via **Web UI**
@@ -46,10 +46,15 @@
 - Download [BLIKVM OS](https://wiki.blicube.com/blikvm/en/flashing_os/).
 
 ## Purchase
+- [Purchase - BliKVM CM4 v1 Version](https://www.aliexpress.com/item/1005003262886521.html)
+- [Purchase - BliKVM HAT v3  Version](https://www.aliexpress.com/item/1005004377930400.html)
+- [Purchase - BliKVM PCIe v2 version](https://www.aliexpress.com/item/1005004572837650.html)
+- [Purchase - BliKVM Allwinner v4 Version](https://www.aliexpress.com/item/3256805673100994.html)
 
-- [Purchase - BliKVM CM4 Version](https://www.aliexpress.com/item/1005003262886521.html)
-- [Purchase - BliKVM HAT Version](https://www.aliexpress.com/item/1005004377930400.html)
-- [Purchase - BliKVM PCIe version](https://www.aliexpress.com/item/1005004572837650.html)
+## Other Purchase Links
+- [Purchase - PiKVM ATX Power Adaptor](https://www.aliexpress.com/item/1005003761450893.html)
+- [Purchase - PiKVM USB Splitter](https://www.aliexpress.com/item/1005003793429781.html)
+- [Purchase - PiKVM HDMI to CSI Board](https://www.aliexpress.com/item/1005002861310912.html)
 
 ## Videos
 
@@ -67,11 +72,13 @@ Front and backend separation software architecture:
 ![](/images/docs_image/arch.drawio.png)
 See more in the [dev-readme](dev-readme.md) file.
 
-## Other Purchase Links
+## Reporting a Bug & Requesting a New Feature
+  If you encounter an issue while using the project or discover a bug, or you have a new feature request or improvement suggestion, please raise an issue. We welcome your suggestions as they help us continuously improve the project and cater to more user needs.
 
-- [Purchase - PiKVM ATX Power Adaptor](https://www.aliexpress.com/item/1005003761450893.html)
-- [Purchase - PiKVM USB Splitter](https://www.aliexpress.com/item/1005003793429781.html)
-- [Purchase - PiKVM HDMI to CSI Board](https://www.aliexpress.com/item/1005002861310912.html)
+## Donate
+This project is developed by Open Source enthusiasts. If you find BliKVM useful or it has saved you a long trip to check on an unresponsive server, you can support us by donating a few dollars on [Patreon](https://www.patreon.com/blikvm) or [Paypal](https://www.paypal.me/blikvm) or buying our devices. With this money, we will be able to buy new hardware (Raspberry Pi boards and other components) to test and maintain various configurations of BliKVM, and generally devote significantly more time to the project. At the bottom of this page are the names of all the people who have helped this project develop with their donations. Our gratitude knows no bounds!
+
+If you wish to use BliKVM in production, we accept orders to modify it for your needs or implement custom features you require. Contact us via [live chat](https://discord.gg/9Y374gUF6C) or email: info@blicube.com.
 
 ## Acknowledgments
 
