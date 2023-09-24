@@ -19,7 +19,7 @@ resize_mmcblk0p3() {
   echo "Resizing mmcblk0p3 partition..."
   umount /dev/mmcblk0p3
   parted -s /dev/mmcblk0 resizepart 3 100%
-  e2fsck -f /dev/mmcblk0p3
+  e2fsck -fy /dev/mmcblk0p3
   resize2fs /dev/mmcblk0p3
   mount /dev/mmcblk0p3
   echo "mmcblk0p3 partition resized successfully."

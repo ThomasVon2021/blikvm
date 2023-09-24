@@ -29,6 +29,7 @@
 - **Mouse forwarding**
 - **Mass Storage Drive**
 - **ATX** Control the server power using ATX functions
+- Wake-on-LAN
 - **Fullscreen mode**
 - Access via **Web UI**
 - Support **multi language** switching

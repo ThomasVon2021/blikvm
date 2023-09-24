@@ -1,5 +1,5 @@
 [Unit]
-Description=BLIKVM - main controller daemon
+Description=BLIKVM - expand controller daemon
 After=kvmd-main.service
 
 [Service]
