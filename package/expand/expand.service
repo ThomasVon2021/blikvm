@@ -1,0 +1,15 @@
+[Unit]
+Description=BLIKVM - main controller daemon
+After=kvmd-main.service
+
+[Service]
+Type=simple
+User=root
+ExecStartPre=/bin/sleep 3
+ExecStart=/usr/bin/blikvm/expand.sh
+TimeoutStartSec=13s
+RemainAfterExit=true
+Restart=always
+
+[Install]
+WantedBy=local-fs.target

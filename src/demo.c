@@ -15,7 +15,7 @@ static blikvm_config_t g_config;
 int main(int argc, char *argv[])
 {
     
-    blikvm_uint8_t log_path[] = "/mnt/blilog";
+    blikvm_uint8_t log_path[] = "/tmp/";
     g_config.log.enable[0] = 1;
     g_config.log.level = 4U;
     g_config.log.channel = BLI_LOG_CHANNEL_CONSOLE | BLI_LOG_CHANNEL_FILE;
