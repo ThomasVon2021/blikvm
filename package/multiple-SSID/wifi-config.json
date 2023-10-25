@@ -1,0 +1,17 @@
+[
+    {
+    "SSID": "thomas",
+    "Password": "12345679",
+    "IP": "180.101.50.188"
+    },
+    {
+    "SSID": "ziroom403A",
+    "Password": "ziroomer002",
+    "IP": "180.101.50.188"
+    },
+    {
+    "SSID": "YourSSID3",
+    "Password": "YourPassword3",
+    "IP": "180.101.50.188"
+    }
+]

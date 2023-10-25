@@ -1,0 +1,13 @@
+[Unit]
+Description=BLIKVM - mul wifi  controller daemon
+After=network.target syslog.target
+
+[Service]
+Type=oneshot
+User=root
+ExecStartPre=/bin/sleep 5
+ExecStart=/usr/bin/blikvm/mul-wifi.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=local-fs.target
