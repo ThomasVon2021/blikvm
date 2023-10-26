@@ -3,6 +3,7 @@ First install network-manager.
 ```
 apt install network-manager
 systemctl enable NetworkManager
+systemctl start NetworkManager
 ```
 Fisrt, you should config the wifi-config.json. Make sure the mul-wifi.py and wifi-config.json in the same path. You can run by manual, like
 ```
@@ -28,3 +29,4 @@ if you want to disable
 ```
 systemctl disable kvmd-mul-wifi
 ```
+
