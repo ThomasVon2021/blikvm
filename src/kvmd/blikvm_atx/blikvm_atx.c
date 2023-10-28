@@ -53,6 +53,8 @@ static blikvm_domainsocker_rev_t g_rev_buff = {0};
 static blikvm_void_t *blikvm_atx_loop(void *_);
 static blikvm_void_t *blikvm_atx_monitor(void *_);
 static blikvm_uint8_t blikvm_read_atx_state();
+static blikvm_int32_t g_atx_power_on_dalay = 500; 
+static blikvm_int32_t g_atx_power_off_dalay = 3000; 
 
 blikvm_int8_t blikvm_atx_init()
 {
@@ -179,13 +181,13 @@ static blikvm_void_t *blikvm_atx_loop(void *_)
                 {
                     case ATX_SHORT:
                         AIOWriteGPIO(PIN_POWER, GPIO_HIGH);
-                        usleep(500*1000);
+                        usleep(g_atx_power_on_dalay*1000);
                         AIOWriteGPIO(PIN_POWER, GPIO_LOW);
                         BLILOG_D(TAG,"atx power on\n");
                         break;
                     case ATX_LONG:
                         AIOWriteGPIO(PIN_POWER, GPIO_HIGH);
-                        usleep(5000*1000);
+                        usleep(g_atx_power_off_dalay*1000);
 		                AIOWriteGPIO(PIN_POWER, GPIO_LOW);
                         BLILOG_D(TAG,"atx power off\n");
                         break;
@@ -288,4 +290,22 @@ blikvm_int8_t blikvm_atx_test()
         
     }while(0>1);
     return ret;
+}
+
+blikvm_int8_t blikvm_atx_set_power_on_dalay(blikvm_int32_t time)
+{
+    if(time > 0)
+    {
+        g_atx_power_on_dalay = time;
+    }
+    return 0;
+}
+
+blikvm_int8_t blikvm_atx_set_power_off_dalay(blikvm_int32_t time)
+{
+    if(time > 0)
+    {
+        g_atx_power_off_dalay = time;
+    }
+    return 0;
 }

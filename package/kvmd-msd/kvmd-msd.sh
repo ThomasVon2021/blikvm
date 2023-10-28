@@ -8,7 +8,7 @@ fi
 
 usage() {
     set +x
-    echo "usage:  $0 -c [make|conn|disconn|clean] -f filename.iso -s integer_number -n MSD_NAME"
+    echo "usage:  $0 -c [make|conn|disconn|clean|delete] -f filename.iso -s integer_number -n MSD_NAME"
     echo "
 without -f filename.iso   defaults to all /mnt/msd/user/*.iso files
 without -s 5              defaults to 5 (GB) as the filesize (example: 1 2 3 4 5 6 7 8 9 10)
@@ -162,7 +162,7 @@ case ${CMD} in
 
         #echo $PWD
 
-        echo "yueliang:"${FILE}
+        echo ${FILE}
         if [ "${FILE}" != "*" ];then
                 file_name=${FILE}
                 echo "param correct"
@@ -252,6 +252,15 @@ case ${CMD} in
         bash $usb_gadget_sh
         update_json  msd_img_created not_created
         update_json msd_status not_connected
+        ;;
+    
+    delete)
+        echo "delete:"$iso_dir/${FILE}
+        if [ -f  $iso_dir/${FILE} ]
+        then
+                echo "delete:"$iso_dir/${FILE}
+                rm -f $iso_dir/${FILE}
+        fi
         ;;
 
     status)

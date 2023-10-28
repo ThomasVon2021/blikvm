@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <common/blikvm_util/cJSON.h>
 #include "blikvm_server.h"
+#include "kvmd/blikvm_atx/blikvm_atx.h"
 #define TAG "MAIN"
 
 
@@ -62,7 +63,6 @@ blikvm_int8_t blikvm_parse_config(blikvm_int8_t* file_path)
             printf("oled type:%d\n",oled_type->valueint);
         }
         
-
         switch_device = cJSON_GetObjectItemCaseSensitive(root, "switch_device");
         if (!cJSON_IsString(switch_device))
         {
@@ -73,7 +73,31 @@ blikvm_int8_t blikvm_parse_config(blikvm_int8_t* file_path)
             memcpy(g_config.switch_device,switch_device->valuestring,strlen(switch_device->valuestring));
             printf("switch device:%s\n",switch_device->valuestring);
         }
-        //TODO 
+
+        const cJSON *power_on_dalay = NULL; 
+        power_on_dalay = cJSON_GetObjectItemCaseSensitive(root, "power_on_dalay");
+        if (!cJSON_IsNumber(power_on_dalay))
+        {
+            printf("power_on_dalay is not number\n");
+        }
+        else
+        {
+            printf("power_on_dalay:%d\n",power_on_dalay->valueint);
+            blikvm_atx_set_power_on_dalay(power_on_dalay->valueint);
+        }
+
+        const cJSON *power_off_dalay = NULL; 
+        power_off_dalay = cJSON_GetObjectItemCaseSensitive(root, "power_off_dalay");
+        if (!cJSON_IsNumber(power_off_dalay))
+        {
+            printf("power_off_dalay is not number\n");
+        }
+        else
+        {
+            printf("power_off_dalay:%d\n",power_off_dalay->valueint);
+            blikvm_atx_set_power_off_dalay(power_off_dalay->valueint);
+        }
+
         free(jsondata);
         cJSON_free(root); 
     }while(0>1);
