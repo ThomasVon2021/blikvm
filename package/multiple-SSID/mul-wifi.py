@@ -14,7 +14,7 @@ def connect_to_wifi(wifi):
 
     # 连接到新的WiFi网络
     print("connecting to ", ssid, " password:",password)
-    connect_wifi = "mount -o remount,rw / nmcli device wifi connect " + ssid + " password " + password
+    connect_wifi = "nmcli device wifi connect " + ssid + " password " + password
     print(connect_wifi)
     try:
         subprocess.check_output("mount -o remount,rw /", shell = True, cwd="/" )
@@ -67,5 +67,6 @@ def main():
                     wifi_connected = False
                     break
         current_wifi_index = (current_wifi_index + 1) % len(wifi_config)
+        time.sleep(3)
 if __name__ == '__main__':
     main()
