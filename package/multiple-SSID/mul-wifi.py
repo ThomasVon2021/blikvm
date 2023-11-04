@@ -14,10 +14,12 @@ def connect_to_wifi(wifi):
 
     # 连接到新的WiFi网络
     print("connecting to ", ssid, " password:",password)
-    connect_wifi = "nmcli device wifi connect " + ssid + " password " + password
+    connect_wifi = "mount -o remount,rw / nmcli device wifi connect " + ssid + " password " + password
     print(connect_wifi)
     try:
+        subprocess.check_output("mount -o remount,rw /", shell = True, cwd="/" )
         output = subprocess.check_output(connect_wifi, shell = True, cwd="/" )
+        subprocess.check_output("mount -o remount,ro /", shell = True, cwd="/" )
     except subprocess.CalledProcessError as e:
         print(f"Failed to connect to WiFi: {e}")
         return False
@@ -43,7 +45,7 @@ def ping_test(ip):
     if "packet loss" in result.stdout:
         loss_rate = int(result.stdout.split("packet loss")[0].split()[-1].replace("%", ""))
         print("ping ",ip ," loss rate:", loss_rate)
-        return loss_rate <= 5
+        return loss_rate <= 50
     return True
 
 def main():
