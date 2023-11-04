@@ -18,6 +18,8 @@ def connect_to_wifi(wifi):
     print(connect_wifi)
     try:
         subprocess.check_output("mount -o remount,rw /", shell = True, cwd="/" )
+        subprocess.check_output("systemctl restart NetworkManager", shell = True, cwd="/" )
+        time.sleep(5)
         output = subprocess.check_output(connect_wifi, shell = True, cwd="/" )
         subprocess.check_output("mount -o remount,ro /", shell = True, cwd="/" )
     except subprocess.CalledProcessError as e:
