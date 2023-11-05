@@ -30,7 +30,7 @@ msd_config_dir="/mnt/msd/config/"
 msd_shm_dir="/dev/shm/blikvm/"
 msd_json="msd.json"
 
-while getopts "c:f:s:n:h" opt; do
+while getopts "c:f:s:n:h:t:" opt; do
   case $opt in
     f)
                 FILE="$OPTARG"
@@ -43,6 +43,9 @@ while getopts "c:f:s:n:h" opt; do
                 ;;
     c)
                 CMD="$OPTARG"
+                ;;
+    t)
+                TYPE="$OPTARG"
                 ;;
     h|*)
                 usage
@@ -58,6 +61,7 @@ CMD=${CMD:-"unset"}
 FILE=${FILE:-"*"}
 VENTOY_SIZE=${VENTOY_SIZE:-5}
 MSD_NAME=${MSD_NAME:-"ventoy"}
+TYPE=${TYPE:-"ventoy"}
 
 
 update_json()
@@ -111,6 +115,61 @@ then
 fi
 
 case ${CMD} in
+    rever)
+	mount -o remount,rw /
+
+        if [ -f  "$ventoy_dir/"$MSD_NAME".img" ]
+        then
+                echo "update file exist" 
+                cd  $ventoy_dir
+                if [ -f  $ventoy_dir/$MSD_NAME".img" ]
+                then
+                        mv $MSD_NAME".img" $MSD_NAME".img_bak"
+                fi
+                bash $usb_dis_gadget_sh
+                bash $usb_gadget_sh
+
+                if [ -f  $ventoy_dir/$MSD_NAME".img_bak" ]
+                then
+                        mv $MSD_NAME".img_bak" $MSD_NAME".img"
+                fi
+
+                losetup -f $MSD_NAME".img"
+
+                losetup -l | grep $MSD_NAME
+
+                dev_name=`losetup -l | grep ventoy | grep -v delete | awk 'NR==1{print $1}'`
+
+                echo $dev_name
+
+                mkdir -p $mount_dist_dir
+
+                mount  $dev_name $mount_dist_dir;
+
+                if [ $? -ne 0 ]
+                then
+                        echo "mount  $dev_name"p1" fail"
+                fi
+
+                cp -rf  "$mount_dist_dir"*  $iso_dir
+
+                if [ $? -ne 0 ]
+                then
+                        echo "default cp failed"
+                else
+                        echo "default cp * sucess!"
+                fi
+
+                umount $mount_dist_dir 
+                sleep 3
+                losetup -d $dev_name
+
+                bash $usb_dis_gadget_sh
+                bash $usb_gadget_sh
+
+                mount -o remount,ro /
+        fi
+	;;
     make)
 #       if [ $# -gt 2 ]
 #       then
@@ -134,19 +193,32 @@ case ${CMD} in
                 dd if=/dev/zero of=$MSD_NAME".img" bs=1M count=$((VENTOY_SIZE*1024)) status=progress;
         fi
 
+        if [ "$TYPE" != "ventoy" ] 
+        then
+                mkfs.ext4 $MSD_NAME".img"
+        fi
+
         losetup -f $MSD_NAME".img"
 
         losetup -l | grep $MSD_NAME
 
-        dev_name=`losetup -l | grep ventoy | awk 'NR==1{print $1}'`
+        dev_name=`losetup -l | grep ventoy | grep -v delete | awk 'NR==1{print $1}'`
 
         echo $dev_name
 
-        sh /usr/bin/blikvm/ventoy-1.0.88/Ventoy2Disk.sh -i $dev_name;
+        if [ "$TYPE" = "ventoy" ] 
+        then
+                sh /usr/bin/blikvm/ventoy-1.0.88/Ventoy2Disk.sh -i $dev_name;
+        fi
 
         mkdir -p $mount_dist_dir
 
-        mount  $dev_name"p1" $mount_dist_dir;
+        if [ "$TYPE" = "ventoy" ] 
+        then
+                mount  $dev_name"p1" $mount_dist_dir;
+        else
+                mount  $dev_name $mount_dist_dir;
+        fi
 
         if [ $? -ne 0 ]
         then
@@ -203,7 +275,7 @@ case ${CMD} in
                         fi
                         sleep 3
                         echo "${name} again!"
-                        cp "${name}" "$mount_dist_dir";
+                        cp -rf "${name}" "$mount_dist_dir";
                         if [ $? -ne 0 ]
                         then
                                 echo "default cp failed"
@@ -213,7 +285,12 @@ case ${CMD} in
                         sync
                 done
         fi
-        umount -f $dev_name"p1"
+        if [ "$TYPE" = "ventoy" ] 
+        then
+                umount -f $dev_name"p1"
+        else
+                umount -f $dev_name
+        fi
         sleep 3
         losetup -d $dev_name
 
@@ -273,7 +350,7 @@ case ${CMD} in
                 echo
                 echo "ISO images inside ventoy image(s)"
                 losetup -f /mnt/msd/ventoy/*.img*
-                for dev_name in `losetup -l | grep ventoy | awk 'NR==1{print $1}'`; do
+                for dev_name in `losetup -l | grep ventoy | grep -v delete | awk 'NR==1{print $1}'`; do
                         losetup -l | grep $dev_name
                         mount $dev_name"p1" $mount_dist_dir
                         ls -l $mount_dist_dir
