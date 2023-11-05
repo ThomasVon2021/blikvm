@@ -58,3 +58,34 @@
 ```
 	sudo apt install jq
 ```
+
+
+## public use drive operation step:
+
+# user-->blkvm-->control PC
+1. first step, in user pc,  push file to iso direction.
+```
+	scp 1.txt blikvm@xxxx:/mnt/msd/user/
+```
+2. then in blikvm. excute below cmd.
+```
+	sudo bash kvmd-msd.sh -c make -s 4 -t other 
+```
+
+# control PC-->blikvm-->user
+1. first create public usb driver(if has public usb driver, don't need to excute the cmd again.)
+```
+	sudo bash kvmd-msd.sh -c make -s 4 -t other 
+```
+
+2. first in control pc, copy data to usb driver,then excute below cmd.
+```
+	sudo bash kvmd-msd.sh -c rever
+```
+
+3. next in user pc, pull the data.
+```
+	scp blikvm@xxxx:/mnt/msd/user/*  .
+```
+
+NOTICE:  whether push or pull data,  must create the public usb driver firstly.
