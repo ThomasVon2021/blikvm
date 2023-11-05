@@ -69,18 +69,23 @@
 ```
 2. then in blikvm. excute below cmd.
 ```
-	sudo bash kvmd-msd.sh -c make -s 4 -t other 
+	sudo bash /usr/bin/blikvm/kvmd-msd.sh -c make -s 4 -t other 
+```
+
+3. last in blikvm. excute below cmd.
+```
+	sudo bash /usr/bin/blikvm/kvmd-msd.sh -c conn
 ```
 
 # control PC-->blikvm-->user
 1. first create public usb driver(if has public usb driver, don't need to excute the cmd again.)
 ```
-	sudo bash kvmd-msd.sh -c make -s 4 -t other 
+	sudo bash /usr/bin/blikvm/kvmd-msd.sh -c make -s 4 -t other 
 ```
 
 2. first in control pc, copy data to usb driver,then excute below cmd.
 ```
-	sudo bash kvmd-msd.sh -c rever
+	sudo bash /usr/bin/blikvm/kvmd-msd.sh -c rever
 ```
 
 3. next in user pc, pull the data.
