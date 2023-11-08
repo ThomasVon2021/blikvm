@@ -97,15 +97,16 @@ def download_release_file(owner, repo, tag_name, file_name, download_path):
 
 def main():
     board_type = get_board_type()
-    print("board type:",board_type)
+    print("Board type:",board_type)
     global update_result
     sh_path = os.path.split(os.path.realpath(__file__))[0]
     make_path = sh_path + '/src'
 
-    # clear download_path file
+    # Remove/clear download directory
     cmd = "rm -rf /tmp/kvm_update"
     output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
 
+    # Create the download path
     cmd = "mkdir /tmp/kvm_update"
     output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
 
@@ -151,13 +152,13 @@ def main():
             else:
                 print("get unknow board")
             try:
-                print("download package ", file_name, " waitting ")
+                print("Download package: ", file_name, " please wait...")
                 download_release_file(code_owner,code_repo,latest_version, file_name, download_path)
                 # output = subprocess.check_output(cmd, shell = True, cwd=download_path)
             except subprocess.CalledProcessError as e:
                 print("Download release package failed, check network")
                 break
-            print("Download release package success, start to install, waitting")
+            print("Download release package success, start to install, please wait...")
             release_tar = download_path + file_name
             if os.path.exists(release_tar):   
                 cmd = "tar -zxvf " + file_name
@@ -166,9 +167,9 @@ def main():
                 cmd = "python3 install_release.py"
                 output = subprocess.check_output(cmd, shell = True, cwd=install_path)        
                 update_result = True
-                print("Upgrade success")
+                print("Upgrade successful!")
         else:
-            print("Don't need update")
+            print("No update needed.")
         a = 0
     result_cnt = ""
     if update_result == True:
