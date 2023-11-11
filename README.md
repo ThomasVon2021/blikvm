@@ -3,7 +3,7 @@
 <a href="README_CN.md">中文说明</a>
 </p>
 <p align="center">
-  <a href="https://www.blicube.com">BliKVM</a> helps you to manage servers or workstations remotely, regardless of the health of the operating system or whether one is installed.
+  <a href="https://www.blicube.com">BliKVM</a> is an open-source KVM, it has four versions: v1 CM4,  v2 PCIe, v3 HAT, v4 Allwinner. This device helps to manage servers or workstations remotely, regardless of the health of the operating system or whether one is installed. You can fix any problem, configure the BIOS, and even reinstall the OS using the virtual CD-ROM or Flash Drive. Unlike software-based remote management, you don't need to install any software on the controlled computer for non-intrusive control.
 </p>
 
 <p align="center">
@@ -15,6 +15,7 @@
   </a>
 </p>
 
+![](/images/hardware-connect.png)
 ## Overview
 
 | __中文界面__ | __English UI__ |
