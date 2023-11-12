@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # eg: python3 install_release.py --releasepath release
 # after run this script, need reboot.
 import subprocess

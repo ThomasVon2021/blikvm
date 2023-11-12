@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # -*- coding:utf8 -*-
 # eg: python3 update.py 
 import json
