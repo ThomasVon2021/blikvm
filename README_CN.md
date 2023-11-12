@@ -3,7 +3,8 @@
 <a href="README.md">English Documents</a>
 </p>
 <p align="center">
-  <a href="https://www.blicube.com">BliKVM</a> 帮助您远程管理服务器或工作站，无论操作系统的健康状况如何或是否已安装。
+  <a href="https://www.blicube.com">BliKVM</a> 是一款开源软件的KVM专业设备，目前有4个版本，v1 CM4, v2 PCIe, v3 HAT, v4 Allwinner。该设备在于帮助用户通过得到控制设备的HDMI
+画面和鼠标键盘，去远程管理服务器、工作站或个人PC等。 无论目标设备的操作系统是否能正常运行，可以通过BLIKVM解决目标设备的一切问题。如：配置BIOS系统，通过使用远程CD-ROM或者闪存驱动器给目标设备重新安装操作系统。和基于软件的远程管理方式不同，你无需在被控电脑安装任何软件，做到无侵入式控制。
 </p>
 
 <p align="center">
@@ -15,6 +16,7 @@
   </a>
 </p>
 
+![](/images/hardware-connect.png)
 ## 概览
 
 | __中文界面__ | __英文界面__ |
