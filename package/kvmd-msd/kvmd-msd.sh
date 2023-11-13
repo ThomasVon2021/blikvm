@@ -195,7 +195,7 @@ case ${CMD} in
 
         if [ "$TYPE" != "ventoy" ] 
         then
-                mkfs.ext4 $MSD_NAME".img"
+                mkfs.fat $MSD_NAME".img"
         fi
 
         losetup -f $MSD_NAME".img"

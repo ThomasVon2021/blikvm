@@ -1,4 +1,4 @@
-# operation step:
+# Install iso operation step:
 
 1. Confirm that the following four paths exist. If you are using the official latest image of blikvm, and it is fully configured, there is no need to check.
 ```
@@ -60,12 +60,12 @@
 ```
 
 
-## public use drive operation step:
+## File transfer function operation step:
 
-# user-->blkvm-->control PC
+# user-->blikvm-->control PC
 1. first step, in user pc,  push file to iso direction.
 ```
-	scp 1.txt blikvm@xxxx:/mnt/msd/user/
+	scp xxx blikvm@xxxx:/mnt/msd/user/
 ```
 2. then in blikvm. excute below cmd.
 ```
