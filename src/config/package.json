@@ -1,7 +1,7 @@
 {
-    "version": "Develop-1.2.4", 
-    "version_int": 124, 
-    "md5value": "c6b5f3b5a80f90c87934400831c290c0", 
+    "version": "Develop-1.2.5", 
+    "version_int": 125, 
+    "md5value": "", 
     "switch_handle": "", 
     "oled_type": 0,
     "power_on_dalay":0,
