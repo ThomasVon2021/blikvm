@@ -59,5 +59,6 @@ export default {
         reboot_kvm:"Redémarrer KVM",
         usermanager:"Gestionnaire d'utilisateurs",
         change_user_pass:"Modifier le nom d'utilisateur ou le mot de passe",
+        logout:"logout",
     }
 }
