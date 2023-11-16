@@ -96,5 +96,6 @@ export default {
         next_step: "下一步",
         select_file:"选择文件",
         submit:"提交",
+        logout:"退出登录",
     }
 }

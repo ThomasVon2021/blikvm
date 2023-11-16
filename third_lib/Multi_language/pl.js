@@ -97,5 +97,6 @@ export default {
         next_step:"następny",
         select_file:"wybierz plik",
         submit:"prześlij",
+        logout:"logout",
     }
 }
