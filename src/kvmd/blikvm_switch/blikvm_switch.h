@@ -13,6 +13,7 @@
 
 typedef struct
 {
+    blikvm_int32_t enable;
     blikvm_int8_t device_path[32];
 }blikvm_switch_t;
 

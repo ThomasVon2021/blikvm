@@ -77,11 +77,12 @@ blikvm_int32_t blikvm_oled_ssd1306_0in96_show(void)
     Paint_SelectImage(BlackImage);
     DEV_Delay_ms(500);
     Paint_Clear(BLACK);
-    static int i=0;
+    int i=0;
     while(1)
     {
         if(i >= 2)
         {
+            OLED_0in96_clear();
             break;
         }    
         if(i%2 == 0 )
@@ -122,7 +123,7 @@ blikvm_int32_t blikvm_oled_ssd1306_0in96_show(void)
             Paint_DrawString_EN(0, 36, up_str, &Font12, WHITE, WHITE);
             free(uptime_str);
         }
-        i = (i + 1)%2;
+        i = i + 1;
         OLED_0in96_display(BlackImage);
         DEV_Delay_ms(3000); 
         Paint_Clear(BLACK);   

@@ -1,13 +1,18 @@
 {
-    "version": "Develop-1.2.4", 
-    "version_int": 124, 
+    "version": "Develop-1.2.7", 
+    "version_int": 127, 
     "md5value": "", 
-    "switch_handle": "", 
+    "switch_handle":{
+        "switch_enable": 0, 
+        "switch_path": "/dev/ttyUSB0" 
+    },
     "oled":{
         "oled_enable": 0,
-        "restart_show_time": 60,
+        "restart_show_time": 300,
         "interval_display_time": 5
     },
-    "power_on_dalay":0,
-    "power_off_dalay":0
+    "atx":{
+        "power_on_delay":500,
+        "power_off_delay":3000
+    }
 }

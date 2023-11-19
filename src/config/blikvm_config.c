@@ -70,7 +70,6 @@ blikvm_config_t* blikvm_read_config(blikvm_int8_t* file_path)
             break;
         }
 
-        const cJSON *switch_device = NULL;
         char* jsondata = jsonFromFile(file_path);
         cJSON* root=cJSON_Parse(jsondata);
         if (root == NULL)
@@ -79,39 +78,61 @@ blikvm_config_t* blikvm_read_config(blikvm_int8_t* file_path)
             break;
         }
 
-        switch_device = cJSON_GetObjectItemCaseSensitive(root, "switch_device");
-        if (!cJSON_IsString(switch_device))
+        const cJSON *switch_handle = NULL;
+        switch_handle = cJSON_GetObjectItemCaseSensitive(root, "switch_handle");
+        if (cJSON_IsObject(switch_handle))
         {
-            BLILOG_E(TAG, "switch_device is not string\n");
-        }
-        else
-        {
-            memcpy(g_config.switch_device,switch_device->valuestring,strlen(switch_device->valuestring));
-            BLILOG_D(TAG, "switch device:%s\n",switch_device->valuestring);
+            const cJSON *switch_enable = cJSON_GetObjectItemCaseSensitive(switch_handle, "switch_enable");
+            const cJSON *switch_path = cJSON_GetObjectItemCaseSensitive(switch_handle, "switch_path");
+
+            if (!cJSON_IsNumber(switch_enable))
+            {
+                BLILOG_E(TAG, "switch function is disable\n");
+            }
+            else
+            {
+                g_config.switch_handle.enable = switch_enable->valueint;
+                BLILOG_D(TAG, "switch function is enable\n");
+            } 
+
+            if (!cJSON_IsString(switch_path))
+            {
+                BLILOG_E(TAG, "switch path is not string\n");
+            }
+            else
+            {
+                memcpy(g_config.switch_handle.device_path, switch_path->valuestring, strlen(switch_path->valuestring));
+                BLILOG_D(TAG, "switch device:%s\n",switch_path->valuestring);
+            }           
         }
 
-        const cJSON *power_on_dalay = NULL; 
-        power_on_dalay = cJSON_GetObjectItemCaseSensitive(root, "power_on_dalay");
-        if (!cJSON_IsNumber(power_on_dalay))
+        const cJSON *atx = NULL;
+        atx = cJSON_GetObjectItemCaseSensitive(root, "atx");
+        if (cJSON_IsObject(atx))
         {
-            BLILOG_E(TAG, "power_on_dalay is not number\n");
-        }
-        else
-        {
-            BLILOG_D(TAG, "power_on_dalay:%d\n", power_on_dalay->valueint);
-            blikvm_atx_set_power_on_dalay(power_on_dalay->valueint);
-        }
+            const cJSON *power_on_delay = NULL; 
+            power_on_delay = cJSON_GetObjectItemCaseSensitive(atx, "power_on_delay");
+            if (!cJSON_IsNumber(power_on_delay))
+            {
+                BLILOG_E(TAG, "power_on_delay is not number\n");
+            }
+            else
+            {
+                BLILOG_D(TAG, "power_on_delay:%d\n", power_on_delay->valueint);
+                blikvm_atx_set_power_on_delay(power_on_delay->valueint);
+            }
 
-        const cJSON *power_off_dalay = NULL; 
-        power_off_dalay = cJSON_GetObjectItemCaseSensitive(root, "power_off_dalay");
-        if (!cJSON_IsNumber(power_off_dalay))
-        {
-            BLILOG_E(TAG, "power_off_dalay is not number\n");
-        }
-        else
-        {
-            BLILOG_D(TAG, "power_off_dalay:%d\n",power_off_dalay->valueint);
-            blikvm_atx_set_power_off_dalay(power_off_dalay->valueint);
+            const cJSON *power_off_delay = NULL; 
+            power_off_delay = cJSON_GetObjectItemCaseSensitive(atx, "power_off_delay");
+            if (!cJSON_IsNumber(power_off_delay))
+            {
+                BLILOG_E(TAG, "power_off_delay is not number\n");
+            }
+            else
+            {
+                BLILOG_D(TAG, "power_off_delay:%d\n",power_off_delay->valueint);
+                blikvm_atx_set_power_off_delay(power_off_delay->valueint);
+            }
         }
 
         const cJSON *oled = cJSON_GetObjectItemCaseSensitive(root, "oled");

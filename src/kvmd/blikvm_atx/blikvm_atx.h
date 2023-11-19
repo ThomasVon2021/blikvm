@@ -14,6 +14,6 @@
 blikvm_int8_t blikvm_atx_init();
 blikvm_int8_t blikvm_atx_start();
 blikvm_int8_t blikvm_atx_test();
-blikvm_int8_t blikvm_atx_set_power_on_dalay(blikvm_int32_t time);
-blikvm_int8_t blikvm_atx_set_power_off_dalay(blikvm_int32_t time);
+blikvm_int8_t blikvm_atx_set_power_on_delay(blikvm_int32_t time);
+blikvm_int8_t blikvm_atx_set_power_off_delay(blikvm_int32_t time);
 #endif

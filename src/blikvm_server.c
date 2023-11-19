@@ -25,6 +25,8 @@
  * private methods definition
  ******************************************************************************/
 
+static blikvm_int8_t g_switch_init_flag = 0;
+
 blikvm_int8_t blikvm_init( blikvm_config_t *config)
 {
     blikvm_int8_t ret = -1;
@@ -70,12 +72,11 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         }
 
         //4. init switch module
-        if(strlen(config->switch_device) > 0)
+        if( config->switch_handle.enable > 0 )
         {
-            blikvm_switch_t switch_config = {0};
-            memcpy(switch_config.device_path, config->switch_device, strlen(config->switch_device));
-            if (blikvm_switch_init(&switch_config) >= 0)
+            if (blikvm_switch_init( &config->switch_handle ) >= 0)
             {
+                g_switch_init_flag = 1;
                 BLILOG_D(TAG,"init switch success\n");
             }
             else
@@ -126,7 +127,7 @@ blikvm_int8_t blikvm_start(blikvm_config_t *config)
             BLILOG_E(TAG,"atx start error\n");
             break;
         }
-        if(strlen(config->switch_device) > 0)
+        if(g_switch_init_flag > 0)
         {
             if(blikvm_switch_start() < 0)
             {

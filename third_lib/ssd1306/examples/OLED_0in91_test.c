@@ -78,13 +78,15 @@ blikvm_int32_t blikvm_oled_ssd1306_0in91_show(void)
 	Paint_SelectImage(BlackImage);
 	DEV_Delay_ms(500);
 	Paint_Clear(BLACK);
-	static int i=0;
+	int i=0;
 	while(1) 
 	{
 		if(i >=2 )
 		{
+			OLED_0in91_Clear();
 			break;
 		}
+		BLILOG_D(TAG,"start show oled info\n");
 		// IP address
 		if(i%2 == 0 )
 		{
@@ -110,7 +112,7 @@ blikvm_int32_t blikvm_oled_ssd1306_0in91_show(void)
 			GetMemUsage(mem_str);
 			Paint_DrawString_EN(10, 16, mem_str, &Font12, WHITE, WHITE);
 		}
-		i = (i + 1)%2;
+		i = i + 1;
         OLED_0in91_Display(BlackImage);
         DEV_Delay_ms(3000); 
         Paint_Clear(BLACK); 		
