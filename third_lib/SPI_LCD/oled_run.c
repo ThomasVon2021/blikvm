@@ -25,33 +25,70 @@
 #define TAG "OLED"
 #define LCD LCD_ST7789
 #define ST7789_V4_DC_PIN 260
-int width=240, height=240;
+#define SHOW_INTERVAL 5U   //uint:s
+static UWORD *BlackImage = NULL;
 
-
-
-int oled_240_240_run()
+blikvm_int32_t oled_240_240_init()
 {
+
 	int rc;
-	// Nano Pi NEO SPI0 channel
-	//rc = spilcdInit(LCD, 0, 0, 40000000, 11, 12, 22); // LCD type, flip 180, SPI Channel, D/C, RST, LED
-	// Mango Pi Mcore SPI1 channel
-	rc = spilcdInit(LCD, 0, 1, 40000000, 40,22 , 38); // LCD type, flip 180, SPI Channel, D/C, RST, LED
-	if(rc != 0)
+	do
 	{
-		BLILOG_E(TAG,"init spi failed:%d\n",rc);
-	}
+		// Nano Pi NEO SPI0 channel
+		//rc = spilcdInit(LCD, 0, 0, 40000000, 11, 12, 22); // LCD type, flip 180, SPI Channel, D/C, RST, LED
+		// Mango Pi Mcore SPI1 channel
+		rc = spilcdInit(LCD, 0, 1, 40000000, 40,22 , 38); // LCD type, flip 180, SPI Channel, D/C, RST, LED
+		if(rc != 0)
+		{
+			BLILOG_E(TAG,"init spi failed:%d\n",rc);
+			break;
+		}
+		
+		UDOUBLE Imagesize = LCD_1IN3_HEIGHT*LCD_1IN3_WIDTH*2;
+		BLILOG_D(TAG,"Imagesize = %d\n",Imagesize);
+		if((BlackImage = (UWORD *)malloc(Imagesize)) == NULL) 
+		{
+			BLILOG_E(TAG,"Failed to apply for black memory...\n");
+		}
+		Paint_NewImage(BlackImage, LCD_1IN3_WIDTH, LCD_1IN3_HEIGHT, 0, WHITE, 16);
+	}while (0>1);
 
-    UWORD *BlackImage;
-    UDOUBLE Imagesize = LCD_1IN3_HEIGHT*LCD_1IN3_WIDTH*2;
-	BLILOG_D(TAG,"Imagesize = %d\n",Imagesize);
-    if((BlackImage = (UWORD *)malloc(Imagesize)) == NULL) 
-	{
-		BLILOG_E(TAG,"Failed to apply for black memory...\n");
-    }
-    Paint_NewImage(BlackImage, LCD_1IN3_WIDTH, LCD_1IN3_HEIGHT, 0, WHITE, 16);
+	return rc;
+}
 
-	while(1) 
+blikvm_int32_t blikvm_backlight_close()
+{
+	blikvm_int32_t ret = -1;
+	do
 	{
+		myPinWrite(ST7789_V4_DC_PIN, 0);
+		ret = 0;
+	}while(0>1);
+	return ret;
+}
+
+blikvm_int32_t blikvm_backlight_open()
+{
+	blikvm_int32_t ret = -1;
+	do
+	{
+		myPinWrite(ST7789_V4_DC_PIN, 1);
+		ret = 0;
+	}while(0>1);
+	return ret;
+}
+
+blikvm_int32_t oled_240_240_show()
+{
+	int ret = -1;
+	do
+	{
+		if(BlackImage == NULL)
+		{
+			BLILOG_E(TAG,"BlackImage is null\n");
+			break;
+		}
+		blikvm_backlight_open();
 		Paint_Clear(WHITE);
 		Paint_SetRotate(ROTATE_270);
         GUI_ReadBmp("/usr/bin/blikvm/oled_info.bmp");
@@ -117,29 +154,14 @@ int oled_240_240_run()
 #endif
 
         LCD_1IN3_Display(BlackImage);
-		//BLILOG_D(TAG,"oled loop\n");
-        sleep(3);
-	}
-}
 
-blikvm_int8_t blikvm_backlight_close()
-{
-	blikvm_int8_t ret = -1;
-	do
-	{
-		myPinWrite(ST7789_V4_DC_PIN, 0);
+		sleep(SHOW_INTERVAL);
+		BLILOG_E(TAG,"close backlight\n");
+		blikvm_backlight_close();
 		ret = 0;
 	}while(0>1);
+	
 	return ret;
 }
 
-blikvm_int8_t blikvm_backlight_open()
-{
-	blikvm_int8_t ret = -1;
-	do
-	{
-		myPinWrite(ST7789_V4_DC_PIN, 1);
-		ret = 0;
-	}while(0>1);
-	return ret;
-}
+

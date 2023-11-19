@@ -15,7 +15,6 @@
 #include "kvmd/blikvm_rtc/blikvm_rtc.h"
 #include "kvmd/blikvm_gpio/blikvm_gpio.h"
 #include "common/blikvm_log/blikvm_log.h"
-#include "config/blikvm_config.h"
 
 #ifdef TEST_HARDWARE
 #include "blikvm_test.h"
@@ -26,14 +25,13 @@
  * private methods definition
  ******************************************************************************/
 
+static blikvm_int8_t g_switch_init_flag = 0;
+
 blikvm_int8_t blikvm_init( blikvm_config_t *config)
 {
     blikvm_int8_t ret = -1;
     do
     {
-        //1. init log module
-        blikvm_log_init(&config->log);
-
        if(blikvm_gpio_init() == 0)
         {
             BLILOG_D(TAG,"init gpio success\n");
@@ -74,19 +72,21 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         }
 
         //4. init switch module
-        blikvm_switch_t switch_config = {0};
-        memcpy(switch_config.device_path, config->switch_device, strlen(config->switch_device));
-        if (blikvm_switch_init(&switch_config) >= 0)
+        if( config->switch_handle.enable > 0 )
         {
-            BLILOG_D(TAG,"init switch success\n");
-        }
-        else
-        {
-            BLILOG_E(TAG,"init switch failed\n");
+            if (blikvm_switch_init( &config->switch_handle ) >= 0)
+            {
+                g_switch_init_flag = 1;
+                BLILOG_D(TAG,"init switch success\n");
+            }
+            else
+            {
+                BLILOG_E(TAG,"init switch failed\n");
+            }
         }
 
         //5. init oled module
-        if(blikvm_oled_init(config->oled_type) >= 0)
+        if(blikvm_oled_init(&config->oled) >= 0)
         {
             BLILOG_D(TAG,"init oled success\n");
         }
@@ -101,7 +101,7 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
     return ret;    
 }
 
-blikvm_int8_t blikvm_start()
+blikvm_int8_t blikvm_start(blikvm_config_t *config)
 {
     blikvm_int8_t ret = -1;
 
@@ -127,10 +127,13 @@ blikvm_int8_t blikvm_start()
             BLILOG_E(TAG,"atx start error\n");
             break;
         }
-        if(blikvm_switch_start() < 0)
+        if(g_switch_init_flag > 0)
         {
-            BLILOG_E(TAG,"switch start error\n");
-            break;
+            if(blikvm_switch_start() < 0)
+            {
+                BLILOG_E(TAG,"switch start error\n");
+                break;
+            }
         }
         if(blikvm_oled_start() < 0)
         {

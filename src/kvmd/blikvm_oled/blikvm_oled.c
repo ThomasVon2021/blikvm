@@ -9,9 +9,11 @@
 #include "blikvm_oled.h"
 #include "common/blikvm_log/blikvm_log.h"
 #include "common/blikvm_util/blikvm_util.h"
+#include "config/blikvm_config.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <unistd.h>
 #ifdef SSD1306
 #include "ssd1306_oled.h"
 #endif
@@ -27,7 +29,7 @@ static blikvm_int8_t g_init_flag=-1;
 static blikvm_void_t *blikvm_oled_loop(void *_);
 
 
-blikvm_int8_t blikvm_oled_init(blikvm_oled_type_e type)
+blikvm_int8_t blikvm_oled_init(blikvm_oled_config_t* config)
 {
     blikvm_int8_t ret = -1;
 
@@ -56,6 +58,25 @@ blikvm_int8_t blikvm_oled_init(blikvm_oled_type_e type)
             break;
         }
         BLILOG_D(TAG,"board:%d oled:%d\n",type, g_oled_type);
+
+        switch (g_oled_type)
+        {
+        #ifdef SSD1306
+            case OLED_SSD1306_128_32:
+                blikvm_oled_ssd1306_0in91_init();
+                break;
+            case OLED_SSD1306_128_64:
+                blikvm_oled_ssd1306_0in96_init();
+                break;
+        #endif
+        #ifdef ST7789
+            case OLED_ST7789_240_240:
+                oled_240_240_init();
+                break;
+        #endif
+            default:
+                break;
+        }
 
         g_init_flag = 1;
         BLILOG_D(TAG,"init oled success\n");
@@ -91,25 +112,37 @@ blikvm_int8_t blikvm_oled_start()
 
 static blikvm_void_t *blikvm_oled_loop(void *_)
 {
-
-    switch (g_oled_type)
+    
+    blikvm_oled_config_t* oled_config = &(blikvm_get_config()->oled) ;
+    while(1)
     {
-#ifdef SSD1306
-    case OLED_SSD1306_128_32:
-        OLED_0in91_test();
-        break;
-    case OLED_SSD1306_128_64:
-        OLED_0in96_test();
-        break;
-#endif
-#ifdef ST7789
-    case OLED_ST7789_240_240:
-        oled_240_240_run();
-        break;
-#endif
-    default:
-        break;
+        blikvm_int32_t uptime = skdy_get_int_uptime();  //unit:min
+        if((uptime > MIN_START_SHOW_TIME) && (uptime> oled_config->restart_show_time) && (oled_config->interval_display_time > 0))
+        {
+            BLILOG_D(TAG,"oled sleep time:%d\n",oled_config->interval_display_time * 60 );
+            sleep(oled_config->interval_display_time * 60);
+        }
+        switch (g_oled_type)
+        {
+    #ifdef SSD1306
+        case OLED_SSD1306_128_32:
+            blikvm_oled_ssd1306_0in91_show();
+            break;
+        case OLED_SSD1306_128_64:
+            blikvm_oled_ssd1306_0in96_show();
+            break;
+    #endif
+    #ifdef ST7789
+        case OLED_ST7789_240_240:
+            oled_240_240_show();
+            break;
+    #endif
+        default:
+            break;
+        }
+
     }
+
     return NULL;
 }
 

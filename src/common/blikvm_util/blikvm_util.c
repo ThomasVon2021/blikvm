@@ -205,6 +205,18 @@ char * GetUptime()
     return uptime_string;
 }
 
+blikvm_int32_t skdy_get_int_uptime() 
+{
+    FILE *fp;
+    char buffer[256];
+    fp = fopen("/proc/uptime", "r");
+    fgets(buffer, 256, fp);
+    double uptime_seconds = atof(buffer);
+    blikvm_int32_t uptime_minutes = uptime_seconds / 60;
+    fclose(fp);
+    return uptime_minutes;
+}
+
 int getWifiSignalStrength(const char* interface, int* signalStrength) {
     char command[100];
     sprintf(command, "iwconfig %s | awk '/Signal level/ {print $4}'", interface);

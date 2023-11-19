@@ -35,37 +35,58 @@
 
 
 #define TAG "OLED"
+static UBYTE *BlackImage;
 
-int OLED_0in91_test(void)
+blikvm_int32_t blikvm_oled_ssd1306_0in91_init()
 {
-	if(DEV_ModuleInit() != 0) 
+	blikvm_int32_t ret = -1;
+	do
 	{
-		BLILOG_E(TAG,"0.91inch OLED init failed\n");
-		return -1;
-	}
-	BLILOG_E(TAG,"0.91inch OLED init ok\n");
-	OLED_0in91_Init();
-	DEV_Delay_ms(500);	
-	OLED_0in91_Clear();
+		if(DEV_ModuleInit() != 0) 
+		{
+			BLILOG_E(TAG,"0.91inch OLED init failed\n");
+			break;
+		}
+		BLILOG_D(TAG,"0.91inch OLED init ok\n");
+		OLED_0in91_Init();
 
-	// 0.Create a new image cache
-	UBYTE *BlackImage;
-	UWORD Imagesize = ((OLED_0in91_WIDTH%8==0)? (OLED_0in91_WIDTH/8): (OLED_0in91_WIDTH/8+1)) * OLED_0in91_HEIGHT;
-	if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) 
-	{
-		BLILOG_E(TAG,"Failed to apply for black memory...n");
-		return -1;
-	}
+		OLED_0in91_Clear();
+		
+		// 0.Create a new image cache
+		UWORD Imagesize = ((OLED_0in91_WIDTH%8==0)? (OLED_0in91_WIDTH/8): (OLED_0in91_WIDTH/8+1)) * OLED_0in91_HEIGHT;
+		if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) 
+		{
+			BLILOG_E(TAG,"Failed to apply for black memory...n");
+			return -1;
+		}
 
-	Paint_NewImage(BlackImage, OLED_0in91_HEIGHT, OLED_0in91_WIDTH, 90, BLACK);	
-	
+		Paint_NewImage(BlackImage, OLED_0in91_HEIGHT, OLED_0in91_WIDTH, 90, BLACK);	
+
+		ret = 0;
+	} while (0>1);
+	return ret;
+}
+
+blikvm_int32_t blikvm_oled_ssd1306_0in91_show(void)
+{	
 	//1.Select Image
+	if(BlackImage == NULL)
+	{
+		BLILOG_E(TAG,"BlackImage is NULL\n");
+		return -1;
+	}
 	Paint_SelectImage(BlackImage);
 	DEV_Delay_ms(500);
 	Paint_Clear(BLACK);
-	static int i=0;
+	int i=0;
 	while(1) 
 	{
+		if(i >=2 )
+		{
+			OLED_0in91_Clear();
+			break;
+		}
+		BLILOG_D(TAG,"start show oled info\n");
 		// IP address
 		if(i%2 == 0 )
 		{
@@ -91,11 +112,11 @@ int OLED_0in91_test(void)
 			GetMemUsage(mem_str);
 			Paint_DrawString_EN(10, 16, mem_str, &Font12, WHITE, WHITE);
 		}
-		i = (i + 1)%2;
+		i = i + 1;
         OLED_0in91_Display(BlackImage);
         DEV_Delay_ms(3000); 
         Paint_Clear(BLACK); 		
-	
 	}
+	return 0;
 }
 

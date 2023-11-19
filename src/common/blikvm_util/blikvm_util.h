@@ -38,4 +38,10 @@ int GetMemUsageShort(char* mem);
 blikvm_board_type_e blikvm_get_board_type();
 blikvm_int8_t isWifiCardAvailable();
 
+/**
+ * @brief : get os's up time 
+ * @return: the os's up  since the Epoch, unit:min
+ */
+blikvm_int32_t skdy_get_int_uptime();
+
 #endif

@@ -83,7 +83,7 @@ blikvm_int8_t blikvm_switch_init(blikvm_switch_t* config)
         }
         g_switch.socket_addr.send_addr_len = sizeof(g_switch.socket_addr.send_addr);
         BLILOG_D(TAG,"config device:%s\n",config->device_path);
-        memcpy(&g_switch_config,config,sizeof(blikvm_switch_t));
+        memcpy(g_switch_config.device_path,config->device_path,strlen(config->device_path));
 
         g_switch.init = 1;
     }while(0>1);
@@ -282,7 +282,7 @@ static blikvm_void_t blikvm_switch_monitor()
             g_serial_fd = open_serial_dev(g_switch_config.device_path,19200);
             if( g_serial_fd < 0)
             {
-                BLILOG_E(TAG,"open %s failed\n",g_switch_config.device_path);
+                BLILOG_E(TAG,"open %s failed\n", g_switch_config.device_path);
                 break;
             }
             blikvm_int8_t flag = blikvm_switch_serial_judge(1000);

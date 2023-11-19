@@ -31,6 +31,8 @@
 #ifndef _SSD1306_OLED_H_
 #define _SSD1306_OLED_H_
 
+#include "common/blikvm_type.h"
+
 #include "DEV_Config.h"
 #include "GUI_Paint.h"
 #include "GUI_BMPfile.h"
@@ -39,7 +41,13 @@
 #include <stdlib.h> // malloc() free()
 #include <math.h>
 
-int OLED_0in91_test(void);
-int OLED_0in96_test(void);
+
+blikvm_int32_t blikvm_oled_ssd1306_0in91_init();
+
+blikvm_int32_t blikvm_oled_ssd1306_0in91_show(void);
+
+blikvm_int32_t blikvm_oled_ssd1306_0in96_init();
+
+blikvm_int32_t blikvm_oled_ssd1306_0in96_show(void);
 
 #endif
