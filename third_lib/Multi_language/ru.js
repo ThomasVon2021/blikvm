@@ -97,5 +97,6 @@ export default {
         next_step:"следующий",
         select_file:"выберите файл",
         submit:"подтвердить",
+        logout:"logout",
     }
 }
