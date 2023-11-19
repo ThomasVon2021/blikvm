@@ -8,7 +8,7 @@
 #define TAG "MAIN"
 
 
-static char* config_json_path= (char*)"package.json";
+static char* config_json_path= (char*)"/usr/bin/blikvm/package.json";
 static blikvm_log_t g_log_config={0};
 static blikvm_config_t* g_config = NULL;
 
