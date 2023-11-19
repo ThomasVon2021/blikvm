@@ -92,6 +92,13 @@ sudo bash /usr/bin/blikvm/kvmd-msd.sh -c make -s 4 -t other
 sudo bash /usr/bin/blikvm/kvmd-msd.sh -c conn
 ```
 
+4. If you continue copy data to Control PC
+
+```bash
+sudo bash /usr/bin/blikvm/kvmd-msd.sh -c forward
+```
+
+
 # Control PC-->blikvm-->user
 
 1. First create public USB drive (if it already has a public USB drive, don't need to execute the command again).
