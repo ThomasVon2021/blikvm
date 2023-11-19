@@ -21,7 +21,6 @@
 static blikvm_int8_t *pi4b_board = "Raspberry Pi 4 Model B";
 static blikvm_int8_t *cm4b_board = "Raspberry Pi Compute Module 4";
 static blikvm_int8_t *h616_board = "Mango Pi Mcore";
-static time_t g_start_time = 0;
 
 blikvm_int32_t execmd(blikvm_int8_t* cmd, blikvm_int8_t* result) 
 {
