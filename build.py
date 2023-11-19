@@ -61,9 +61,9 @@ def main():
         cmd = "md5sum " + file_tar_name
         output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
         # print("md5: ",output, "str: ", output.decode('utf-8')[0:32] )
-        json_data['md5value'] = output.decode('utf-8')[0:32]
-        with open(file_path,'w',encoding='utf8')as fp_w:
-	        json.dump(json_data,fp_w,ensure_ascii=False)
+        # json_data['md5value'] = output.decode('utf-8')[0:32]
+        # with open(file_path,'w',encoding='utf8')as fp_w:
+	    #     json.dump(json_data,fp_w,ensure_ascii=False)
 
 if __name__ == '__main__':
     main()

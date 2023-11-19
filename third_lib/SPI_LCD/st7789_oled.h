@@ -11,8 +11,12 @@
 
 #include "common/blikvm_type.h"
 
-int oled_240_240_run();
-blikvm_int8_t blikvm_backlight_close();
-blikvm_int8_t blikvm_backlight_open();
+blikvm_int32_t oled_240_240_init();
+
+blikvm_int32_t oled_240_240_show();
+
+blikvm_int32_t blikvm_backlight_close();
+
+blikvm_int32_t blikvm_backlight_open();
 
 #endif

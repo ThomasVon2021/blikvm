@@ -35,37 +35,55 @@
 #include <string.h> 
 
 #define TAG "OLED"
+static UBYTE *BlackImage;
 
-int OLED_0in96_test(void)
+blikvm_int32_t blikvm_oled_ssd1306_0in96_init()
 {
-    
-    if(DEV_ModuleInit() != 0) 
-    {
-        BLILOG_E(TAG,"0.96inch OLED init failed\n");
-        return -1;
-    }
-    BLILOG_D(TAG,"0.96inch OLED init ok\n");
-    OLED_0in96_Init();
-    DEV_Delay_ms(500);  
-    // 0.Create a new image cache
-    UBYTE *BlackImage;
-    UWORD Imagesize = ((OLED_0in96_WIDTH%8==0)? (OLED_0in96_WIDTH/8): (OLED_0in96_WIDTH/8+1)) * OLED_0in96_HEIGHT;
-    BLILOG_D(TAG,"Imagesize:%d\n",Imagesize);
-    if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) 
-    {
-        BLILOG_E(TAG,"Failed to apply for black memory...\n");
-        return -1;
-    }
+	blikvm_int32_t ret = -1;
+	do
+	{
+		if(DEV_ModuleInit() != 0) 
+		{
+			BLILOG_E(TAG,"0.96inch OLED init failed\n");
+			break;
+		}
+		BLILOG_D(TAG,"0.96inch OLED init ok\n");
+		OLED_0in96_Init();
+        OLED_0in96_clear();
+        // 0.Create a new image cache
 
-    Paint_NewImage(BlackImage, OLED_0in96_WIDTH, OLED_0in96_HEIGHT, 90, BLACK);  
+        UWORD Imagesize = ((OLED_0in96_WIDTH%8==0)? (OLED_0in96_WIDTH/8): (OLED_0in96_WIDTH/8+1)) * OLED_0in96_HEIGHT;
+        BLILOG_D(TAG,"Imagesize:%d\n",Imagesize);
+        if((BlackImage = (UBYTE *)malloc(Imagesize)) == NULL) 
+        {
+            BLILOG_E(TAG,"Failed to apply for black memory...\n");
+            return -1;
+        }
 
+        Paint_NewImage(BlackImage, OLED_0in96_WIDTH, OLED_0in96_HEIGHT, 90, BLACK);  
+		ret = 0;
+	} while (0>1);
+	return ret;
+}
+
+blikvm_int32_t blikvm_oled_ssd1306_0in96_show(void)
+{
     //1.Select Image
+	if(BlackImage == NULL)
+	{
+		BLILOG_E(TAG,"BlackImage is NULL\n");
+		return -1;
+	}    
     Paint_SelectImage(BlackImage);
     DEV_Delay_ms(500);
     Paint_Clear(BLACK);
     static int i=0;
     while(1)
-    {    
+    {
+        if(i >= 2)
+        {
+            break;
+        }    
         if(i%2 == 0 )
 		{
             char hardware[20] = "BliKVM";
@@ -109,5 +127,6 @@ int OLED_0in96_test(void)
         DEV_Delay_ms(3000); 
         Paint_Clear(BLACK);   
     }
+    return 0;
 }
 

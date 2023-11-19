@@ -1,9 +1,13 @@
 {
     "version": "Develop-1.2.4", 
     "version_int": 124, 
-    "md5value": "c6b5f3b5a80f90c87934400831c290c0", 
+    "md5value": "", 
     "switch_handle": "", 
-    "oled_type": 0,
+    "oled":{
+        "oled_enable": 0,
+        "restart_show_time": 60,
+        "interval_display_time": 5
+    },
     "power_on_dalay":0,
     "power_off_dalay":0
 }
