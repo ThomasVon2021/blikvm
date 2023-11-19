@@ -7,7 +7,7 @@
         "switch_path": "/dev/ttyUSB0" 
     },
     "oled":{
-        "oled_enable": 0,
+        "oled_enable": 1,
         "restart_show_time": 300,
         "interval_display_time": 5
     },

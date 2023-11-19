@@ -21,6 +21,7 @@
 static blikvm_int8_t *pi4b_board = "Raspberry Pi 4 Model B";
 static blikvm_int8_t *cm4b_board = "Raspberry Pi Compute Module 4";
 static blikvm_int8_t *h616_board = "Mango Pi Mcore";
+static time_t g_start_time = 0;
 
 blikvm_int32_t execmd(blikvm_int8_t* cmd, blikvm_int8_t* result) 
 {
@@ -215,6 +216,18 @@ blikvm_int32_t skdy_get_int_uptime()
     blikvm_int32_t uptime_minutes = uptime_seconds / 60;
     fclose(fp);
     return uptime_minutes;
+}
+
+blikvm_int32_t skdy_get_software_uptime() 
+{
+    if (g_start_time == 0) {
+        g_start_time = time(NULL);
+        return 0;
+    } else {
+        time_t current_time = time(NULL);
+        int elapsed_seconds = (int)difftime(current_time, g_start_time);
+        return elapsed_seconds;
+    }
 }
 
 int getWifiSignalStrength(const char* interface, int* signalStrength) {

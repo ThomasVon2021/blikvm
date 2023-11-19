@@ -44,4 +44,6 @@ blikvm_int8_t isWifiCardAvailable();
  */
 blikvm_int32_t skdy_get_int_uptime();
 
+blikvm_int32_t skdy_get_software_uptime();
+
 #endif
