@@ -116,7 +116,7 @@ static blikvm_void_t *blikvm_oled_loop(void *_)
     blikvm_oled_config_t* oled_config = &(blikvm_get_config()->oled) ;
     while(1)
     {
-        blikvm_int32_t uptime = skdy_get_software_uptime() / 60;  //unit:min
+        blikvm_int32_t uptime = skdy_get_int_uptime();  //unit:min
         if((uptime > MIN_START_SHOW_TIME) && (uptime> oled_config->restart_show_time) && (oled_config->interval_display_time > 0))
         {
             BLILOG_D(TAG,"oled sleep time:%d\n",oled_config->interval_display_time * 60 );

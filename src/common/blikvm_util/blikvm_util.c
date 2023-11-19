@@ -218,18 +218,6 @@ blikvm_int32_t skdy_get_int_uptime()
     return uptime_minutes;
 }
 
-blikvm_int32_t skdy_get_software_uptime() 
-{
-    if (g_start_time == 0) {
-        g_start_time = time(NULL);
-        return 0;
-    } else {
-        time_t current_time = time(NULL);
-        int elapsed_seconds = (int)difftime(current_time, g_start_time);
-        return elapsed_seconds;
-    }
-}
-
 int getWifiSignalStrength(const char* interface, int* signalStrength) {
     char command[100];
     sprintf(command, "iwconfig %s | awk '/Signal level/ {print $4}'", interface);
