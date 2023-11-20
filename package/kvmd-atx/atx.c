@@ -24,7 +24,7 @@
 #define H616_PIN_LED_HDD 41  //GPIO 233
 
 #define POWER_ON_DELAY 500  //unit:ms
-#define POWER_OFF_DELAY 3000  //unit:ms
+#define POWER_OFF_DELAY 5000  //unit:ms
 #define POWER_RESET_DELAY 500  //unit:ms
 
 typedef struct 
