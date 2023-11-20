@@ -82,7 +82,8 @@ traverse_dir()
                 then
                         if [[ $file != '.' && $file != '..' ]]
                         then
-                                traverse_dir ${filepath}/$file
+                                # traverse_dir ${filepath}/$file
+                                check_suffix ${filepath}/$file
                         fi
                 else
                         check_suffix ${filepath}/$file
@@ -115,6 +116,74 @@ then
 fi
 
 case ${CMD} in
+    forward)
+        mount -o remount,rw /
+
+        if [ -f  "$ventoy_dir/"$MSD_NAME".img" ]
+        then
+                bash $usb_dis_gadget_sh
+                bash $usb_gadget_sh
+
+                cd  $ventoy_dir
+
+                losetup -f $MSD_NAME".img"
+
+                losetup -l | grep $MSD_NAME
+
+                dev_name=`losetup -l | grep $MSD_NAME | grep -v delete | awk 'NR==1{print $1}'`
+
+                echo $dev_name
+
+                mkdir -p $mount_dist_dir
+
+                mount  $dev_name $mount_dist_dir;
+
+                if [ $? -ne 0 ]
+                then
+                        echo "mount  $dev_name"p1" fail"
+                fi
+
+
+                if [ ! -d  $iso_dir ]
+                then
+                        mkdir -p  $iso_dir
+                        exit 1
+                fi
+                
+                traverse_dir $iso_dir
+                for name in ${iso_file_name[@]}
+                do
+                        #echo ${name##*/}
+                        echo $mount_dist_dir${name##*/}
+                        if [ -f $mount_dist_dir${name##*/} || -d $mount_dist_dir${name##*/} ]
+                        then
+                                continue
+                        fi
+                        sleep 3
+                        echo "${name} again!"
+                        cp -rf "${name}" "$mount_dist_dir";
+                        if [ $? -ne 0 ]
+                        then
+                                echo "default cp failed"
+                        else
+                                echo "default cp ${name} sucess!"
+                        fi
+                        sync
+                done
+
+                umount -f $dev_name
+                sleep 3
+                losetup -d $dev_name
+
+                bash $usb_dis_gadget_sh
+                bash $usb_gadget_sh
+
+                mount -o remount,ro /
+        else
+                echo "there is no iso file, please first make iso file."
+        fi
+        ;;
+
     rever)
 	mount -o remount,rw /
 
@@ -138,7 +207,7 @@ case ${CMD} in
 
                 losetup -l | grep $MSD_NAME
 
-                dev_name=`losetup -l | grep ventoy | grep -v delete | awk 'NR==1{print $1}'`
+                dev_name=`losetup -l | grep $MSD_NAME | grep -v delete | awk 'NR==1{print $1}'`
 
                 echo $dev_name
 
@@ -170,6 +239,7 @@ case ${CMD} in
                 mount -o remount,ro /
         fi
 	;;
+
     make)
 #       if [ $# -gt 2 ]
 #       then
@@ -234,7 +304,7 @@ case ${CMD} in
 
         #echo $PWD
 
-        echo ${FILE}
+        echo "yueliang:"${FILE}
         if [ "${FILE}" != "*" ];then
                 file_name=${FILE}
                 echo "param correct"
@@ -267,10 +337,10 @@ case ${CMD} in
                 do
                         #echo ${name##*/}
                         echo $mount_dist_dir${name##*/}
-                        if [ -f $mount_dist_dir${name##*/} ]
+                        if [ -f $mount_dist_dir${name##*/} || -d $mount_dist_dir${name##*/} ]
                         then
                                 echo "exist update file: ${name},rm it "
-                                rm -f $mount_dist_dir${name##*/}
+                                rm -rf $mount_dist_dir${name##*/}
                                 sync
                         fi
                         sleep 3
@@ -330,7 +400,7 @@ case ${CMD} in
         update_json  msd_img_created not_created
         update_json msd_status not_connected
         ;;
-    
+
     delete)
         echo "delete:"$iso_dir/${FILE}
         if [ -f  $iso_dir/${FILE} ]
