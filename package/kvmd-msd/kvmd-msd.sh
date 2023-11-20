@@ -66,8 +66,8 @@ TYPE=${TYPE:-"ventoy"}
 
 update_json()
 {
-        jq --arg key $1 --arg value $2 '.[$key] = $value' $msd_config_dir$msd_json > /mnt/msd/config/temp.json
-        mv /mnt/msd/config/temp.json $msd_config_dir$msd_json
+        jq --arg key $1 --arg value $2 '.[$key] = $value' $msd_config_dir$msd_json > $msd_config_dir/temp.json
+        mv $msd_config_dir/temp.json $msd_config_dir$msd_json
         cp $msd_config_dir$msd_json $msd_shm_dir$msd_json
 }
 
@@ -413,13 +413,13 @@ case ${CMD} in
     status)
         set +x
         echo
-        echo "ISO images in /mnt/msd/user"; ls -l /mnt/msd/user
+        echo "ISO images in $iso_dir"; ls -l $iso_dir
         echo
-        echo "Ventoy images in /mnt/msd/ventoy"; ls -l /mnt/msd/ventoy
-        if [ -e /mnt/msd/ventoy/*.img* ]; then
+        echo "Ventoy images in $ventoy_dir"; ls -l $ventoy_dir
+        if [ -e $ventoy_dir/*.img* ]; then
                 echo
                 echo "ISO images inside ventoy image(s)"
-                losetup -f /mnt/msd/ventoy/*.img*
+                losetup -f $ventoy_dir/*.img*
                 for dev_name in `losetup -l | grep ventoy | grep -v delete | awk 'NR==1{print $1}'`; do
                         losetup -l | grep $dev_name
                         mount $dev_name"p1" $mount_dist_dir
@@ -429,7 +429,7 @@ case ${CMD} in
                 done
 
                 echo
-                if [ $( grep msd_status /mnt/msd/config/msd.json | grep -c not ) -eq 1 ]; then
+                if [ $( grep msd_status $msd_config_dir/msd.json | grep -c not ) -eq 1 ]; then
                         echo "Ventoy image exists and is disconnected.  Run '$0 -c conn' to connect to target"
                 else
                         echo "Ventoy image exists and is connected.  Run '$0 -c disconn' to disconnect from target"
