@@ -63,6 +63,7 @@ export default {
         turn_off_fan:'關閉風扇',
         atx_no_connect:'未連接',
         atx_poweron:'開機',
+        atx_poweroff:'強製關機',
         atx_forceoff:'關機',
         atx_reset:'重啟',
         virtual_keyboard:'虛擬鍵盤',
