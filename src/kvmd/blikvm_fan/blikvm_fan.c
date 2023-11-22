@@ -179,6 +179,10 @@ static blikvm_void_t *blikvm_fan_loop(void *_)
         blikvm_int8_t buf[MAX_SIZE];
         blikvm_float32_t temp = 0;
         blikvm_int8_t fan_enable = 0;
+        blikvm_uint8_t state[1];
+        state[0] = 0U;
+        blikvm_uint8_t last_state[1];
+        last_state[0] = 0U;
         while(1)
         {
 
@@ -213,26 +217,23 @@ static blikvm_void_t *blikvm_fan_loop(void *_)
                 fan_enable = 0; 
                 softPwmWrite(FAN_PIN,0);
             }
-
-            blikvm_uint8_t state[1];
-            blikvm_uint8_t last_state[1];
-            blikvm_int32_t ret_len;
-            if(state != last_state)
+          
+            switch (fan_enable)
+            {
+                case 1U:                 
+                    state[0] = 0b10000000;                        
+                break;
+                case 0U:
+                    state[0] = 0b00000000;
+                break;
+                default:
+                    BLILOG_E(TAG,"fan get error open value:%d\n",fan_enable);
+                break;
+            }
+            if(state[0] != last_state[0])
             {
                 g_fan.fp = fopen("/dev/shm/blikvm/fan","wb+");
-                switch (fan_enable)
-                {
-                    case 1U:                 
-                        state[0] = 0b10000000;                        
-                    break;
-                    case 0U:
-                        state[0] = 0b00000000;
-                    break;
-                    default:
-                        BLILOG_E(TAG,"fan get error open value:%d\n",fan_enable);
-                    break;
-                }
-                
+                blikvm_int32_t ret_len;
                 ret_len = fwrite(state, sizeof(state) , 1, g_fan.fp);
                 if(ret_len > 0)
                 {
