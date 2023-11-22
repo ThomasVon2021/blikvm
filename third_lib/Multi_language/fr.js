@@ -65,6 +65,7 @@ export default {
         turn_off_fan:'Arrêter le ventilateur',
         atx_no_connect:'Désactivé',
         atx_poweron:'Allumer',
+        atx_powerff:'PowerOFF',
         atx_forceoff:'Éteindre',
         atx_reset:'Réinitialiser',
         virtual_keyboard:'Clavier virtuel',
