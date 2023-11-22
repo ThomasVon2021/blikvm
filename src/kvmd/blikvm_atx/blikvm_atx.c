@@ -93,7 +93,7 @@ blikvm_int8_t blikvm_atx_init()
         else
         {
             blikvm_uint8_t state[1];
-            state[0] = blikvm_read_atx_state();
+            state[0] = 0U;
             fwrite(state, sizeof(state) , 1, g_atx.fp );
             fflush(g_atx.fp);
             fclose(g_atx.fp);
@@ -214,23 +214,31 @@ static blikvm_void_t *blikvm_atx_loop(void *_)
 
 static blikvm_void_t *blikvm_atx_monitor(void *_)
 {
+    blikvm_uint8_t state[1];
+    state[0] = 0U;
+    blikvm_uint8_t last_state[1];
+    last_state[0] = 0U;
     do
-    {
-        blikvm_uint8_t state[1];
+    {      
         state[0] = blikvm_read_atx_state();
-        g_atx.fp = fopen("/dev/shm/blikvm/atx","wb+");
-        if(NULL == g_atx.fp)
+        if( state[0] != last_state[0])
         {
-            BLILOG_E(TAG,"open /dev/shm/blikvm/atx error\n");
-            break;
+            g_atx.fp = fopen("/dev/shm/blikvm/atx","wb+");
+            if(NULL == g_atx.fp)
+            {
+                BLILOG_E(TAG,"g_atx.fp is null\n");
+                break;
+            }
+            blikvm_int32_t ret_len = fwrite(state, sizeof(state) , 1, g_atx.fp);
+            if(ret_len < 0)
+            {
+                BLILOG_E(TAG,"write error: %d sizeof state:%d\n",ret_len,sizeof(state));
+            }
+            fflush(g_atx.fp);
+            fclose(g_atx.fp);
+            last_state[0] = state[0];
         }
-        blikvm_int32_t ret_len = fwrite(state, sizeof(state) , 1, g_atx.fp);
-        if(ret_len < 0)
-        {
-            BLILOG_E(TAG,"write error: %d sizeof state:%d\n",ret_len,sizeof(state));
-        }
-        fflush(g_atx.fp);
-        fclose(g_atx.fp);
+
         usleep(ATX_CYCLE*1000);
     }while(1);
     return NULL;

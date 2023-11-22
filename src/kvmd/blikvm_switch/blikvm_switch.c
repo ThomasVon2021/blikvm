@@ -135,6 +135,8 @@ static blikvm_void_t *blikvm_switch_state_loop(void *_)
         blikvm_int8_t   data[8];
         struct timeval tv;
         blikvm_int32_t  n;
+        blikvm_uint8_t last_state[1];
+        last_state[0] = 0U;
         while(1)
         {
             if(g_switch_enable != 1)
@@ -198,14 +200,18 @@ static blikvm_void_t *blikvm_switch_state_loop(void *_)
                     BLILOG_E(TAG,"serial fd is not in input\n");
                 }
             }
-            g_switch.fp = fopen("/dev/shm/blikvm/switch","wb+");
-            blikvm_int32_t ret_len = fwrite(state, sizeof(state) , 1, g_switch.fp);
-            if( ret_len < 0 )
+            if(state[0] != last_state[0])
             {
-                 BLILOG_E(TAG,"write state is error\n");
+                g_switch.fp = fopen("/dev/shm/blikvm/switch","wb+");
+                blikvm_int32_t ret_len = fwrite(state, sizeof(state) , 1, g_switch.fp);
+                if( ret_len < 0 )
+                {
+                    BLILOG_E(TAG,"write state is error\n");
+                }
+                fflush(g_switch.fp);
+                fclose(g_switch.fp);
+                last_state[0] = state[0];
             }
-            fflush(g_switch.fp);
-            fclose(g_switch.fp);
         }
     }while(0>1);
     return NULL;

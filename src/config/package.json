@@ -1,6 +1,6 @@
 {
-    "version": "Develop-1.2.8", 
-    "version_int": 128, 
+    "version": "Develop-1.2.9", 
+    "version_int": 129, 
     "md5value": "", 
     "switch_handle":{
         "switch_enable": 0, 
@@ -13,6 +13,6 @@
     },
     "atx":{
         "power_on_delay":500,
-        "power_off_delay":3000
+        "power_off_delay":5000
     }
 }
