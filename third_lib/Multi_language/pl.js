@@ -65,6 +65,7 @@ export default {
         turn_off_fan:'Zatrzymaj chłodzenie',
         atx_no_connect:'Nieaktywne',
         atx_poweron:'Włącz',
+        atx_powerff:'PowerOFF',
         atx_forceoff:'Wyłącz',
         atx_reset:'Resetuj',
         virtual_keyboard:'Klawiatura',
