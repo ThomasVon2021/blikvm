@@ -156,7 +156,7 @@ blikvm_int32_t oled_240_240_show()
         LCD_1IN3_Display(BlackImage);
 
 		sleep(SHOW_INTERVAL);
-		BLILOG_E(TAG,"close backlight\n");
+		BLILOG_D(TAG,"close backlight\n");
 		blikvm_backlight_close();
 		ret = 0;
 	}while(0>1);
