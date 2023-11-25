@@ -145,7 +145,7 @@ blikvm_config_t* blikvm_read_config(blikvm_int8_t* file_path)
             if (cJSON_IsNumber(oled_enable))
             {
                 BLILOG_I(TAG, "oled_enable: %d\n", oled_enable->valueint);
-                // Handle oled_type accordingly
+                g_config.oled.oled_enable = oled_enable->valueint;
             }
 
             if (cJSON_IsNumber(restart_show_time))

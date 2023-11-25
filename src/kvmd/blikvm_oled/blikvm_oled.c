@@ -110,6 +110,11 @@ blikvm_int8_t blikvm_oled_start()
     return ret;
 }
 
+blikvm_void_t blikvm_oled_set_display_enable( blikvm_int32_t value)
+{
+    blikvm_get_config()->oled.display_enable = value;
+}
+
 static blikvm_void_t *blikvm_oled_loop(void *_)
 {
     
@@ -117,11 +122,17 @@ static blikvm_void_t *blikvm_oled_loop(void *_)
     while(1)
     {
         blikvm_int32_t uptime = skdy_get_int_uptime();  //unit:min
-        if((uptime > MIN_START_SHOW_TIME) && (uptime> oled_config->restart_show_time) && (oled_config->interval_display_time > 0))
+        if( (oled_config->oled_enable == 0) && (uptime > MIN_START_SHOW_TIME) && (uptime> oled_config->restart_show_time) && (oled_config->interval_display_time > 0))
         {
             BLILOG_D(TAG,"oled sleep time:%d\n",oled_config->interval_display_time * 60 );
             sleep(oled_config->interval_display_time * 60);
         }
+#ifdef  VER4
+        if((oled_config->oled_enable == 1) && (oled_config->display_enable == 1))
+        {
+            sleep(100);
+        }
+#endif
         switch (g_oled_type)
         {
     #ifdef SSD1306

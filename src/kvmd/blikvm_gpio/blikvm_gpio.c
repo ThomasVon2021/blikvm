@@ -8,6 +8,7 @@
 
 #include "blikvm_gpio.h"
 #include "GPIO/armbianio.h"
+#include "kvmd/blikvm_oled/blikvm_oled.h"
 
 #include <pthread.h>
 #include <stdio.h>
@@ -121,6 +122,7 @@ static blikvm_void_t *blikvm_gpio_loop(void *_)
             {
                 BLILOG_D(TAG,"open oled\n");
                 blikvm_backlight_open();
+                blikvm_oled_set_display_enable(0);
                 sw2.state = 0;
                 sw2.triggered = 1;
             }
@@ -128,6 +130,7 @@ static blikvm_void_t *blikvm_gpio_loop(void *_)
             {
                 BLILOG_D(TAG,"close oled\n");
                 blikvm_backlight_close();
+                blikvm_oled_set_display_enable(1);
                 sw2.state = 1;
                 sw2.triggered = 1;
             }

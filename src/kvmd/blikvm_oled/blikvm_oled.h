@@ -23,6 +23,8 @@ typedef enum
 typedef struct
 {
     blikvm_int8_t      oled_type;
+    blikvm_int32_t     oled_enable;
+    blikvm_int32_t     display_enable;
     blikvm_int32_t     restart_show_time;  // unit: min
     blikvm_int32_t     interval_display_time; //unit: min
 }blikvm_oled_config_t;
@@ -32,5 +34,7 @@ blikvm_int8_t blikvm_oled_init(blikvm_oled_config_t* config);
 blikvm_int8_t blikvm_oled_start();
 
 blikvm_int8_t blikvm_oled_stop();
+
+blikvm_void_t blikvm_oled_set_display_enable( blikvm_int32_t value);
 
 #endif
