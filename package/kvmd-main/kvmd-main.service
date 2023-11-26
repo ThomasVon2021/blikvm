@@ -6,8 +6,8 @@ Requires=network.target busybox-syslogd.service
 [Service]
 Type=simple
 User=root
-ExecStartPre=/bin/sleep 3
-ExecStart=/usr/bin/blikvm/kvmd-main
+ExecStartPre=/bin/sleep 1
+ExecStart=/usr/bin/blikvm/kvmd-main.sh
 TimeoutStartSec=13s
 RemainAfterExit=true
 Restart=always
