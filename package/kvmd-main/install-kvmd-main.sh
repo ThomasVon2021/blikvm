@@ -14,6 +14,7 @@ if [ -n "${pid}" ]; then
 fi
 
 cp kvmd-main /usr/bin/blikvm/kvmd-main
+cp kvmd-main.sh /usr/bin/blikvm/kvmd-main.sh
 
 mkdir -p "/usr/lib/systemd/system"
 cp kvmd-main.service "/usr/lib/systemd/system"
