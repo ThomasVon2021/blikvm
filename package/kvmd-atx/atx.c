@@ -27,6 +27,9 @@
 #define POWER_OFF_DELAY 5000  //unit:ms
 #define POWER_RESET_DELAY 500  //unit:ms
 
+#define PI4_BOARD "Raspberry Pi\n"
+#define H616_BOARD "Mango Pi Mcore\n"
+
 typedef struct 
 {
     int power;
@@ -45,18 +48,11 @@ typedef enum
     ATX_LED_HDD,
 }atx_command_e;
 
-typedef enum
-{
-    CORE_UNKNOW = 0,
-    CORE_PRI4,
-    CORE_H616,
-}core_type_e;
-
 static int processArguments(int argc, char *argv[]);
 
 static atx_pin_t g_atx = {0};
 static atx_command_e g_atx_cmd_type = ATX_UNKNOW;
-static core_type_e g_core_type = CORE_UNKNOW;
+static char g_board_type[32] = {0};
 
 int main(int argc, char *argv[]) 
 {
@@ -75,7 +71,7 @@ int main(int argc, char *argv[])
         return -1;
     }
 
-    int rc = AIOInit();
+    int rc = AIOInitBoard(g_board_type);
     if (rc == 0)
     {
         printf("Initializing ArmbianIO library error\n");
@@ -134,14 +130,14 @@ static int processArguments(int argc, char *argv[])
             
             if( (strcmp(argv[i + 1], "v1")== 0) || (strcmp(argv[i + 1], "v2")== 0) || (strcmp(argv[i + 1], "v3")== 0) )
             {
-                g_core_type = CORE_PRI4;
+                memcpy(g_board_type, PI4_BOARD, strlen(PI4_BOARD));
                 g_atx.power = RPI_PIN_POWER;
                 g_atx.reset = RPI_PIN_RESET;
                 g_atx.led_power = RPI_PIN_LED_PWR;
                 g_atx.led_hdd = RPI_PIN_LED_HDD;
             }else if(strcmp(argv[i + 1], "v4")== 0 )
             {
-                g_core_type = CORE_H616; 
+                memcpy(g_board_type, H616_BOARD, strlen(H616_BOARD));
                 g_atx.power = H616_PIN_POWER;
                 g_atx.reset = H616_PIN_RESET;
                 g_atx.led_power = H616_PIN_LED_PWR;
