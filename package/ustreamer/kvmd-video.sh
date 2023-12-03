@@ -59,7 +59,7 @@ echo "Board type: $board_type"
 if [[ "$board_type" == "$v2_hat" ]] || [[ "$board_type" == "$v3_pcie" ]]; then
     v4l2-ctl --set-edid=file=/usr/bin/blikvm/edid.txt --fix-edid-checksums
     v4l2-ctl --set-dv-bt-timings query
-    /usr/bin/blikvm/ustreamer.bin --device=/dev/video0 --persistent --dv-timings --format=uyvy --encoder=omx --workers=3 --quality=80 --desired-fps=30 --drop-same-frames=30 --last-as-blank=0 --h264-sink=demo::ustreamer::h264
+    /usr/bin/blikvm/ustreamer.bin --device=/dev/video0 --host=0.0.0.0 --port=8008 --persistent --dv-timings --format=uyvy --encoder=omx --workers=3 --quality=80 --desired-fps=30 --drop-same-frames=30 --last-as-blank=0 --h264-sink=demo::ustreamer::h264
 elif [[ "$board_type" == "$v4_h616" ]]; then
   # init device var
   jpeg_supported_device=""

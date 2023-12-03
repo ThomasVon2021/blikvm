@@ -29,11 +29,11 @@ def main():
     file_tar_name = ""
     if gArgs.platform == "pi":
         cmd_make += "make RPI=1 SSD1306=1"
-        cmd_pack += "cp package/kvmd-web/binary/pi/* release/ && cp package/ustreamer/binary/pi/* release/ && "
+        cmd_pack += "cp package/ustreamer/binary/pi/* release/ && "
         file_tar_name = "release.tar.gz"
     elif gArgs.platform == "h616":
         cmd_make += "make H616=1 ST7789=1"
-        cmd_pack += "cp package/kvmd-web/binary/h616/* release/ && cp package/ustreamer/binary/h616/* release/ && "
+        cmd_pack += "cp package/ustreamer/binary/h616/* release/ && "
         file_tar_name = "release-h616-v4.tar.gz"
     else:
         print("input error platform")
