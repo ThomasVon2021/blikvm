@@ -5,3 +5,4 @@ blikvm_log/
 # Ignore binary
 *.tar.gz
 release/
+kvmd-main
