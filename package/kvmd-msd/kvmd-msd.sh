@@ -155,7 +155,7 @@ case ${CMD} in
                 do
                         #echo ${name##*/}
                         echo $mount_dist_dir${name##*/}
-                        if [ -f $mount_dist_dir${name##*/} || -d $mount_dist_dir${name##*/} ]
+                        if [ -f $mount_dist_dir${name##*/} ] || [ -d $mount_dist_dir${name##*/} ]
                         then
                                 continue
                         fi
@@ -337,7 +337,7 @@ case ${CMD} in
                 do
                         #echo ${name##*/}
                         echo $mount_dist_dir${name##*/}
-                        if [ -f $mount_dist_dir${name##*/} || -d $mount_dist_dir${name##*/} ]
+                        if [ -f $mount_dist_dir${name##*/} ] || [ -d $mount_dist_dir${name##*/} ]
                         then
                                 echo "exist update file: ${name},rm it "
                                 rm -rf $mount_dist_dir${name##*/}
