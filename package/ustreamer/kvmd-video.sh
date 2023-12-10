@@ -73,7 +73,7 @@ elif [[ "$board_type" == "$v4_h616" ]]; then
   done
   if [ -n "$jpeg_supported_device" ]; then
       echo "find support JPEG video divice: $jpeg_supported_device"
-      /usr/bin/blikvm/ustreamer.bin --format=MJPEG --device=$jpeg_supported_device --resolution=1920x1080 --host=0.0.0.0 --port=8008 --drop-same-frames=30
+      /usr/bin/blikvm/ustreamer.bin --format=MJPEG --device=$jpeg_supported_device --resolution=1920x1080 --host=0.0.0.0 --port=8008 --drop-same-frames=30 --desired-fps=20
   else
       echo "not find JPEG video device, use video1"
       /usr/bin/blikvm/ustreamer.bin --format=MJPEG --device=/dev/video1 --resolution=1920x1080 --host=0.0.0.0 --port=8008 --drop-same-frames=30
