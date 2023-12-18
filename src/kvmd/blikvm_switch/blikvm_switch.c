@@ -86,6 +86,7 @@ blikvm_int8_t blikvm_switch_init(blikvm_switch_t* config)
         memcpy(g_switch_config.device_path,config->device_path,strlen(config->device_path));
 
         g_switch.init = 1;
+        g_switch_enable = 1;
     }while(0>1);
 
 
