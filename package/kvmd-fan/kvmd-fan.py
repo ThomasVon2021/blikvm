@@ -26,7 +26,7 @@ try:
 		print("Temp:",cpu_temp)
 		if (cpu_temp >= max_temp) or (cpu_temp > min_temp): 
 			if(not running): #if fan not running, start fan
-				rint("PWM_Start")
+				print("PWM_Start")
 				pwm.start(0)
 				running = True
 			if (cpu_temp >= max_temp): #For safety, temp exceeds 60 degrees, the fan speed is always set to 100%.
