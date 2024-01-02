@@ -130,7 +130,8 @@ static blikvm_void_t *blikvm_oled_loop(void *_)
 #ifdef  VER4
         if((oled_config->oled_enable == 1) && (oled_config->display_enable == 1))
         {
-            sleep(100);
+            sleep(1);  //unit: s
+            continue;
         }
 #endif
         switch (g_oled_type)
