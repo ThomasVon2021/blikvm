@@ -10,12 +10,12 @@ bash install.sh
 ro
 ```
 
-2、if you want to disable fan
+2、if you want to disable oled
 ```
 systemctl disable kvmd-oled
 ```
 
-3、if you want to start fan
+3、if you want to start oled
 ```
 systemctl enable kvmd-oled
 ```
