@@ -20,7 +20,7 @@ systemctl disable kvmd-oled
 systemctl enable kvmd-oled
 ```
 
-4、if you want to see the fan work status
+4、if you want to see the oled work status
 ```
 systemctl status kvmd-oled
 ```
