@@ -38,7 +38,7 @@ export default {
         system_usb_drive: "系统安装U盘",
         avail_space: "可用空间",
         total_space: "总空间",
-        select_or_upload_image: "请选择或上传一个镜像文件",
+        select_or_upload_image: "请选择或上传一个镜像文件,上传文件过程中请勿切换页面",
         select_image: "请选择一个镜像文件",
         make_message: "请点击下面的制作启动U盘按钮,并在转换和复制过程完成之前耐心等待（非常耗时，速度非常慢，请耐心等待）",
         usb_drive_size: "U盘容量",
@@ -58,6 +58,9 @@ export default {
         keyboard_copy_alert:"目前只支持英语，其他语言不支持",
         input_info:"请输入內容",
         input_blank:"内容不能为空",
+        login:"登录",
+        username:"用户名",
+        password:"密码",
     },
     menu:{
         turn_on_fan:'开启风扇',
@@ -98,5 +101,7 @@ export default {
         select_file:"选择文件",
         submit:"提交",
         logout:"退出登录",
+        iso_number: "所有镜像",
+        cancel_upload: "取消上传",
     }
 }

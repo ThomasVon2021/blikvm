@@ -59,6 +59,9 @@ export default {
         keyboard_copy_alert:"Obecnie obsługuje tylko język Angielski, inne języki (znaki diakrytyczne) nie są obsługiwane.",
         input_info:"Proszę wpisać zawartość",
         input_blank:"Zawartość nie może byc pusta",
+        login:"login",
+        username:"user",
+        password:"ps",
     },
     menu:{
         turn_on_fan:'Uruchom chłodzenie',
@@ -99,5 +102,7 @@ export default {
         select_file:"Wybierz plik",
         submit:"Prześlij",
         logout:"Wyloguj",
+        iso_number: "All ISO",
+        cancel_upload: "cancel upload",
     }
 }

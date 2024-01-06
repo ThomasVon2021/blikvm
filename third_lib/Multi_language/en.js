@@ -38,7 +38,7 @@ export default {
         system_usb_drive:"Bootable USB drive",
         avail_space:"Avail",
         total_space:"Total",
-        select_or_upload_image:"Please select or upload an image",
+        select_or_upload_image:"Please select or upload an image,don't switch pages during the upload process",
         select_image:"Please select an image",
         make_message:"Please click the make Bootable USB drive button below and wait for the conversion and copy progress to be completed before continuing (very time-consuming, very slow, please wait patiently)",
         usb_drive_size:"USB drive size",
@@ -59,6 +59,9 @@ export default {
         keyboard_copy_alert:"Currently only supports English, other languages are not supported",
         input_info:"Please enter content",
         input_blank:"the content can not be blank",
+        login:"login",
+        username:"user",
+        password:"ps",
     },
     menu:{
         turn_on_fan:'Start fan',
@@ -99,5 +102,7 @@ export default {
         select_file:"select file",
         submit:"submit",
         logout:"logout",
+        iso_number: "All ISO",
+        cancel_upload: "cancel upload",
     }
 }

@@ -59,6 +59,9 @@ export default {
         keyboard_copy_alert:"В настоящее время поддерживается только английский язык",
         input_info:"Пожалуйста, введите текст",
         input_blank:"Текст не может быть пустым",
+        login:"login",
+        username:"user",
+        password:"ps",
     },
     menu:{
         turn_on_fan:'Запустить вентилятор',
@@ -99,5 +102,7 @@ export default {
         select_file:"Выберите файл",
         submit:"Подтвердить",
         logout:"Выход",
+        iso_number: "All ISO",
+        cancel_upload: "cancel upload",
     }
 }
