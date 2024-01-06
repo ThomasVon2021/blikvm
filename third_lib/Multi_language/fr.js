@@ -59,6 +59,9 @@ export default {
         keyboard_copy_alert:"Actuellement, ne prend en charge que l'anglais, les autres langues ne sont pas prises en charge",
         input_info:"Veuillez saisir le contenu",
         input_blank:"le contenu ne peut pas être vide",
+        login:"login",
+        username:"user",
+        password:"ps",
     },
     menu:{
         turn_on_fan:'Démarrer le ventilateur',
@@ -99,5 +102,7 @@ export default {
         select_file:"choisir le fichier",
         submit:"soumettre",
         logout:"se déconnecter",
+        iso_number: "All ISO",
+        cancel_upload: "cancel upload",
     }
 }
