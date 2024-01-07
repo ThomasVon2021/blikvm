@@ -10,7 +10,7 @@ systemctl disable kvmd-main
 systemctl enable kvmd-main
 ```
 
-3. if you want to see the fan work status
+3. if you want to see the kvmd-main work status
 ```
 systemctl status kvmd-main
 ```
