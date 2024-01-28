@@ -62,6 +62,7 @@ export default {
         login:"login",
         username:"user",
         password:"ps",
+        login_success: "login success",
     },
     menu:{
         turn_on_fan:'Uruchom chłodzenie',
