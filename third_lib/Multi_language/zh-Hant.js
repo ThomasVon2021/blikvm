@@ -60,6 +60,7 @@ export default {
         login:"登錄",
         username:"用戶名",
         password:"密碼",
+        login_success: "登錄成功",
     },
     menu:{
         turn_on_fan:'開啟風扇',
