@@ -155,10 +155,6 @@ case ${CMD} in
                 do
                         #echo ${name##*/}
                         echo $mount_dist_dir${name##*/}
-                        if [ -f $mount_dist_dir${name##*/} ] || [ -d $mount_dist_dir${name##*/} ]
-                        then
-                                continue
-                        fi
                         sleep 3
                         echo "${name} again!"
                         cp -rf "${name}" "$mount_dist_dir";
