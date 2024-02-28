@@ -26,6 +26,7 @@ iso_dir="/mnt/msd/user"
 mount_dist_dir="/media/blikvm/ventoy/"
 usb_gadget_sh="/usr/bin/blikvm/enable-gadget.sh"
 usb_dis_gadget_sh="/usr/bin/blikvm/disable-gadget.sh"
+ventoy_script="/usr/bin/blikvm/ventoy-1.0.97"
 msd_config_dir="/mnt/msd/config/"
 msd_shm_dir="/dev/shm/blikvm/"
 msd_json="msd.json"
@@ -275,7 +276,7 @@ case ${CMD} in
 
         if [ "$TYPE" = "ventoy" ] 
         then
-                sh /usr/bin/blikvm/ventoy-1.0.88/Ventoy2Disk.sh -i $dev_name;
+                sh $ventoy_script/Ventoy2Disk.sh -i $dev_name;
         fi
 
         mkdir -p $mount_dist_dir
