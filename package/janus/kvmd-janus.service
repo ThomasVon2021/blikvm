@@ -5,6 +5,7 @@ After=busybox-syslogd.service
 [Service]
 Type=simple
 User=root
+ExecStartPre=/bin/sleep 30
 ExecStart=/opt/janus/bin/janus &
 RemainAfterExit=true
 Restart=always
