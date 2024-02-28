@@ -256,8 +256,9 @@ case ${CMD} in
                 cd  $ventoy_dir
                 echo "update file not exist,please wait..."
 
-                dd if=/dev/zero of=$MSD_NAME".img" bs=1M count=$((VENTOY_SIZE*1024)) status=progress;
-        fi
+#                dd if=/dev/zero of=$MSD_NAME".img" bs=1M count=$((VENTOY_SIZE*1024)) status=progress;
+                truncate -s "${VENTOY_SIZE}G" "${MSD_NAME}.img"
+	fi
 
         if [ "$TYPE" != "ventoy" ] 
         then
