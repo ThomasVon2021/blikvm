@@ -57,6 +57,7 @@
 - [Purchase - PiKVM ATX Power Adaptor](https://www.aliexpress.com/item/1005003761450893.html)
 - [Purchase - PiKVM USB Splitter](https://www.aliexpress.com/item/1005003793429781.html)
 - [Purchase - PiKVM HDMI to CSI Board](https://www.aliexpress.com/item/1005002861310912.html)
+- [Purchase - BliKVM switch v1.0](https://www.aliexpress.com/item/1005005149590635.html)
 
 ## Videos
 
