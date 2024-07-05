@@ -4,3 +4,9 @@
 [submodule "package/blikvm-webserver"]
 	path = package/blikvm-webserver
 	url = https://github.com/ThomasVon2021/blikvm-webserver.git
+[submodule "web_src/web-client"]
+	path = web_src/web-client
+	url = https://github.com/ThomasVon2021/blikvm-web-client
+[submodule "web_src/web-server"]
+	path = web_src/web-server
+	url = https://github.com/ThomasVon2021/blikvm-web-server
