@@ -177,14 +177,7 @@ Install NodeJS first:
 curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - &&\
 apt-get install -y nodejs
 ```
-
-Then go the `package/blikvm-webclient` folder and execute:
-
-```bash
-npm install
-npm run serve # If you wish to run/test development
-npm run build
-```
+git submodule update --init --recursive
 
 # Config overlays in Raspberry Pi
 
