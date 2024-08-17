@@ -126,6 +126,8 @@ memsink: {
 
 # Prepare web server
 
+<details>
+<summary>old php code </summary>
 Install dependencies:
 
 ```bash
@@ -168,16 +170,23 @@ echo "extension=swoole.so" > /etc/php/7.4/cli/conf.d/swoole.ini
 pecl install inotify
 echo "extension=inotify.so" > /etc/php/7.4/cli/conf.d/inotify.ini
 ```
+</details>
 
-## Web client
 
+## web-src
+
+init submodule
+```
+git submodule update --init --recursive
+```
 Install NodeJS first:
 
 ```bash
-curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - &&\
-apt-get install -y nodejs
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+source ~/.nvm/nvm.sh
+nvm install 18.19.0
 ```
-git submodule update --init --recursive
+
 
 # Config overlays in Raspberry Pi
 
