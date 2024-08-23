@@ -1,5 +1,5 @@
 #!/bin/bash
-proc_name="kvmlink:master"
+proc_name="server_app"
 if [ -d "/usr/bin/blikvm" ]
 then
     echo '/usr/bin/blikvm exists'
@@ -13,17 +13,8 @@ if [ -n "${pid}" ]; then
   kill -9 "${pid}"
 fi
 
-cp kvmd-web.sh /usr/bin/blikvm/kvmd-web.sh
-chmod 777 /usr/bin/blikvm/kvmd-web.sh
-
-cp kvm-link /usr/bin/blikvm/kvm-link
-chmod 777 /usr/bin/blikvm/kvm-link
-
-cp config.ini /usr/bin/blikvm/config.ini
-chmod 777 /usr/bin/blikvm/config.ini
-
-cp admin.ini /usr/bin/blikvm/admin.ini
-chmod 777 /usr/bin/blikvm/config.ini
+cp -R release /usr/bin/blikvm/
+chmod 777 -R /usr/bin/blikvm/release
 
 mkdir -p "/usr/lib/systemd/system"
 cp kvmd-web.service "/usr/lib/systemd/system"

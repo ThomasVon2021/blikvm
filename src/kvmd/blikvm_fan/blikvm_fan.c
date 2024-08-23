@@ -29,8 +29,8 @@
 #define FAN_PIN 15  // BCM269
 #endif
 
-#define TEMP_LEFT_LIMIT 55  //C
-#define TEMP_RIGHT_LIMIT 60  //C 
+#define TEMP_LEFT_LIMIT 60  //C
+#define TEMP_RIGHT_LIMIT 65  //C 
 
 typedef struct 
 {

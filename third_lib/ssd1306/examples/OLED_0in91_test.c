@@ -86,7 +86,7 @@ blikvm_int32_t blikvm_oled_ssd1306_0in91_show(void)
 			OLED_0in91_Clear();
 			break;
 		}
-		BLILOG_D(TAG,"start show oled info\n");
+		// BLILOG_D(TAG,"start show oled info\n");
 		// IP address
 		if(i%2 == 0 )
 		{

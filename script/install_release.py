@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# eg: python3 install_release.py --releasepath release
+# eg: python3 install_release.py --releasepath=./ --alpha=true
 # after run this script, need reboot.
 import subprocess
 import os
@@ -11,6 +11,7 @@ def doArgParse():
     global gArgs
     optParser = argparse.ArgumentParser(description='build and tar file')
     optParser.add_argument('--releasepath', nargs='?', default='/tmp/kvm_update/release/', type=str, help='release path')
+    optParser.add_argument('--alpha', nargs='?', default='false', type=str, help='Whether to use version')
     gArgs = optParser.parse_args()
 
 def execute_cmd(cmd,sh_path):
@@ -48,12 +49,23 @@ def main():
     execute_cmd(cmd,sh_path)
     print('kill ustreamer done')
 
+    cmd = "ps -aux | grep janus | grep -v grep"
+    execute_cmd(cmd,sh_path)
+    print('kill janus done')
+
     # install all software
     if os.path.exists(gArgs.releasepath):
-        cmd = "bash install-kvmd-main.sh && bash install-ustreamer.sh && bash install-kvmd-hid.sh \
-        && bash install-kvmd-web.sh && bash install-kvmd-msd.sh && cp package.json /usr/bin/blikvm/package.json"
-        subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
-        print('install new version successful')
+        if gArgs.alpha == 'true':
+            cmd = "systemctl disable kvmd-janus && systemctl disable kvmd-hid && systemctl disable kvmd-main \
+            && bash install-kvmd-web.sh && cp package.json /usr/bin/blikvm/package.json"
+            subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
+            print('install alpha version successful')
+            return
+        else:
+            cmd = "bash install-kvmd-main.sh && bash install-ustreamer.sh && bash install-kvmd-hid.sh \
+            && bash install-kvmd-web.sh && bash install-kvmd-msd.sh && cp package.json /usr/bin/blikvm/package.json"
+            subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
+            print('install new version successful')
     else:
         print(gArgs.releasepath, ' not exit')
 

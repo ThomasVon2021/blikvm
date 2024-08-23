@@ -30,22 +30,19 @@ def main():
     if gArgs.platform == "pi":
         cmd_make += "make RPI=1 SSD1306=1"
         cmd_pack += "cp package/ustreamer/binary/pi/* release/ && "
-        file_tar_name = "release.tar.gz"
+        file_tar_name = "release-alpha.tar.gz"
     elif gArgs.platform == "h616":
         cmd_make += "make H616=1 ST7789=1"
         cmd_pack += "cp package/ustreamer/binary/h616/* release/ && "
-        file_tar_name = "release-h616-v4.tar.gz"
+        file_tar_name = "release-h616-alpha.tar.gz"
     else:
         print("input error platform")
         return
-    print("command: ",cmd_make, " start to make")
-    output = subprocess.check_output(cmd_make, shell = True, cwd=make_path )
-    print("make success")
+    # print("command: ",cmd_make, " start to make")
+    # output = subprocess.check_output(cmd_make, shell = True, cwd=make_path )
+    # print("make success")
 
-    cmd_pack += "cp package/kvmd-hid/* release/ && cp package/kvmd-main/* release/ && \
-        find package/kvmd-web/ -maxdepth 1 -type f -exec cp {} release/ \; && \
-        find package/ustreamer/ -maxdepth 1 -type f -exec cp {} release/ \; && \
-        cp src/kvmd-main release/ && cp -R package/kvmd-msd/* release/ && \
+    cmd_pack += "cp -R web_src/web-server/release/ release/ && cp package/kvmd-web/* release/ && \
         cp script/install_release.py release/ && \
         cp src/config/package.json release/ && "
     cmd_pack += "tar -zcvf " + file_tar_name + " release && rm -rf release"

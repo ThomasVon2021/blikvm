@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding:utf8 -*-
-# eg: python3 update.py 
+# eg: python3 update.py alpha
 import json
 import os
 import sys
@@ -15,7 +15,7 @@ update_result = False
 # Define board type string
 pi4b_board = "Raspberry Pi 4 Model B"
 cm4b_board = "Raspberry Pi Compute Module 4"
-h616_board = "Mango Pi Mcore"
+h616_board = "MangoPi Mcore"
 
 code_owner = "ThomasVon2021"
 code_repo = "blikvm"
@@ -41,13 +41,13 @@ def execmd(cmd):
 # Get board type by checking system information
 def get_board_type():
     # Check if the board is Raspberry Pi 4 Model B
-    if pi4b_board in execmd("cat /proc/cpuinfo") or pi4b_board in execmd("cat /run/machine.id"):
+    if pi4b_board in execmd("cat /proc/device-tree/model"):
         type = BoardType.V2_HAT
     # Check if the board is Raspberry Pi Compute Module 4
-    elif cm4b_board in execmd("cat /proc/cpuinfo") or cm4b_board in execmd("cat /run/machine.id"):
+    elif cm4b_board in execmd("cat /proc/device-tree/model"):
         type = BoardType.V3_PCIE
     # Check if the board is Mango Pi Mcore
-    elif h616_board in execmd("cat /proc/cpuinfo") or h616_board in execmd("cat /run/machine.id"):
+    elif h616_board in execmd("cat /proc/device-tree/model"):
         type = BoardType.V4_H616
     else:
         type = BoardType.UNKNOWN
@@ -103,6 +103,8 @@ def main():
     sh_path = os.path.split(os.path.realpath(__file__))[0]
     make_path = sh_path + '/src'
 
+    is_alpha = len(sys.argv) > 1 and sys.argv[1].lower() == "alpha"
+
     # Remove/clear download directory
     cmd = "rm -rf /tmp/kvm_update"
     output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
@@ -133,23 +135,22 @@ def main():
         run_json = '/usr/bin/blikvm/package.json'
         if not os.path.exists(run_json):
             print("get local version failed ",run_json," is not exit")
-            return
         with open(run_json,'r',encoding='utf8')as fp_r:
             json_data = json.load(fp_r)
             run_version = json_data['version']
             print("The local version is ",run_version)
        
         # compare version
-        if latest_version != run_version :
+        if latest_version != run_version or is_alpha:
             print("Upgrading ", run_version , " ==> ", latest_version)
             # download tar pack
             cmd = ""
             if board_type == BoardType.V1_CM4 or board_type == BoardType.V2_HAT or board_type == BoardType.V3_PCIE:
                 # cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release.tar.gz"
-                file_name = "release.tar.gz"
+                file_name = "release-alpha.tar.gz" if is_alpha else "release.tar.gz"
             elif board_type == BoardType.V4_H616:
                 # cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release-h616-v4.tar.gz"
-                file_name = "release-h616-v4.tar.gz"
+                file_name = "release-h616-v4-alpha.tar.gz" if is_alpha else "release-h616-v4.tar.gz"
             else:
                 print("get unknow board")
             try:
@@ -165,7 +166,10 @@ def main():
                 cmd = "tar -zxvf " + file_name
                 output = subprocess.check_output(cmd, shell = True, cwd=download_path)
                 install_path = download_path + "release"
-                cmd = "python3 install_release.py"
+                if(is_alpha):
+                    cmd = "python3 install_release.py --releasepath=./ --alpha=true"
+                else:
+                    cmd = "python3 install_release.py"
                 output = subprocess.check_output(cmd, shell = True, cwd=install_path)        
                 update_result = True
                 print("Upgrade successful!")

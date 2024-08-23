@@ -6,7 +6,9 @@ Requires=network.target busybox-syslogd.service
 [Service]
 Type=simple
 User=root
-ExecStart=/usr/bin/blikvm/kvmd-web.sh
+ExecStartPre=/bin/sleep 30
+WorkingDirectory=/usr/bin/blikvm/release
+ExecStart=/usr/bin/blikvm/release/server_app
 RemainAfterExit=true
 Restart=always
 
