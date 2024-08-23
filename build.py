@@ -34,7 +34,7 @@ def main():
     elif gArgs.platform == "h616":
         cmd_make += "make H616=1 ST7789=1"
         cmd_pack += "cp package/ustreamer/binary/h616/* release/ && "
-        file_tar_name = "release-h616-alpha.tar.gz"
+        file_tar_name = "release-h616-v4-alpha.tar.gz"
     else:
         print("input error platform")
         return

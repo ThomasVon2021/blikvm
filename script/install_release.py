@@ -57,7 +57,7 @@ def main():
     if os.path.exists(gArgs.releasepath):
         if gArgs.alpha == 'true':
             cmd = "systemctl disable kvmd-janus && systemctl disable kvmd-hid && systemctl disable kvmd-main \
-            && bash install-kvmd-web.sh && cp package.json /usr/bin/blikvm/package.json"
+            && systemctl disable kvmd-video && bash install-kvmd-web.sh && cp package.json /usr/bin/blikvm/package.json"
             subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
             print('install alpha version successful')
             return
