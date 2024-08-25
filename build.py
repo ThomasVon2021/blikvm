@@ -44,7 +44,7 @@ def main():
 
     cmd_pack += "cp -R web_src/web-server/release/ release/ && cp package/kvmd-web/* release/ && \
         cp script/install_release.py release/ && \
-        cp src/config/package.json release/ && "
+        cp script/package.json release/ && "
     cmd_pack += "tar -zcvf " + file_tar_name + " release && rm -rf release"
     
     print("pack relase package, command: ", cmd_pack)
@@ -52,7 +52,7 @@ def main():
     print("pack success")
 
     # modify package.json
-    file_path = sh_path + "/src/config/package.json"
+    file_path = sh_path + "/script/package.json"
     with open(file_path,'r',encoding='utf8')as fp_r:
         json_data = json.load(fp_r)
         cmd = "md5sum " + file_tar_name

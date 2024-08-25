@@ -95,6 +95,8 @@ def download_release_file(owner, repo, tag_name, file_name, download_path):
     print(f'{file_name} downloaded to {file_path}')
     return True
 
+def version_to_tuple(version):
+    return tuple(map(int, version.lstrip('v').split('.')))
 
 def main():
     board_type = get_board_type()
@@ -141,7 +143,9 @@ def main():
             print("The local version is ",run_version)
        
         # compare version
-        if latest_version != run_version or is_alpha:
+        latest_version_tuple = version_to_tuple("v1.4.0")
+        run_version_tuple = version_to_tuple(run_version)
+        if (latest_version != run_version and run_version_tuple < latest_version_tuple)  or is_alpha:
             print("Upgrading ", run_version , " ==> ", latest_version)
             # download tar pack
             cmd = ""
@@ -174,7 +178,7 @@ def main():
                 update_result = True
                 print("Upgrade successful!")
         else:
-            print("No update needed.")
+            print("There is no latest stable version available. You can try the alpha version: python3 /opt/bin/blikvm/script/update.py alpha")
         a = 0
     result_cnt = ""
     if update_result == True:
