@@ -32,3 +32,5 @@ echo "Starting partition resizing..."
 check_firstboot
 
 echo "Partition resizing completed."
+
+cat /dev/null > ~/.bash_history

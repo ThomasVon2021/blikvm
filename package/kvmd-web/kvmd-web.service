@@ -7,8 +7,8 @@ Requires=network.target busybox-syslogd.service
 Type=simple
 User=root
 ExecStartPre=/bin/sleep 60
-WorkingDirectory=/usr/bin/blikvm/release
-ExecStart=/usr/bin/blikvm/release/server_app
+WorkingDirectory=/mnt/exec/release
+ExecStart=/mnt/exec/release/server_app
 RemainAfterExit=true
 Restart=always
 

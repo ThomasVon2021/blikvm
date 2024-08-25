@@ -1,20 +1,20 @@
 #!/bin/bash
 proc_name="server_app"
-if [ -d "/usr/bin/blikvm" ]
+if [ -d "/mnt/exec" ]
 then
-    echo '/usr/bin/blikvm exists'
+    echo '/mnt/exec exists'
 else
-    mkdir -p "/usr/bin/blikvm"
+    mkdir -p "/mnt/exec"
 fi
-
+chmod 777 -R /mnt/exec
 pid=$(pgrep "${proc_name}")
 if [ -n "${pid}" ]; then
   echo "Process $proc_name is running, killing it ..."
   kill -9 "${pid}"
 fi
 
-cp -R release /usr/bin/blikvm/
-chmod 777 -R /usr/bin/blikvm/release
+cp -R release /mnt/exec
+chmod 777 -R /mnt/exec/release
 
 mkdir -p "/usr/lib/systemd/system"
 cp kvmd-web.service "/usr/lib/systemd/system"

@@ -8,6 +8,7 @@ import subprocess
 import requests
 import platform
 from enum import Enum
+import re
 
 download_path = "/tmp/kvm_update/"
 update_result = False
@@ -96,7 +97,8 @@ def download_release_file(owner, repo, tag_name, file_name, download_path):
     return True
 
 def version_to_tuple(version):
-    return tuple(map(int, version.lstrip('v').split('.')))
+    version_numbers = re.findall(r'\d+', version)
+    return tuple(map(int, version_numbers))
 
 def main():
     board_type = get_board_type()

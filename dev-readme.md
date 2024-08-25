@@ -122,6 +122,10 @@ nano /opt/janus/etc/janus/janus.plugin.ustreamer.jcfg
 memsink: {
   object = "demo::ustreamer::h264"
 }
+audio: {
+    device = "hw:1,0"
+    tc358743 = "/dev/video0"
+}
 ```
 
 # Prepare web server
