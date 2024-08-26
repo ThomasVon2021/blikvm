@@ -1,6 +1,6 @@
-[submodule "web_src/web-client"]
-	path = web_src/web-client
-	url = https://github.com/ThomasVon2021/blikvm-web-client
-[submodule "web_src/web-server"]
-	path = web_src/web-server
-	url = https://github.com/ThomasVon2021/blikvm-web-server
+[submodule "web_src/web_server"]
+	path = web_src/web_server
+	url = https://github.com/ThomasVon2021/blikvm-web-server.git
+[submodule "web_src/web_client"]
+	path = web_src/web_client
+	url = https://github.com/ThomasVon2021/blikvm-web-client.git
