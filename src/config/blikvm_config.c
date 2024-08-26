@@ -78,33 +78,33 @@ blikvm_config_t* blikvm_read_config(blikvm_int8_t* file_path)
             break;
         }
 
-        const cJSON *switch_handle = NULL;
-        switch_handle = cJSON_GetObjectItemCaseSensitive(root, "switch_handle");
-        if (cJSON_IsObject(switch_handle))
-        {
-            const cJSON *switch_enable = cJSON_GetObjectItemCaseSensitive(switch_handle, "switch_enable");
-            const cJSON *switch_path = cJSON_GetObjectItemCaseSensitive(switch_handle, "switch_path");
+        // const cJSON *switch_handle = NULL;
+        // switch_handle = cJSON_GetObjectItemCaseSensitive(root, "switch_handle");
+        // if (cJSON_IsObject(switch_handle))
+        // {
+        //     const cJSON *switch_enable = cJSON_GetObjectItemCaseSensitive(switch_handle, "switch_enable");
+        //     const cJSON *switch_path = cJSON_GetObjectItemCaseSensitive(switch_handle, "switch_path");
 
-            if (!cJSON_IsNumber(switch_enable))
-            {
-                BLILOG_E(TAG, "switch function is disable\n");
-            }
-            else
-            {
-                g_config.switch_handle.enable = switch_enable->valueint;
-                BLILOG_D(TAG, "switch function is enable\n");
-            } 
+        //     if (!cJSON_IsNumber(switch_enable))
+        //     {
+        //         BLILOG_E(TAG, "switch function is disable\n");
+        //     }
+        //     else
+        //     {
+        //         g_config.switch_handle.enable = switch_enable->valueint;
+        //         BLILOG_D(TAG, "switch function is enable\n");
+        //     } 
 
-            if (!cJSON_IsString(switch_path))
-            {
-                BLILOG_E(TAG, "switch path is not string\n");
-            }
-            else
-            {
-                memcpy(g_config.switch_handle.device_path, switch_path->valuestring, strlen(switch_path->valuestring));
-                BLILOG_D(TAG, "switch device:%s\n",switch_path->valuestring);
-            }           
-        }
+        //     if (!cJSON_IsString(switch_path))
+        //     {
+        //         BLILOG_E(TAG, "switch path is not string\n");
+        //     }
+        //     else
+        //     {
+        //         memcpy(g_config.switch_handle.device_path, switch_path->valuestring, strlen(switch_path->valuestring));
+        //         BLILOG_D(TAG, "switch device:%s\n",switch_path->valuestring);
+        //     }           
+        // }
 
         const cJSON *atx = NULL;
         atx = cJSON_GetObjectItemCaseSensitive(root, "atx");
