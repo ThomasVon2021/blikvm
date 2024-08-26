@@ -42,7 +42,7 @@ def main():
     # output = subprocess.check_output(cmd_make, shell = True, cwd=make_path )
     # print("make success")
 
-    cmd_pack += "cp -R web_src/web-server/release/ release/ && cp package/kvmd-web/* release/ && \
+    cmd_pack += "cp -R web_src/web_server/release/ release/ && cp package/kvmd-web/* release/ && \
         cp script/install_release.py release/ && \
         cp script/package.json release/ && "
     cmd_pack += "tar -zcvf " + file_tar_name + " release && rm -rf release"
