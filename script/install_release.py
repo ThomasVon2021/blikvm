@@ -59,7 +59,10 @@ def main():
             cmd = "systemctl disable kvmd-janus && systemctl disable kvmd-hid && systemctl disable kvmd-main \
             && systemctl disable kvmd-video && bash install-kvmd-web.sh && cp package.json /usr/bin/blikvm/package.json"
             subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
-            print('install alpha version successful')
+            print('install alpha version successful, start to resatrt service, need 60s...')
+            cmd = "systemctl daemon-reload && systemctl restart kvmd-web"
+            subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
+            print('restart kvmd-web successful')
             return
         else:
             cmd = "bash install-kvmd-main.sh && bash install-ustreamer.sh && bash install-kvmd-hid.sh \
@@ -69,5 +72,6 @@ def main():
     else:
         print(gArgs.releasepath, ' not exit')
 
+    
 if __name__ == '__main__':
     main()
