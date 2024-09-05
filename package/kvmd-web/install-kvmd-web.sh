@@ -16,6 +16,9 @@ fi
 cp -R release /mnt/exec
 chmod 777 -R /mnt/exec/release
 
+cp release/lib/janus/* /opt/janus/etc/janus
+rm -rf /mnt/exec/release/lib/janus/
+
 mkdir -p "/usr/lib/systemd/system"
 cp kvmd-web.service "/usr/lib/systemd/system"
 

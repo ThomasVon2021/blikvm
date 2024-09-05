@@ -56,7 +56,7 @@ def get_board_type():
 
 def download_release_file(owner, repo, tag_name, file_name, download_path):
     """
-    Download a specific file from the latest release of a GitHub repository.
+    Download a specific file from the latest release of a GitHub repository and display progress.
 
     Args:
         owner (str): The owner of the GitHub repository.
@@ -75,25 +75,38 @@ def download_release_file(owner, repo, tag_name, file_name, download_path):
         print(f'Error getting release information: {response.content}')
         return False
     release_data = response.json()
+
     # Find the file in the release assets
     asset = next((a for a in release_data['assets'] if a['name'] == file_name), None)
     if asset is None:
         print(f'Could not find asset with name {file_name}')
         return False
 
-    # Download the file
+    # Download the file with progress
     file_url = asset['browser_download_url']
-    response = requests.get(file_url)
+    response = requests.get(file_url, stream=True)
     if response.status_code != 200:
         print(f'Error downloading file: {response.content}')
         return False
 
-    # Save the file to the specified download path
+    # Save the file to the specified download path and print progress percentage
     file_path = os.path.join(download_path, file_name)
-    with open(file_path, 'wb') as f:
-        f.write(response.content)
+    total_size = int(response.headers.get('content-length', 0))
+    downloaded_size = 0
+    block_size = 1024  # 1 Kilobyte
 
-    print(f'{file_name} downloaded to {file_path}')
+    with open(file_path, 'wb') as f:
+        for data in response.iter_content(block_size):
+            downloaded_size += len(data)
+            f.write(data)
+            progress_percentage = (downloaded_size / total_size) * 100
+            print(f"Download progress: {progress_percentage:.2f}%")
+
+    if total_size != 0 and downloaded_size != total_size:
+        print(f'Error downloading file: downloaded {downloaded_size} out of {total_size} bytes')
+        return False
+
+    print(f'{file_name} downloaded to {file_path} successfully.')
     return True
 
 def version_to_tuple(version):

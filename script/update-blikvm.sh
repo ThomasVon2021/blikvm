@@ -13,6 +13,7 @@ fi
 
 set -x
 cd /opt/bin/blikvm/
+git stash
 git pull
 python3 /opt/bin/blikvm/script/update.py | tee -a $LOGFILE
 set +x
