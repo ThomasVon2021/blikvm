@@ -94,19 +94,22 @@ def download_release_file(owner, repo, tag_name, file_name, download_path):
     total_size = int(response.headers.get('content-length', 0))
     downloaded_size = 0
     block_size = 1024  # 1 Kilobyte
-
+    previous_progress = 0 
     with open(file_path, 'wb') as f:
         for data in response.iter_content(block_size):
             downloaded_size += len(data)
             f.write(data)
             progress_percentage = (downloaded_size / total_size) * 100
-            print(f"Download progress: {progress_percentage:.2f}%")
+            now_progress = int(progress_percentage)
+            pre_progress = int(previous_progress)
+            if now_progress != pre_progress:
+                print(f"Download progress: {progress_percentage:.2f}%", flush=True)
+                previous_progress = progress_percentage
 
     if total_size != 0 and downloaded_size != total_size:
         print(f'Error downloading file: downloaded {downloaded_size} out of {total_size} bytes')
         return False
-
-    print(f'{file_name} downloaded to {file_path} successfully.')
+    print(f'{file_name} downloaded to {file_path} successfully.', flush=True)
     return True
 
 def version_to_tuple(version):
@@ -175,23 +178,23 @@ def main():
             try:
                 print("Download package: ", file_name, " please wait...")
                 download_release_file(code_owner,code_repo,latest_version, file_name, download_path)
-                # output = subprocess.check_output(cmd, shell = True, cwd=download_path)
             except subprocess.CalledProcessError as e:
                 print("Download release package failed, check network")
                 break
-            print("Download release package success, start to install, please wait...")
+            print("Download release package success, start to install, please wait...",  flush=True)
             release_tar = download_path + file_name
             if os.path.exists(release_tar):   
                 cmd = "tar -zxvf " + file_name
                 output = subprocess.check_output(cmd, shell = True, cwd=download_path)
                 install_path = download_path + "release"
                 if(is_alpha):
-                    cmd = "python3 install_release.py --releasepath=./ --alpha=true"
+                    cmd = "python3 install_release.py --alpha=true"
                 else:
                     cmd = "python3 install_release.py"
+                
                 output = subprocess.check_output(cmd, shell = True, cwd=install_path)        
                 update_result = True
-                print("Upgrade successful!")
+                print("Upgrade successful!",  flush=True)
         else:
             print("There is no latest stable version available. You can try the alpha version: python3 /opt/bin/blikvm/script/update.py alpha")
         a = 0
