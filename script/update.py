@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding:utf8 -*-
-# eg: python3 update.py alpha
+# eg: python3 update.py alpha v1.4.2
 import json
 import os
 import sys
@@ -124,7 +124,10 @@ def main():
     make_path = sh_path + '/src'
 
     is_alpha = len(sys.argv) > 1 and sys.argv[1].lower() == "alpha"
-
+    specified_version = None
+    # Check if a version has been passed as an argument
+    if len(sys.argv) > 2:
+        specified_version = sys.argv[2] 
     # Remove/clear download directory
     cmd = "rm -rf /tmp/kvm_update"
     output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
@@ -141,16 +144,22 @@ def main():
     while(a>0):
         latest_version = ''
         run_version = ''
-        # get latest tag 
-        url = "https://api.github.com/repos/{owner}/{repo}/releases/latest"
-        response = requests.get(url.format(owner="ThomasVon2021", repo="blikvm"))
-        json_response = response.json()
-        if "tag_name" in json_response:
-            latest_version = json_response["tag_name"]
-            print("The latest release tag for blikvm is ", latest_version)
+        if specified_version:
+            # Use the specified version
+            latest_version = specified_version
+            print(f"Specified version: {latest_version}")
         else:
-            print("Cannot find the latest release tag")
-            return
+            # Get the latest tag from GitHub if no version is specified
+            url = "https://api.github.com/repos/{owner}/{repo}/releases/latest"
+            response = requests.get(url.format(owner=code_owner, repo=code_repo))
+            json_response = response.json()
+            if "tag_name" in json_response:
+                latest_version = json_response["tag_name"]
+                print("The latest release tag for blikvm is ", latest_version)
+            else:
+                print("Cannot find the latest release tag")
+                return
+
         # get local tag
         run_json = '/usr/bin/blikvm/package.json'
         if not os.path.exists(run_json):
@@ -181,7 +190,7 @@ def main():
             except subprocess.CalledProcessError as e:
                 print("Download release package failed, check network")
                 break
-            print("Download release package success, start to install, please wait...",  flush=True)
+            print("Download release package success, start to install, please wait 60s...",  flush=True)
             release_tar = download_path + file_name
             if os.path.exists(release_tar):   
                 cmd = "tar -zxvf " + file_name
@@ -192,7 +201,8 @@ def main():
                 else:
                     cmd = "python3 install_release.py"
                 
-                output = subprocess.check_output(cmd, shell = True, cwd=install_path)        
+                output = subprocess.check_output(cmd, shell = True, cwd=install_path) 
+                print(output)       
                 update_result = True
                 print("Upgrade successful!",  flush=True)
         else:
