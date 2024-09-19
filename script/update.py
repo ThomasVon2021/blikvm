@@ -126,7 +126,8 @@ def main():
     specified_version = None
     # Check if a version has been passed as an argument
     if len(sys.argv) > 1:
-        specified_version = sys.argv[1] 
+        if sys.argv[1] != 'alpha' :
+            specified_version = sys.argv[1] 
     # Remove/clear download directory
     cmd = "rm -rf /tmp/kvm_update"
     output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
