@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding:utf8 -*-
-# eg: python3 update.py alpha v1.4.2
+# eg: python3 update.py v1.4.2
 import json
 import os
 import sys
@@ -123,11 +123,10 @@ def main():
     sh_path = os.path.split(os.path.realpath(__file__))[0]
     make_path = sh_path + '/src'
 
-    is_alpha = len(sys.argv) > 1 and sys.argv[1].lower() == "alpha"
     specified_version = None
     # Check if a version has been passed as an argument
-    if len(sys.argv) > 2:
-        specified_version = sys.argv[2] 
+    if len(sys.argv) > 1:
+        specified_version = sys.argv[1] 
     # Remove/clear download directory
     cmd = "rm -rf /tmp/kvm_update"
     output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
@@ -172,16 +171,16 @@ def main():
         # compare version
         latest_version_tuple = version_to_tuple("v1.4.0")
         run_version_tuple = version_to_tuple(run_version)
-        if (latest_version != run_version and run_version_tuple < latest_version_tuple)  or is_alpha:
+        if latest_version != run_version:
             print("Upgrading ", run_version , " ==> ", latest_version)
             # download tar pack
             cmd = ""
             if board_type == BoardType.V1_CM4 or board_type == BoardType.V2_HAT or board_type == BoardType.V3_PCIE:
                 # cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release.tar.gz"
-                file_name = "release-alpha.tar.gz" if is_alpha else "release.tar.gz"
+                file_name = "release-alpha.tar.gz"
             elif board_type == BoardType.V4_H616:
                 # cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release-h616-v4.tar.gz"
-                file_name = "release-h616-v4-alpha.tar.gz" if is_alpha else "release-h616-v4.tar.gz"
+                file_name = "release-h616-v4-alpha.tar.gz"
             else:
                 print("get unknow board")
             try:
@@ -196,17 +195,14 @@ def main():
                 cmd = "tar -zxvf " + file_name
                 output = subprocess.check_output(cmd, shell = True, cwd=download_path)
                 install_path = download_path + "release"
-                if(is_alpha):
-                    cmd = "python3 install_release.py --alpha=true"
-                else:
-                    cmd = "python3 install_release.py"
-                
+                cmd = "python3 install_release.py --alpha=true"
                 output = subprocess.check_output(cmd, shell = True, cwd=install_path) 
                 print(output)       
                 update_result = True
+                print("All configurations have been reset to default. If you have changed the web or SSH password, you will need to update the configuration again. Config path is /mnt/exec/release/config/app.json",  flush=True)
                 print("Upgrade successful!",  flush=True)
         else:
-            print("There is no latest stable version available. You can try the alpha version: python3 /opt/bin/blikvm/script/update.py alpha")
+            print("There is no latest stable version available.")
         a = 0
     result_cnt = ""
     if update_result == True:

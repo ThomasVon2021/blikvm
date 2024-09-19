@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# eg: python3 install_release.py --releasepath=./ --alpha=true
+# eg: python3 install_release.py --releasepath=./
 # after run this script, need reboot.
 import subprocess
 import os
@@ -55,20 +55,13 @@ def main():
 
     # install all software
     if os.path.exists(gArgs.releasepath):
-        if gArgs.alpha == 'true':
-            cmd = "systemctl disable kvmd-janus && systemctl disable kvmd-hid && systemctl disable kvmd-main \
-            && systemctl disable kvmd-video && bash install-kvmd-web.sh && cp package.json /usr/bin/blikvm/package.json"
-            subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
-            print('install alpha version successful, start to resatrt service, need 60s...')
-            cmd = "systemctl daemon-reload && systemctl restart kvmd-web"
-            subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
-            print('restart kvmd-web successful')
-            return
-        else:
-            cmd = "bash install-kvmd-main.sh && bash install-ustreamer.sh && bash install-kvmd-hid.sh \
-            && bash install-kvmd-web.sh && bash install-kvmd-msd.sh && cp package.json /usr/bin/blikvm/package.json"
-            subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
-            print('install new version successful')
+        cmd = "systemctl disable kvmd-janus && systemctl disable kvmd-hid && systemctl disable kvmd-main \
+        && systemctl disable kvmd-video && bash install-kvmd-web.sh && cp package.json /usr/bin/blikvm/package.json"
+        subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
+        print('install alpha version successful, start to resatrt service, need 60s...')
+        cmd = "systemctl daemon-reload && systemctl restart kvmd-web"
+        subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
+        print('restart kvmd-web successful')
     else:
         print(gArgs.releasepath, ' not exit')
 
