@@ -74,6 +74,9 @@ def update_config(local_file, new_file):
     print(f"Successfully updated {local_file}.")
 
 def merge_and_save_config(existing_config_path, new_config_path):
+    if not os.path.exists(existing_config_path):
+        print(f"No historical configuration files exist, no need to merge")
+        return
     """
     读取两个配置文件，递归合并后将合并结果保存到新配置文件路径。
     
@@ -138,7 +141,7 @@ def main():
 
     # install all software
     if os.path.exists(gArgs.releasepath):
-        cmd = "cp -R /mnt/exec/release/config /tmp && systemctl disable kvmd-janus && systemctl disable kvmd-hid && systemctl disable kvmd-main \
+        cmd = "cp -R -f /mnt/exec/release/config /tmp && systemctl disable kvmd-janus && systemctl disable kvmd-hid && systemctl disable kvmd-main \
         && systemctl disable kvmd-video && bash install-kvmd-web.sh && cp package.json /usr/bin/blikvm/package.json"
         subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
         print('install alpha version successful, start to resatrt service, need 60s...')
