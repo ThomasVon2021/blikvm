@@ -116,7 +116,9 @@ def version_to_tuple(version):
     version_numbers = re.findall(r'\d+', version)
     return tuple(map(int, version_numbers))
 
+
 def main():
+    print("Welcome to use the upgrade script. Please confirm that you have used git related commands before upgrading the script to ensure that update.by is in the latest state.")
     board_type = get_board_type()
     print("Board type:",board_type)
     global update_result
@@ -200,7 +202,7 @@ def main():
                 output = subprocess.check_output(cmd, shell = True, cwd=install_path) 
                 print(output)       
                 update_result = True
-                print("All configurations have been reset to default. If you have changed the web or SSH password, you will need to update the configuration again. Config path is /mnt/exec/release/config/app.json",  flush=True)
+                print("If you cannot log in with your original password, it may be due to a version upgrade and reset configuration to default. If you have changed the web or SSH password, you will need to update the configuration again. Config path is /mnt/exec/release/config/app.json",  flush=True)
                 print("Upgrade successful!",  flush=True)
         else:
             print("There is no latest stable version available.")

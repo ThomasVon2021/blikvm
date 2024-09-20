@@ -13,7 +13,12 @@ if [ -n "${pid}" ]; then
   kill -9 "${pid}"
 fi
 
-cp -R release /mnt/exec
+if [ -f "/mnt/exec/release/config/user.json" ]; then
+  rsync -av --exclude 'config/user.json' release /mnt/exec/
+else
+  cp -R release /mnt/exec
+fi
+
 chmod 777 -R /mnt/exec/release
 
 cp release/lib/janus/* /opt/janus/etc/janus
