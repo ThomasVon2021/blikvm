@@ -83,13 +83,16 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         // }
 
         //5. init oled module
-        if(blikvm_oled_init(&config->oled) >= 0)
+        if( config->oled.oled_enable>0 )
         {
-            BLILOG_D(TAG,"init oled success\n");
-        }
-        else
-        {
-            BLILOG_E(TAG,"init oled failed\n");
+            if(blikvm_oled_init(&config->oled) >= 0)
+            {
+                BLILOG_D(TAG,"init oled success\n");
+            }
+            else
+            {
+                BLILOG_E(TAG,"init oled failed\n");
+            }
         }
         //5. init rtc module
         blikvm_rtc_init();
@@ -136,16 +139,19 @@ blikvm_int8_t blikvm_start(blikvm_config_t *config)
         //         BLILOG_D(TAG,"switch start ok\n");
         //     }
         // }
+        if(config->oled.oled_enable > 0)
+        {
+            if(blikvm_oled_start() < 0)
+            {
+                BLILOG_E(TAG,"oled start error\n");
+                break;
+            }
+            else
+            {
+                BLILOG_D(TAG,"oled start ok\n");
+            }
+        } 
 
-        if(blikvm_oled_start() < 0)
-        {
-            BLILOG_E(TAG,"oled start error\n");
-            break;
-        }
-        else
-        {
-            BLILOG_D(TAG,"oled start ok\n");
-        }
 #ifdef TEST_HARDWARE
         blikvm_hardware_test();
 #endif

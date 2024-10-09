@@ -26,6 +26,7 @@ rm -rf /mnt/exec/release/lib/janus/
 
 mkdir -p "/usr/lib/systemd/system"
 cp kvmd-web.service "/usr/lib/systemd/system"
+cp start.sh /usr/bin/blikvm/start.sh 
 
 systemctl enable kvmd-web.service
 
