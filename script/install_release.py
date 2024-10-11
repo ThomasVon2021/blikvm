@@ -145,7 +145,7 @@ def main():
         if os.path.exists(source_dir) and os.path.isdir(source_dir):
             cmd = "cp -R /mnt/exec/release/config /tmp"
             subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
-        cmd = "systemctl disable kvmd-janus && systemctl disable kvmd-hid && systemctl disable kvmd-main && systemctl disable expand \
+        cmd = "systemctl disable kvmd-janus && systemctl disable kvmd-hid && systemctl disable kvmd-main\
         && systemctl disable kvmd-video && bash install-kvmd-web.sh && cp package.json /usr/bin/blikvm/package.json"
         subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
         print('install alpha version successful, start to resatrt service, need 60s...')

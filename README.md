@@ -75,6 +75,9 @@ Front and backend separation software architecture:
 ![](/images/docs_image/arch.drawio.png)
 See more in the [dev-readme](dev-readme.md) file.
 
+## Add a new language
+  If you want to add your country's language on the web interface, you can submit the corresponding PR to this path based on the English version of the [path](https://github.com/ThomasVon2021/blikvm-web-client/tree/master/src/utils/locales). After your PR is merged, we will add your language in subsequent versions of the release.If you want to conduct testing before submitting the PR, you can refer to this [document](https://github.com/ThomasVon2021/blikvm-web-client/blob/master/readme.md) and test it on your computer.
+
 ## Reporting a Bug & Requesting a New Feature
   If you encounter an issue while using the project or discover a bug, or you have a new feature request or improvement suggestion, please raise an issue. We welcome your suggestions as they help us continuously improve the project and cater to more user needs.
 
