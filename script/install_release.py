@@ -113,6 +113,17 @@ def merge_and_save_config(existing_config_path, new_config_path):
 
     print(f"The configuration file has been successfully merged and saved to {new_config_path}")
 
+def compare_versions(version1, version2):
+    # Remove 'v' if it exists
+    if version1.startswith('v'):
+        version1 = version1[1:]
+    if version2.startswith('v'):
+        version2 = version2[1:]
+    
+    v1 = list(map(int, version1.split('.')))
+    v2 = list(map(int, version2.split('.')))
+    return v1 >= v2
+
 def main():
     print("start install")
     global gArgs
@@ -153,6 +164,16 @@ def main():
         subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
         print('restart kvmd-web successful')
         merge_and_save_config('/tmp/config/app.json', '/mnt/exec/release/config/app.json')
+            # Check if the local file exists
+        if os.path.exists('/tmp/config/package.json'):
+            # Read the local configuration file
+            with open('/tmp/config/package.json', 'r', encoding='utf-8') as f:
+                local_config = json.load(f)
+                if 'version' in local_config:
+                    version = local_config['version']
+                    if compare_versions(version, '1.4.9'):
+                        merge_and_save_config('/tmp/config/package.json', '/mnt/exec/release/config/package.json')
+
 
     else:
         print(gArgs.releasepath, ' not exit')
