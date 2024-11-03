@@ -72,6 +72,10 @@ blikvm_int8_t blikvm_oled_init(blikvm_oled_config_t* config)
         #ifdef ST7789
             case OLED_ST7789_240_240:
                 oled_240_240_init();
+                if(config->oled_enable == 0 ){
+                    blikvm_backlight_close();
+                }
+                
                 break;
         #endif
             default:
@@ -119,13 +123,28 @@ static blikvm_void_t *blikvm_oled_loop(void *_)
 {
     
     blikvm_oled_config_t* oled_config = &(blikvm_get_config()->oled) ;
+    if((oled_config->oled_enable == 0) &&  (oled_config->restart_show_time ==0) && (oled_config->interval_display_time == 0) )
+    {
+        return NULL;
+    }
+    blikvm_int32_t uptime_start = skdy_get_int_uptime();  //unit:min
     while(1)
     {
-        blikvm_int32_t uptime = skdy_get_int_uptime();  //unit:min
-        if( (oled_config->oled_enable == 0) && (uptime > MIN_START_SHOW_TIME) && (uptime> oled_config->restart_show_time) && (oled_config->interval_display_time > 0))
+        blikvm_int32_t uptime = skdy_get_int_uptime() - uptime_start;  //unit:min
+        blikvm_int32_t last_display_enable = oled_config->display_enable;
+        if( (oled_config->oled_enable == 0) && (uptime> oled_config->restart_show_time) && (oled_config->interval_display_time > 0))
         {
-            BLILOG_D(TAG,"oled sleep time:%d\n",oled_config->interval_display_time * 60 );
-            sleep(oled_config->interval_display_time * 60);
+            blikvm_int32_t sleep_counter = oled_config->interval_display_time * 60;
+            BLILOG_D(TAG,"oled sleep time:%ds\n", sleep_counter );
+            while( sleep_counter > 0)
+            {
+                sleep(1);
+                sleep_counter--;
+                if( last_display_enable != oled_config->display_enable){
+                    break;
+                }
+            }
+            
         }
 #ifdef  VER4
         if((oled_config->oled_enable == 1) && (oled_config->display_enable == 1))
@@ -146,7 +165,14 @@ static blikvm_void_t *blikvm_oled_loop(void *_)
     #endif
     #ifdef ST7789
         case OLED_ST7789_240_240:
-            oled_240_240_show();
+            blikvm_int32_t oled_show_counter = 1;
+            if(oled_config->display_enable == 1 ){
+                oled_show_counter = 6;
+            }
+            for( int j=0; j<oled_show_counter; j++)
+            {
+                oled_240_240_show();
+            }
             break;
     #endif
         default:

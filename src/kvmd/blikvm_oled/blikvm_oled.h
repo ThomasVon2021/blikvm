@@ -11,7 +11,7 @@
 
 #include "common/blikvm_type.h"
 
-#define MIN_START_SHOW_TIME 60  //Minimum continuous on time of startup screen
+#define MIN_START_SHOW_TIME 5  //Minimum continuous on time of startup screen
 
 typedef enum
 {

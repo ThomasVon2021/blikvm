@@ -16,6 +16,10 @@
 #include "kvmd/blikvm_gpio/blikvm_gpio.h"
 #include "common/blikvm_log/blikvm_log.h"
 
+#ifdef  VER4
+#include "st7789_oled.h"
+#endif
+
 #ifdef TEST_HARDWARE
 #include "blikvm_test.h"
 #endif
@@ -83,17 +87,15 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
         // }
 
         //5. init oled module
-        if( config->oled.oled_enable>0 )
+        if(blikvm_oled_init(&config->oled) >= 0)
         {
-            if(blikvm_oled_init(&config->oled) >= 0)
-            {
-                BLILOG_D(TAG,"init oled success\n");
-            }
-            else
-            {
-                BLILOG_E(TAG,"init oled failed\n");
-            }
+            BLILOG_D(TAG,"init oled success\n");
         }
+        else
+        {
+            BLILOG_E(TAG,"init oled failed\n");
+        }
+
         //5. init rtc module
         blikvm_rtc_init();
 
@@ -139,18 +141,16 @@ blikvm_int8_t blikvm_start(blikvm_config_t *config)
         //         BLILOG_D(TAG,"switch start ok\n");
         //     }
         // }
-        if(config->oled.oled_enable > 0)
+
+        if(blikvm_oled_start() < 0)
         {
-            if(blikvm_oled_start() < 0)
-            {
-                BLILOG_E(TAG,"oled start error\n");
-                break;
-            }
-            else
-            {
-                BLILOG_D(TAG,"oled start ok\n");
-            }
-        } 
+            BLILOG_E(TAG,"oled start error\n");
+            break;
+        }
+        else
+        {
+            BLILOG_D(TAG,"oled start ok\n");
+        }
 
 #ifdef TEST_HARDWARE
         blikvm_hardware_test();

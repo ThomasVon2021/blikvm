@@ -1,9 +1,9 @@
 {
-    "version": "v1.4.9", 
+    "version": "v1.5.0", 
     "md5value": "",
     "oled":{
         "oled_enable": 1,
-        "restart_show_time": 300,
+        "restart_show_time": 30,
         "interval_display_time": 5
     },
     "atx":{
