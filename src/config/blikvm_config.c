@@ -138,14 +138,14 @@ blikvm_config_t* blikvm_read_config(blikvm_int8_t* file_path)
         const cJSON *oled = cJSON_GetObjectItemCaseSensitive(root, "oled");
         if (cJSON_IsObject(oled))
         {
-            const cJSON *oled_enable = cJSON_GetObjectItemCaseSensitive(oled, "oled_enable");
+            const cJSON *oled_enable = cJSON_GetObjectItemCaseSensitive(oled, "oled_always_enable");
             const cJSON *restart_show_time = cJSON_GetObjectItemCaseSensitive(oled, "restart_show_time");
             const cJSON *interval_display_time = cJSON_GetObjectItemCaseSensitive(oled, "interval_display_time");
 
             if (cJSON_IsNumber(oled_enable))
             {
-                BLILOG_I(TAG, "oled_enable: %d\n", oled_enable->valueint);
-                g_config.oled.oled_enable = oled_enable->valueint;
+                BLILOG_I(TAG, "oled_always_enable: %d\n", oled_enable->valueint);
+                g_config.oled.oled_always_enable = oled_enable->valueint;
             }
 
             if (cJSON_IsNumber(restart_show_time))
