@@ -67,7 +67,7 @@ blikvm_int32_t blikvm_oled_ssd1306_0in91_init()
 	return ret;
 }
 
-blikvm_int32_t blikvm_oled_ssd1306_0in91_show(void)
+blikvm_int32_t blikvm_oled_ssd1306_0in91_show(blikvm_int32_t diff)
 {	
 	//1.Select Image
 	if(BlackImage == NULL)
@@ -76,12 +76,12 @@ blikvm_int32_t blikvm_oled_ssd1306_0in91_show(void)
 		return -1;
 	}
 	Paint_SelectImage(BlackImage);
-	DEV_Delay_ms(500);
+	// DEV_Delay_ms(500);
 	Paint_Clear(BLACK);
 	int i=0;
 	while(1) 
 	{
-		if(i >=2 )
+		if(i >= (diff/5)*2 )
 		{
 			OLED_0in91_Clear();
 			break;
@@ -114,7 +114,7 @@ blikvm_int32_t blikvm_oled_ssd1306_0in91_show(void)
 		}
 		i = i + 1;
         OLED_0in91_Display(BlackImage);
-        DEV_Delay_ms(3000); 
+        DEV_Delay_ms(2500); 
         Paint_Clear(BLACK); 		
 	}
 	return 0;

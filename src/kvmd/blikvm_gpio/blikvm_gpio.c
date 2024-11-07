@@ -60,7 +60,7 @@ blikvm_int8_t blikvm_gpio_init()
         szBoardName = AIOGetBoardName();
 
 #ifdef  VER4        
-        AIOAddGPIO(SW2, GPIO_IN);
+        AIOAddGPIO(SW1, GPIO_IN);
         AIOAddGPIO(SW2_LED, GPIO_OUT);
 #endif
         g_gpio.init = 1;
@@ -101,39 +101,24 @@ blikvm_int8_t blikvm_gpio_start()
 static blikvm_void_t *blikvm_gpio_loop(void *_)
 {
 #ifdef  VER4 
+    static blikvm_gpio_state_t sw1 = {0};
     static blikvm_gpio_state_t sw2 = {0};
 #endif
     while (1)
     {
 #ifdef  VER4 
-        if(AIOReadGPIO(SW2) == 1)
+        if(AIOReadGPIO(SW1) == 1)
         {
-            sw2.count = (sw2.count + 1) % 6;
+            sw1.count = (sw1.count + 1) % 6;
         }
         else
         {
-            sw2.count = 0;
-            sw2.triggered = 0;
+            sw1.count = 0;
         }
-        if( sw2.count >= 5)
+        if( sw1.count >= 5)
         {
-            // if oled is open, change it to close; if oled is close, change it to open; 
-            if((sw2.state == 1) && !sw2.triggered  )
-            {
-                BLILOG_D(TAG,"open oled\n");
-                blikvm_backlight_open();
-                blikvm_oled_set_display_enable(0);
-                sw2.state = 0;
-                sw2.triggered = 1;
-            }
-            else if((sw2.state == 0) && !sw2.triggered  )
-            {
-                BLILOG_D(TAG,"close oled\n");
-                blikvm_backlight_close();
-                blikvm_oled_set_display_enable(1);
-                sw2.state = 1;
-                sw2.triggered = 1;
-            }
+            blikvm_oled_open_one_cycle();
+            sw1.count = 0;
         }
         if(sw2.act_cycle == 0 )
         {

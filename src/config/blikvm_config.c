@@ -78,34 +78,6 @@ blikvm_config_t* blikvm_read_config(blikvm_int8_t* file_path)
             break;
         }
 
-        // const cJSON *switch_handle = NULL;
-        // switch_handle = cJSON_GetObjectItemCaseSensitive(root, "switch_handle");
-        // if (cJSON_IsObject(switch_handle))
-        // {
-        //     const cJSON *switch_enable = cJSON_GetObjectItemCaseSensitive(switch_handle, "switch_enable");
-        //     const cJSON *switch_path = cJSON_GetObjectItemCaseSensitive(switch_handle, "switch_path");
-
-        //     if (!cJSON_IsNumber(switch_enable))
-        //     {
-        //         BLILOG_E(TAG, "switch function is disable\n");
-        //     }
-        //     else
-        //     {
-        //         g_config.switch_handle.enable = switch_enable->valueint;
-        //         BLILOG_D(TAG, "switch function is enable\n");
-        //     } 
-
-        //     if (!cJSON_IsString(switch_path))
-        //     {
-        //         BLILOG_E(TAG, "switch path is not string\n");
-        //     }
-        //     else
-        //     {
-        //         memcpy(g_config.switch_handle.device_path, switch_path->valuestring, strlen(switch_path->valuestring));
-        //         BLILOG_D(TAG, "switch device:%s\n",switch_path->valuestring);
-        //     }           
-        // }
-
         const cJSON *atx = NULL;
         atx = cJSON_GetObjectItemCaseSensitive(root, "atx");
         if (cJSON_IsObject(atx))
@@ -135,29 +107,40 @@ blikvm_config_t* blikvm_read_config(blikvm_int8_t* file_path)
             }
         }
 
-        const cJSON *oled = cJSON_GetObjectItemCaseSensitive(root, "oled");
+        const cJSON *oled = cJSON_GetObjectItemCaseSensitive(root, "display");
         if (cJSON_IsObject(oled))
         {
-            const cJSON *oled_enable = cJSON_GetObjectItemCaseSensitive(oled, "oled_always_enable");
-            const cJSON *restart_show_time = cJSON_GetObjectItemCaseSensitive(oled, "restart_show_time");
-            const cJSON *interval_display_time = cJSON_GetObjectItemCaseSensitive(oled, "interval_display_time");
+            const cJSON *isActive = cJSON_GetObjectItemCaseSensitive(oled, "isActive");
+            const cJSON *mode = cJSON_GetObjectItemCaseSensitive(oled, "mode");
+            const cJSON *onBootTime = cJSON_GetObjectItemCaseSensitive(oled, "onBootTime");
+            const cJSON *cycleInterval = cJSON_GetObjectItemCaseSensitive(oled, "cycleInterval");
+            const cJSON *displayTime = cJSON_GetObjectItemCaseSensitive(oled, "displayTime");
 
-            if (cJSON_IsNumber(oled_enable))
+            if (cJSON_IsBool(isActive)) {
+                g_config.oled.isActive = cJSON_IsTrue(isActive) ? 1 : 0;
+                BLILOG_I(TAG, "display isActive: %d\n", g_config.oled.isActive);
+            }
+            if (cJSON_IsNumber(mode))
             {
-                BLILOG_I(TAG, "oled_always_enable: %d\n", oled_enable->valueint);
-                g_config.oled.oled_always_enable = oled_enable->valueint;
+                BLILOG_I(TAG, "display mode: %d\n", mode->valueint);
+                g_config.oled.mode = mode->valueint;
             }
 
-            if (cJSON_IsNumber(restart_show_time))
+            if (cJSON_IsNumber(onBootTime))
             {
-                BLILOG_I(TAG,"restart_show_time: %d\n", restart_show_time->valueint);
-                g_config.oled.restart_show_time = restart_show_time->valueint;
+                BLILOG_I(TAG,"onBootTime: %d\n", onBootTime->valueint);
+                g_config.oled.onBootTime = onBootTime->valueint;
             }
 
-            if (cJSON_IsNumber(interval_display_time))
+            if (cJSON_IsNumber(cycleInterval))
             {
-                BLILOG_I(TAG,"interval_display_time: %d\n", interval_display_time->valueint);
-                g_config.oled.interval_display_time = interval_display_time->valueint;
+                BLILOG_I(TAG,"cycleInterval: %d\n", cycleInterval->valueint);
+                g_config.oled.cycleInterval = cycleInterval->valueint;
+            }
+            if (cJSON_IsNumber(displayTime))
+            {
+                BLILOG_I(TAG,"displayTime: %d\n", displayTime->valueint);
+                g_config.oled.displayTime = displayTime->valueint;
             }
         }
         else

@@ -44,10 +44,10 @@
 
 blikvm_int32_t blikvm_oled_ssd1306_0in91_init();
 
-blikvm_int32_t blikvm_oled_ssd1306_0in91_show(void);
+blikvm_int32_t blikvm_oled_ssd1306_0in91_show(blikvm_int32_t diff);
 
 blikvm_int32_t blikvm_oled_ssd1306_0in96_init();
 
-blikvm_int32_t blikvm_oled_ssd1306_0in96_show(void);
+blikvm_int32_t blikvm_oled_ssd1306_0in96_show(blikvm_int32_t diff);
 
 #endif

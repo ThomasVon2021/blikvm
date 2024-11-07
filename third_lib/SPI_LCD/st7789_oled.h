@@ -13,7 +13,7 @@
 
 blikvm_int32_t oled_240_240_init();
 
-blikvm_int32_t oled_240_240_show();
+blikvm_int32_t oled_240_240_show(blikvm_int32_t diff);
 
 blikvm_int32_t blikvm_backlight_close();
 

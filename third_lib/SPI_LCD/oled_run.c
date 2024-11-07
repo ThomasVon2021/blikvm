@@ -78,9 +78,10 @@ blikvm_int32_t blikvm_backlight_open()
 	return ret;
 }
 
-blikvm_int32_t oled_240_240_show()
+blikvm_int32_t oled_240_240_show(blikvm_int32_t diff)
 {
-	int ret = -1;
+	blikvm_int32_t ret = -1;
+	blikvm_int32_t i =0;
 	do
 	{
 		if(BlackImage == NULL)
@@ -159,7 +160,8 @@ blikvm_int32_t oled_240_240_show()
 		BLILOG_D(TAG,"close backlight\n");
 		blikvm_backlight_close();
 		ret = 0;
-	}while(0>1);
+		i = i + 1;
+	}while(i < (diff/5));
 	
 	return ret;
 }

@@ -40,7 +40,7 @@ blikvm_int8_t isWifiCardAvailable();
 
 /**
  * @brief : get os's up time 
- * @return: the os's up  since the Epoch, unit:min
+ * @return: the os's up  since the Epoch, unit:sec
  */
 blikvm_int32_t skdy_get_int_uptime();
 

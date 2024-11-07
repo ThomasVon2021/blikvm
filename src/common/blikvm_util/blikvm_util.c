@@ -211,10 +211,8 @@ blikvm_int32_t skdy_get_int_uptime()
     char buffer[256];
     fp = fopen("/proc/uptime", "r");
     fgets(buffer, 256, fp);
-    double uptime_seconds = atof(buffer);
-    blikvm_int32_t uptime_minutes = uptime_seconds / 60;
-    fclose(fp);
-    return uptime_minutes;
+    blikvm_int32_t uptime_seconds = (blikvm_int32_t)atof(buffer);
+    return uptime_seconds;
 }
 
 int getWifiSignalStrength(const char* interface, int* signalStrength) {
