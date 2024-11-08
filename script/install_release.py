@@ -156,6 +156,10 @@ def main():
         if os.path.exists(source_dir) and os.path.isdir(source_dir):
             cmd = "cp -R /mnt/exec/release/config /tmp"
             subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
+        source_package = '/usr/bin/blikvm/package.json'
+        if os.path.exists(source_package) :
+            cmd = "cp /usr/bin/blikvm/package.json /tmp/config"
+            subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
         cmd = "systemctl disable kvmd-janus && systemctl disable kvmd-hid && systemctl disable kvmd-main\
         && systemctl disable kvmd-video && bash install-kvmd-web.sh && cp package.json /usr/bin/blikvm/package.json"
         subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
@@ -171,8 +175,8 @@ def main():
                 local_config = json.load(f)
                 if 'version' in local_config:
                     version = local_config['version']
-                    if compare_versions(version, '1.4.9'):
-                        merge_and_save_config('/tmp/config/package.json', '/mnt/exec/release/config/package.json')
+                    if compare_versions(version, 'v1.4.9'):
+                        merge_and_save_config('/tmp/config/user.json', '/mnt/exec/release/config/user.json')
 
 
     else:
