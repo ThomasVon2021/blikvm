@@ -57,10 +57,12 @@
 - [Purchase - PiKVM ATX Power Adaptor](https://www.aliexpress.com/item/1005003761450893.html)
 - [Purchase - PiKVM USB Splitter](https://www.aliexpress.com/item/1005003793429781.html)
 - [Purchase - PiKVM HDMI to CSI Board](https://www.aliexpress.com/item/1005002861310912.html)
-- [Purchase - BliKVM switch v1.0](https://www.aliexpress.com/item/1005005149590635.html)
+- [Purchase - BliKVM KVM switch(4 port) v1.0](https://www.aliexpress.com/item/1005005149590635.html)
+- [Purchase - BliKVM KVM+ATX switch(8 port) v2.0](https://www.aliexpress.com/item/3256807838289113.html?gatewayAdapt=4itemAdapt)
 
 ## Videos
-
+- [Watch - Blicube BliKVM V4: Is This the Best Linux IP KVM Yet?](https://www.youtube.com/watch?v=sbH9-fmWBS8)
+- [Watch - Goodbye IPMI - Blicube BliKVM V4 Review](https://www.youtube.com/results?search_query=blikvm)
 - [Watch - CM4 version Review by `Geerling Engineering`](https://www.youtube.com/watch?v=3OPd7svT3bE) 
 - [Watch - PCIe version Review by `Geerling Engineering`](https://www.youtube.com/watch?v=cVWF3u-y-Zg) 
 - [Watch - Feature Overview for CM4 Version](https://www.youtube.com/watch?v=aehOawHklGE)
