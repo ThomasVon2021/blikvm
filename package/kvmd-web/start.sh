@@ -1,19 +1,25 @@
 #!/bin/bash
 set -x
 
-# 检测是否存在 /mnt/tmp/firstboot 文件
+# check /mnt/tmp/firstboot 
 check_firstboot() {
   if [ -f "/mnt/tmp/firstboot" ]; then
     echo "Found /mnt/tmp/firstboot file. Resizing mmcblk0p3 partition..."
     resize_mmcblk0p3
-    # 删除 /mnt/tmp/firstboot 文件
+
+    rm -rf /etc/machine-id
+    rm -rf /var/lib/dbus/machine-id
+
+    dbus-uuidgen --ensure=/etc/machine-id
+    dbus-uuidgen --ensure
+    # delete /mnt/tmp/firstboot 
     rm -f "/mnt/tmp/firstboot"
   else
     echo "No /mnt/tmp/firstboot file found. Skipping partition resizing."
   fi
 }
 
-# 扩展 mmcblk0p3 分区
+# expand mmcblk0p3 
 
 resize_mmcblk0p3() {
   echo "Resizing mmcblk0p3 partition..."
@@ -28,7 +34,6 @@ resize_mmcblk0p3() {
 
 echo "Starting partition resizing..."
 
-# 检测并执行扩容操作
 check_firstboot
 
 echo "Partition resizing completed."

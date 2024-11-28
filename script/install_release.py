@@ -137,7 +137,7 @@ def main():
     print('kill main done')
 
     # kill kvmd-web
-    cmd = "ps -aux | grep kvmlink | grep -v grep"
+    cmd = "ps -aux | grep server_app | grep -v grep"
     execute_cmd(cmd,sh_path)
     print('kill web done')
 
@@ -168,15 +168,6 @@ def main():
         subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
         print('restart kvmd-web successful')
         merge_and_save_config('/tmp/config/app.json', '/mnt/exec/release/config/app.json')
-            # Check if the local file exists
-        if os.path.exists('/tmp/config/package.json'):
-            # Read the local configuration file
-            with open('/tmp/config/package.json', 'r', encoding='utf-8') as f:
-                local_config = json.load(f)
-                if 'version' in local_config:
-                    version = local_config['version']
-                    if compare_versions(version, 'v1.4.9'):
-                        merge_and_save_config('/tmp/config/user.json', '/mnt/exec/release/config/user.json')
 
 
     else:
