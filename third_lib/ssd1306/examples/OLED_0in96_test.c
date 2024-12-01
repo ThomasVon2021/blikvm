@@ -80,12 +80,12 @@ blikvm_int32_t blikvm_oled_ssd1306_0in96_show(blikvm_int32_t diff)
     int i=0;
     while(1)
     {
-        if(i >= 2)
+        if(i >= (diff/5)*2 )
         {
             OLED_0in96_clear();
             break;
-        }    
-        if( i >= (diff/5)*2  )
+        }   
+        if( i%2 == 0 )
 		{
             char hardware[20] = "BliKVM";
             Paint_DrawString_EN(36, 0, hardware, &Font12, WHITE, WHITE);
