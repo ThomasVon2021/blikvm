@@ -7,8 +7,8 @@ import time
 #settings
 fan_gpio=12 # Fan GPIO pin number (default: 12)
 idle_speed = 0 # Fan speed when under min_temp(IDLE) (min: 0, max: 100)
-min_temp = 40 # Fan starting temperature 
-max_temp = 60 # Fan max speed temperature (max: 60)
+min_temp = 60 # Fan starting temperature 
+max_temp = 65 # Fan max speed temperature (max: 65)
 
 #define GPIO
 RPi.GPIO.setwarnings(False)
