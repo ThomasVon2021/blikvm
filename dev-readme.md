@@ -193,20 +193,15 @@ How to run
 ```
 // client
 cd web_src/web_client
+git checkout master
 npm install
 npm run dev
 
 // server
 cd web_src/web_server
+git checkout master
 npm install
 npm run dev
-```
-How to build
-```
-cd web_src
-bash pack.sh
-//Then you can find the binary web_src/web_server/release
-The default executable package path is in the/mnt/exec path, and you can replace its corresponding path with the server_app to complete the replacement.
 ```
 
 
