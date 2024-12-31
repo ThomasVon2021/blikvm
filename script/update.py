@@ -165,14 +165,15 @@ def main():
         # get local tag
         run_json = '/usr/bin/blikvm/package.json'
         if not os.path.exists(run_json):
+            run_version="v1.0.0"
             print("get local version failed ",run_json," is not exit")
-        with open(run_json,'r',encoding='utf8')as fp_r:
-            json_data = json.load(fp_r)
-            run_version = json_data['version']
-            print("The local version is ",run_version)
+        else:
+            with open(run_json,'r',encoding='utf8')as fp_r:
+                json_data = json.load(fp_r)
+                run_version = json_data['version']
+                print("The local version is ",run_version)
        
         # compare version
-        latest_version_tuple = version_to_tuple("v1.4.0")
         run_version_tuple = version_to_tuple(run_version)
         if latest_version != run_version:
             print("Upgrading ", run_version , " ==> ", latest_version)

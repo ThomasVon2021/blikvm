@@ -124,6 +124,48 @@ def compare_versions(version1, version2):
     v2 = list(map(int, version2.split('.')))
     return v1 >= v2
 
+def disable_service_if_exists(services):
+    """
+    Disables the given systemd services if they exist.
+
+    :param services: A list of service names to check and disable.
+    """
+    for service in services:
+        try:
+            # Check if the service exists
+            result = subprocess.run(
+                ['systemctl', 'status', service],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+            # If the service exists (exit code 0), disable it
+            if result.returncode == 0:
+                subprocess.run(['systemctl', 'disable', service], check=True)
+                print(f"Service '{service}' disabled successfully.")
+            else:
+                print(f"Service '{service}' does not exist or is inactive, skipping.")
+        except subprocess.CalledProcessError:
+            # Handle case where the service does not exist or can't be disabled
+            print(f"Service '{service}' could not be disabled (likely does not exist).")
+        except Exception as e:
+            # Catch any unexpected errors
+            print(f"Unexpected error with service '{service}': {e}")
+
+def create_directory_if_not_exists(path):
+    """
+    Checks if the directory exists, and if not, creates it.
+
+    :param path: The directory path to check and create.
+    """
+    if not os.path.exists(path):
+        try:
+            os.makedirs(path)
+            print(f"Directory '{path}' created successfully.")
+        except OSError as e:
+            print(f"Error creating directory '{path}': {e}")
+    else:
+        print(f"Directory '{path}' already exists.")
+
 def main():
     print("start install")
     global gArgs
@@ -150,6 +192,14 @@ def main():
     execute_cmd(cmd,sh_path)
     print('kill janus done')
 
+    services_to_disable = [
+        'kvmd-janus',
+        'kvmd-hid',
+        'kvmd-main',
+        'kvmd-video'
+    ]
+    disable_service_if_exists(services_to_disable)
+
     # install all software
     if os.path.exists(gArgs.releasepath):
         source_dir = '/mnt/exec/release/config'
@@ -160,8 +210,8 @@ def main():
         if os.path.exists(source_package) :
             cmd = "cp /usr/bin/blikvm/package.json /tmp/config"
             subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
-        cmd = "systemctl disable kvmd-janus && systemctl disable kvmd-hid && systemctl disable kvmd-main\
-        && systemctl disable kvmd-video && bash install-kvmd-web.sh && cp package.json /usr/bin/blikvm/package.json"
+        create_directory_if_not_exists('/usr/bin/blikvm/')
+        cmd = "bash install-kvmd-web.sh && cp package.json /usr/bin/blikvm/package.json"
         subprocess.check_output(cmd, shell = True, cwd=gArgs.releasepath )
         print('install alpha version successful, start to resatrt service, need 60s...')
         cmd = "systemctl daemon-reload && systemctl restart kvmd-web"
