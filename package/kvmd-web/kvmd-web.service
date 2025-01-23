@@ -6,10 +6,10 @@ Requires=network.target
 [Service]
 Type=simple
 User=root
-ExecStartPre=/bin/sleep 60
 ExecStart=/usr/bin/blikvm/start.sh
-RemainAfterExit=true
+RemainAfterExit=false
 Restart=always
+RestartSec=3
 
 [Install]
 WantedBy=local-fs.target

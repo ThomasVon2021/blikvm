@@ -39,3 +39,5 @@ check_firstboot
 echo "Partition resizing completed."
 cd /mnt/exec/release
 /mnt/exec/release/server_app
+
+wait $!

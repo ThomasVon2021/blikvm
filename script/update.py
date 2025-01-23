@@ -123,13 +123,12 @@ def main():
     print("Board type:",board_type)
     global update_result
     sh_path = os.path.split(os.path.realpath(__file__))[0]
-    make_path = sh_path + '/src'
 
     specified_version = None
     # Check if a version has been passed as an argument
     if len(sys.argv) > 1:
-        if sys.argv[1] != 'alpha' :
-            specified_version = sys.argv[1] 
+        specified_version = sys.argv[1] 
+
     # Remove/clear download directory
     cmd = "rm -rf /tmp/kvm_update"
     output = subprocess.check_output(cmd, shell = True, cwd=sh_path )
@@ -174,17 +173,16 @@ def main():
                 print("The local version is ",run_version)
        
         # compare version
-        run_version_tuple = version_to_tuple(run_version)
         if latest_version != run_version:
             print("Upgrading ", run_version , " ==> ", latest_version)
             # download tar pack
             cmd = ""
             if board_type == BoardType.V1_CM4 or board_type == BoardType.V2_HAT or board_type == BoardType.V3_PCIE:
                 # cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release.tar.gz"
-                file_name = "release-alpha.tar.gz"
+                file_name = "blikvm-v1-v2-v3.deb"
             elif board_type == BoardType.V4_H616:
                 # cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release-h616-v4.tar.gz"
-                file_name = "release-h616-v4-alpha.tar.gz"
+                file_name = "blikvm-v4.deb"
             else:
                 print("get unknow board")
             try:
@@ -196,13 +194,11 @@ def main():
             print("Download release package success, start to install, please wait 60s...",  flush=True)
             release_tar = download_path + file_name
             if os.path.exists(release_tar):   
-                cmd = "tar -zxvf " + file_name
+                cmd = "dpkg -i " + file_name
                 output = subprocess.check_output(cmd, shell = True, cwd=download_path)
-                install_path = download_path + "release"
-                cmd = "python3 install_release.py --alpha=true"
-                output = subprocess.check_output(cmd, shell = True, cwd=install_path) 
                 print(output)       
                 update_result = True
+                print("If any abnormalities are found when upgrading from the old version to the latest version, the system can be restored by flashing it again.")
                 print("If you cannot log in with your original password, it may be due to a version upgrade and reset configuration to default. If you have changed the web or SSH password, you will need to update the configuration again. Config path is /mnt/exec/release/config/app.json",  flush=True)
                 print("Upgrade successful!",  flush=True)
         else:
