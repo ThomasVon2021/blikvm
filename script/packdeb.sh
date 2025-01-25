@@ -67,6 +67,7 @@ EOF
 cat << 'EOF' > DEBIAN/postinst
 #!/bin/bash
 # Start kvmd-web service after installation
+chmod 777 -R /mnt/exec/release
 systemctl daemon-reload
 systemctl enable kvmd-web || true
 systemctl start kvmd-web || true
