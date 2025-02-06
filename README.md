@@ -62,7 +62,7 @@
 
 ## Videos
 - [Watch - Blicube BliKVM V4: Is This the Best Linux IP KVM Yet?](https://www.youtube.com/watch?v=sbH9-fmWBS8)
-- [Watch - Goodbye IPMI - Blicube BliKVM V4 Review](https://www.youtube.com/results?search_query=blikvm)
+- [Watch - Goodbye IPMI - Blicube BliKVM V4 Review](https://youtu.be/HG7g3Qrupcw?si=8yjyl7AWuaHtSx3i)
 - [Watch - CM4 version Review by `Geerling Engineering`](https://www.youtube.com/watch?v=3OPd7svT3bE) 
 - [Watch - PCIe version Review by `Geerling Engineering`](https://www.youtube.com/watch?v=cVWF3u-y-Zg) 
 - [Watch - Feature Overview for CM4 Version](https://www.youtube.com/watch?v=aehOawHklGE)
