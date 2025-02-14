@@ -1,8 +1,32 @@
+name: Release and Notify Discord
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers only on version tags like v1.0.0, v2.3.4, etc.
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+
       - name: Notify Discord
         uses: tsickert/discord-webhook@v5
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           username: "GitHub Actions"
           avatar-url: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
-          content: "**New Release!** 🚀\n[${{ github.ref_name }}](https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}) is now available!"
-
+          content: |
+            **New BliKVM Release!** 🚀
+            [${{ github.ref_name }}](https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}) is now available!
