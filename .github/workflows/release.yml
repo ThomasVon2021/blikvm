@@ -1,0 +1,8 @@
+      - name: Notify Discord
+        uses: tsickert/discord-webhook@v5
+        with:
+          webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          username: "GitHub Actions"
+          avatar-url: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+          content: "**New Release!** 🚀\n[${{ github.ref_name }}](https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}) is now available!"
+
