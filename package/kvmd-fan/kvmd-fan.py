@@ -36,6 +36,9 @@ idle_speed = config.getint('speed', "idle") # Fan speed when under min_temp(IDLE
 min_temp = config.getfloat('temp', 'min') # Fan starting temperature 
 max_temp = config.getfloat('temp', 'max') # Fan max speed temperature (max: 65)
 
+print("Min Temp:",min_temp)
+print("Max Temp:",max_temp)
+
 VERSION = "0.1"
 socket_path = config.get('server', 'unix')
 
