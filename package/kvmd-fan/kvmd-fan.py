@@ -91,7 +91,7 @@ def start_server():
 	uid = getpwnam("kvmd").pw_uid
 	gid = getpwnam("kvmd").pw_gid
 	os.chown(socket_path,uid,gid)
-	os.chmod(socket_path,config.getint('server', 'unix_mode'))
+	os.chmod(socket_path,int(config.get('server', 'unix_mode'), base=8))
 	server.serve_forever()
 
 threading.Thread(target=start_server).start()
