@@ -25,8 +25,8 @@ file_name = ""
 class BoardType(Enum):
     UNKNOWN = 0
     V1_CM4 = 1
-    V2_HAT = 2
-    V3_PCIE = 3
+    V3_HAT = 2
+    V2_PCIE = 3
     V4_H616 = 4
     
 # Execute command and get output
@@ -43,10 +43,10 @@ def execmd(cmd):
 def get_board_type():
     # Check if the board is Raspberry Pi 4 Model B
     if pi4b_board in execmd("cat /proc/device-tree/model"):
-        type = BoardType.V2_HAT
+        type = BoardType.V3_HAT
     # Check if the board is Raspberry Pi Compute Module 4
     elif cm4b_board in execmd("cat /proc/device-tree/model"):
-        type = BoardType.V3_PCIE
+        type = BoardType.V2_PCIE
     # Check if the board is Mango Pi Mcore
     elif h616_board in execmd("cat /proc/device-tree/model"):
         type = BoardType.V4_H616
@@ -177,7 +177,7 @@ def main():
             print("Upgrading ", run_version , " ==> ", latest_version)
             # download tar pack
             cmd = ""
-            if board_type == BoardType.V1_CM4 or board_type == BoardType.V2_HAT or board_type == BoardType.V3_PCIE:
+            if board_type == BoardType.V1_CM4 or board_type == BoardType.V3_HAT or board_type == BoardType.V2_PCIE:
                 # cmd = "curl -kLJo release.tar.gz https://github.com/ThomasVon2021/blikvm/releases/download/" + tag[0:-1] + "/release.tar.gz"
                 file_name = "blikvm-v1-v2-v3.deb"
             elif board_type == BoardType.V4_H616:

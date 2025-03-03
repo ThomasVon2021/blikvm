@@ -6,8 +6,8 @@ cm4b_board="Raspberry Pi Compute Module 4"
 h616_board="Mango Pi Mcore"
 
 # Define board type values
-v2_hat="V2_HAT"
-v3_pcie="V3_PCIE"
+v2_hat="V3_HAT"
+v3_pcie="V2_PCIE"
 v4_h616="V4_H616"
 unknown="UNKNOWN"
 
