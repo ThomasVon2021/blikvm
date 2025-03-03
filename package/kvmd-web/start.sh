@@ -12,6 +12,10 @@ check_firstboot() {
 
     dbus-uuidgen --ensure=/etc/machine-id
     dbus-uuidgen --ensure
+    
+    rm -f /home/blikvm/.bash_history
+    rm -f /root/.bash_history
+
     # delete /mnt/tmp/firstboot 
     rm -f "/mnt/tmp/firstboot"
   else
