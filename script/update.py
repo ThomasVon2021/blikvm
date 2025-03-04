@@ -103,7 +103,10 @@ def download_release_file(owner, repo, tag_name, file_name, download_path):
             now_progress = int(progress_percentage)
             pre_progress = int(previous_progress)
             if now_progress != pre_progress:
-                print(f"Download progress: {progress_percentage:.2f}%", flush=True)
+                bar_length = 40
+                filled_length = int(bar_length * now_progress // 100)
+                bar = '█' * filled_length + '-' * (bar_length - filled_length)
+                print(f'\rDownload progress: |{bar}| {progress_percentage:.2f}%', end='\r', flush=True)
                 previous_progress = progress_percentage
 
     if total_size != 0 and downloaded_size != total_size:
