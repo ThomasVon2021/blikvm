@@ -18,11 +18,6 @@ check_and_remove_dir() {
   fi
 }
 
-# Define board type names
-pi4b_board="Raspberry Pi 4 Model B"
-cm4b_board="Raspberry Pi Compute Module 4"
-h313_board="MangoPi Mcore"
-
 prefix=""
 
 if [ "$HARDWARE_TYPE" == "pi" ]; then
@@ -67,10 +62,45 @@ EOF
 cat << 'EOF' > DEBIAN/postinst
 #!/bin/bash
 # Start kvmd-web service after installation
+# Define board type names
+pi4b_board="Raspberry Pi 4 Model B"
+cm4b_board="Raspberry Pi Compute Module 4"
+h313_board="MangoPi Mcore"
+
+# Function to execute a command and return the output
+exec_cmd() {
+  output=$(eval "$1")
+  echo "$output"
+}
+
+# Function to get the board type
+get_board_type() {
+  if [[ $(exec_cmd "tr -d '\0' < /proc/device-tree/model") == *"$pi4b_board"* ]] ; then
+    type=$pi4b_board
+  elif [[ $(exec_cmd "tr -d '\0' < /proc/device-tree/model") == *"$cm4b_board"* ]] ; then
+    type=$cm4b_board
+  elif [[ $(exec_cmd "tr -d '\0' < /proc/device-tree/model") == *"$h313_board"* ]] ; then
+    type=$h313_board
+  else
+    type=''
+  fi
+  echo "$type"
+}
+
+board_type=$(get_board_type)
+echo "Board type: $board_type"
+if [[ "$board_type" == "$cm4b_board" ]]; then
+  CONFIG_FILE="/opt/janus/etc/janus/janus.plugin.ustreamer.jcfg"
+  if [ -f "$CONFIG_FILE" ]; then
+    sed -i 's/device = "hw:1,0"/device = "hw:0,0"/g' "$CONFIG_FILE"
+  fi
+fi
+
 chmod 777 -R /mnt/exec/release
 systemctl daemon-reload
 systemctl enable kvmd-web || true
 systemctl start kvmd-web || true
+echo "kvmd-web service restarted"
 EOF
 
 ### Ensure the scripts are executable
