@@ -16,6 +16,12 @@ check_and_remove_dir() {
     echo "Directory $1 exists. Removing..."
     rm -rf "$1"
   fi
+
+  DEB_FILE="$1.deb"
+  if [ -f "$DEB_FILE" ]; then
+    echo "File $DEB_FILE exists. Removing..."
+    rm -f "$DEB_FILE"
+  fi
 }
 
 prefix=""
