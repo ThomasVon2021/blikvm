@@ -1,14 +1,17 @@
 # Raspberry Pi system specification under test
 
 - Raspberry Pi OS Lite
-- Release date: 20230201
+- Release date: 2023-11-24
 - System: 64-bit
-- Kernel version: 5.15
+- Kernel version: 6.10
 - Debian version: 11 (bullseye)
 
 # Main
 
 ```
+# for msd script
+apt-get install jq
+
 sudo -i
 mkdir -p /opt/bin
 
@@ -128,55 +131,6 @@ audio: {
 }
 ```
 
-# Prepare web server
-
-<details>
-<summary>old php code </summary>
-Install dependencies:
-
-```bash
-apt install -y libcurl4-openssl-dev
-```
-
-Install PHP (see below for PHP v8.2):
-
-```bash
-apt install -y  php7.4-bz2 php7.4-cli php7.4-curl php7.4-dev php7.4-json php7.4-mbstring php7.4-xml php7.4-zip php7.4-mysql
-```
-
-Or when PHP v8.2 is available on your system use:
-
-```bash
-apt install -y php8.2-bz2 php8.2-cli php8.2-curl php8.2-dev php8.2-mbstring php8.2-xml php8.2-zip php8.2-mysql
-```
-
-Optionally, if you would like to change the timezone, edit the `php.ini` file:
-
-```bash
-nano /etc/php/7.4/cli/php.ini
-```
-
-Look for `timezone` there and uncomment or add your timezone, for example:
-
-```ini
-date.timezone = Asia/Shanghai
-```
-
-Install `pecl` and install `swoole` and `inotify` with it:
-
-```bash
-apt install php-pear
-
-pecl install http://pecl.php.net/get/swoole-5.0.3.tgz
-#all is yes
-echo "extension=swoole.so" > /etc/php/7.4/cli/conf.d/swoole.ini
-
-pecl install inotify
-echo "extension=inotify.so" > /etc/php/7.4/cli/conf.d/inotify.ini
-```
-</details>
-
-
 ## web-src
 
 init submodule
@@ -215,40 +169,6 @@ dtoverlay=tc358743-audio
 dtoverlay=dwc2
 ```
 
-# Install kvmd services
-
-```bash
-# Install the main controller service
-cd /opt/bin/blikvm/package/kvmd-main
-./install-kvmd-main.sh
-
-# Install the ustreamer service
-cd /opt/bin/blikvm/package/ustreamer
-./install-ustreamer.sh 
-
-# Install the HID service
-cd /opt/bin/blikvm/package/kvmd-hid
-./install-kvmd-hid.sh
-
-# Install the web service
-cd /opt/bin/blikvm/package/kvmd-web
-./install-kvmd-web.sh
-
-# Install the MSD service
-cd /opt/bin/blikvm/package/kvmd-msd
-./install-kvmd-msd.sh
-
-# Install the OLED service
-cd /opt/bin/blikvm/package/kvmd-oled
-./install-kvmd-oled.sh
-
-# Install the fan service
-cd /opt/bin/blikvm/package/kvmd-fan
-./install-kvmd-fan.sh
-
-# Copy the package.json file
-cp /opt/bin/blikvm/src/config/package.json /usr/bin/blikvm
-```
 
 # Reboot
 
