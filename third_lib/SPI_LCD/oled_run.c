@@ -93,7 +93,7 @@ blikvm_int32_t oled_240_240_show(blikvm_int32_t diff)
 		blikvm_backlight_open();
 		Paint_Clear(WHITE);
 		Paint_SetRotate(ROTATE_270);
-        GUI_ReadBmp("/mnt/blikvm/web_src/web_server/lib/oled_info.bmp");
+        GUI_ReadBmp("/mnt/exec/release/lib/oled_info.bmp");
 	    Paint_DrawString_EN( 60, 10, "BliKVM V4", &Font24, WHITE ,BLACK);
 
 		// IP addresss
