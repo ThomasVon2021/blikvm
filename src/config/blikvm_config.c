@@ -115,7 +115,7 @@ blikvm_config_t* blikvm_read_config(blikvm_int8_t* file_path)
             const cJSON *onBootTime = cJSON_GetObjectItemCaseSensitive(oled, "onBootTime");
             const cJSON *cycleInterval = cJSON_GetObjectItemCaseSensitive(oled, "cycleInterval");
             const cJSON *displayTime = cJSON_GetObjectItemCaseSensitive(oled, "displayTime");
-            const cJSON *sencondIP = cJSON_GetObjectItemCaseSensitive(oled, "sencondIP");
+            const cJSON *secondIP = cJSON_GetObjectItemCaseSensitive(oled, "secondIP");
 
             if (cJSON_IsBool(isActive)) {
                 g_config.oled.isActive = cJSON_IsTrue(isActive) ? 1 : 0;
@@ -143,10 +143,10 @@ blikvm_config_t* blikvm_read_config(blikvm_int8_t* file_path)
                 BLILOG_I(TAG,"displayTime: %d\n", displayTime->valueint);
                 g_config.oled.displayTime = displayTime->valueint;
             }
-            if (cJSON_IsString(sencondIP) && (sencondIP->valuestring != NULL))
+            if (cJSON_IsString(secondIP) && (secondIP->valuestring != NULL))
             {
-                BLILOG_I(TAG,"sencondIP: %s\n", sencondIP->valuestring);
-                strcpy(g_config.oled.sencondIP, sencondIP->valuestring);
+                BLILOG_I(TAG,"secondIP: %s\n", secondIP->valuestring);
+                strcpy(g_config.oled.secondIP, secondIP->valuestring);
             }
         }
         else

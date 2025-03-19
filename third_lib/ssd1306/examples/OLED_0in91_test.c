@@ -97,7 +97,7 @@ blikvm_int32_t blikvm_oled_ssd1306_0in91_show(blikvm_int32_t diff)
 			sprintf(ip_str,"IP:%s",ip);
 			Paint_DrawString_EN(0, 0, ip_str, &Font12, WHITE, WHITE);
 
-			char* secondIPPtr = blikvm_get_config()->oled.sencondIP;
+			char* secondIPPtr = blikvm_get_config()->oled.secondIP;
 			if( secondIPPtr != NULL && strlen(secondIPPtr) > 0){
 				char secondIp[20]={0};
 				if(GetSpecificIP(secondIPPtr,secondIp) == 0){
