@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     g_log_config.enable[0] = 1;
     g_log_config.level = 4U;
     g_log_config.channel = BLI_LOG_CHANNEL_CONSOLE | BLI_LOG_CHANNEL_FILE;
-    memcpy(g_log_config.log_out.file.path, log_path, strnlen((blikvm_int8_t *)log_path, 256));
+    memcpy(g_log_config.log_out.file.path, log_path, strlen((char *)log_path) + 1);
     g_log_config.log_out.file.max_size[0] =  5 * 1024U;
     setvbuf(stdout, NULL, _IOLBF, 0);
     //1. init log module

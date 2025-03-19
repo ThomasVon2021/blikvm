@@ -2,6 +2,7 @@ TEST_PATH=$(PWD)
 PLAT=$(PLATFORM)
 
 INCLUDE_PATH += ./
+INCLUDE_PATH += ./extern
 INCLUDE_PATH += ./include
 INCLUDE_PATH += ../third_lib
 
@@ -35,6 +36,7 @@ SOURCE_FILES += ../third_lib/ssd1306/examples/OLED_0in91_test.c
 SOURCE_FILES += ../third_lib/ssd1306/examples/OLED_0in96_test.c
 SOURCE_FILES += ../third_lib/ssd1306/lib/Config/*.c
 SOURCE_FILES += ../third_lib/ssd1306/lib/Fonts/font12.c
+SOURCE_FILES += ../third_lib/ssd1306/lib/Fonts/font8.c
 SOURCE_FILES += ../third_lib/ssd1306/lib/GUI/*.c
 SOURCE_FILES += ../third_lib/ssd1306/lib/OLED/*.c
 CFLAGS += -DSSD1306=$(SSD1306)

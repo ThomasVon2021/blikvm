@@ -34,6 +34,7 @@ typedef struct
     blikvm_int32_t      onBootTime;   // uint: second
     blikvm_int32_t      cycleInterval;  // uint: second
     blikvm_int32_t      displayTime;  // uint: second
+    blikvm_int8_t      sencondIP[20];
 }blikvm_oled_config_t;
 
 blikvm_int8_t blikvm_oled_init(blikvm_oled_config_t* config);

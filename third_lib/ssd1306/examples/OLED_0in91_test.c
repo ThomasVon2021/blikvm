@@ -32,6 +32,7 @@
 #include "OLED_0in91.h"
 #include "common/blikvm_util/blikvm_util.h"
 #include "common/blikvm_log/blikvm_log.h"
+#include "config/blikvm_config.h"
 
 
 #define TAG "OLED"
@@ -95,10 +96,14 @@ blikvm_int32_t blikvm_oled_ssd1306_0in91_show(blikvm_int32_t diff)
 			char ip_str[128]={0};
 			sprintf(ip_str,"IP:%s",ip);
 			Paint_DrawString_EN(0, 0, ip_str, &Font12, WHITE, WHITE);
-			// TEMP
-			char temp[20]={0};
-			sprintf(temp, "temp:%2dF/%2dC",(int)(GetCPUTemp()*1.8 + 32),GetCPUTemp());
-			Paint_DrawString_EN(0, 16, temp, &Font12, WHITE, WHITE);
+
+			char* secondIPPtr = blikvm_get_config()->oled.sencondIP;
+			if( secondIPPtr != NULL && strlen(secondIPPtr) > 0){
+				char secondIp[20]={0};
+				if(GetSpecificIP(secondIPPtr,secondIp) == 0){
+					Paint_DrawString_EN(20, 16, secondIp, &Font12, WHITE, WHITE);
+				}
+			}
 		}
 		else
 		{
@@ -109,8 +114,13 @@ blikvm_int32_t blikvm_oled_ssd1306_0in91_show(blikvm_int32_t diff)
 
 			//Mem 
 			char mem_str[128]={0};
-			GetMemUsage(mem_str);
-			Paint_DrawString_EN(10, 16, mem_str, &Font12, WHITE, WHITE);
+			GetMemUsageShort(mem_str);
+			char temp[20]={0};
+			sprintf(temp, "%2dF/%2dC",(int)(GetCPUTemp()*1.8 + 32),GetCPUTemp());
+			char mem_temp_str[256] = {0};
+            sprintf(mem_temp_str, "%s %s", mem_str, temp);
+
+			Paint_DrawString_EN(10, 16, mem_temp_str, &Font12, WHITE, WHITE);
 		}
 		i = i + 1;
         OLED_0in91_Display(BlackImage);

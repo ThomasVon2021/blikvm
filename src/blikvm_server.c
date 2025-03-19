@@ -29,7 +29,6 @@
  * private methods definition
  ******************************************************************************/
 
-static blikvm_int8_t g_switch_init_flag = 0;
 
 blikvm_int8_t blikvm_init( blikvm_config_t *config)
 {
@@ -75,17 +74,6 @@ blikvm_int8_t blikvm_init( blikvm_config_t *config)
             BLILOG_E(TAG,"init atx failed\n");
         }
 
-        //4. init switch module
-        // if (blikvm_switch_init( &config->switch_handle ) >= 0)
-        // {
-        //     g_switch_init_flag = 1;
-        //     BLILOG_D(TAG,"init switch success\n");
-        // }
-        // else
-        // {
-        //     BLILOG_E(TAG,"init switch failed\n");
-        // }
-
         //5. init oled module
         if(blikvm_oled_init(&config->oled) >= 0)
         {
@@ -129,18 +117,6 @@ blikvm_int8_t blikvm_start(blikvm_config_t *config)
             BLILOG_E(TAG,"atx start error\n");
             break;
         }
-        // if( (config->switch_handle.enable > 0) && (g_switch_init_flag > 0))
-        // {
-        //     if(blikvm_switch_start() < 0)
-        //     {
-        //         BLILOG_E(TAG,"switch start error\n");
-        //         break;
-        //     }
-        //     else
-        //     {
-        //         BLILOG_D(TAG,"switch start ok\n");
-        //     }
-        // }
 
         if(blikvm_oled_start() < 0)
         {

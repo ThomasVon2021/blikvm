@@ -20,7 +20,7 @@
 
 static blikvm_int8_t *pi4b_board = "Raspberry Pi 4 Model B";
 static blikvm_int8_t *cm4b_board = "Raspberry Pi Compute Module 4";
-static blikvm_int8_t *h616_board = "Mango Pi Mcore";
+static blikvm_int8_t *h616_board = "MangoPi Mcore";
 
 blikvm_int32_t execmd(blikvm_int8_t* cmd, blikvm_int8_t* result) 
 {
@@ -78,23 +78,19 @@ blikvm_board_type_e blikvm_get_board_type()
     blikvm_board_type_e type = UNKONW_BOARD;
     do
     {
-        blikvm_int8_t *cmd1 = "cat /proc/cpuinfo";
+        blikvm_int8_t *cmd1 = "cat /proc/device-tree/model";
         blikvm_int8_t result1[2048]={0};
         execmd(cmd1, result1);
 
-        blikvm_int8_t *cmd2 = "cat /run/machine.id";
-        blikvm_int8_t result2[2048]={0};
-        execmd(cmd2, result2);
-
-        if( (strstr(result1,pi4b_board) != NULL) || (strstr(result2,pi4b_board) != NULL) )
+        if( strstr(result1,pi4b_board) != NULL )
         {
             type = PI4B_BOARD ;
         }
-        else if( (strstr(result1,cm4b_board) != NULL) || (strstr(result2,cm4b_board) != NULL) )
+        else if( strstr(result1,cm4b_board) != NULL)
         {
             type = CM4_BOARD;
         }
-        else if( (strstr(result1,h616_board) != NULL) || (strstr(result2,h616_board) != NULL))
+        else if( strstr(result1,h616_board) != NULL)
         {
             type = H616_BOARD;
         }
@@ -186,6 +182,28 @@ int GetIP(char* ip)
     char* cmd = "hostname -I | cut -d\' \' -f1";
     execterminal(cmd,ip);
     //printf("ip:%s\n",ip);
+    return 0;
+}
+
+int GetSpecificIP(const char* interface, char* ip) {
+    char command[100];
+    sprintf(command, "ip -4 addr show %s | grep -oP '(?<=inet\\s)\\d+(\\.\\d+){3}'", interface);
+
+    FILE* fp = popen(command, "r");
+    if (fp == NULL) {
+        perror("Failed to execute command");
+        return -1;
+    }
+
+    if (fgets(ip, 16, fp) == NULL) {
+        perror("Failed to read command output");
+        pclose(fp);
+        return -1;
+    }
+
+    pclose(fp);
+    // Remove newline character if present
+    ip[strcspn(ip, "\n")] = '\0';
     return 0;
 }
 
