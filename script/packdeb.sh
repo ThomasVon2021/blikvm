@@ -106,6 +106,7 @@ chmod 777 -R /mnt/exec/release
 systemctl daemon-reload
 systemctl enable kvmd-web || true
 systemctl start kvmd-web || true
+echo "If you find that after upgrading, you cannot use KVM normally, in most cases, with the version upgrade, due to the continuous increase of functions, some functions require restarting KVM to take effect. If you find any abnormalities after upgrading, please restart KVM and test again"
 echo "kvmd-web service restarted"
 EOF
 

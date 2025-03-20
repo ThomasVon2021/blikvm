@@ -7,6 +7,8 @@ check_firstboot() {
     echo "Found /mnt/tmp/firstboot file. Resizing mmcblk0p3 partition..."
     resize_mmcblk0p3
 
+    mount -o remount,rw /
+    
     rm -rf /etc/machine-id
     rm -rf /var/lib/dbus/machine-id
 
@@ -16,6 +18,7 @@ check_firstboot() {
     rm -f /home/blikvm/.bash_history
     rm -f /root/.bash_history
 
+    mount -o remount,ro /
     # delete /mnt/tmp/firstboot 
     rm -f "/mnt/tmp/firstboot"
   else
