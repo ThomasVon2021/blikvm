@@ -53,7 +53,7 @@ Package: blikvm
 Version: $VERSION
 Architecture: arm64
 Maintainer: info@blicube.com
-Depends: libconfig-dev
+Depends: libconfig-dev jq
 Description: Installs blikvm-$VERSION-alpha on the BliKVM
 EOF
 
