@@ -153,6 +153,21 @@ blikvm_config_t* blikvm_read_config(blikvm_int8_t* file_path)
         {
             printf("oled section not found or not an object\n");
         }
+       
+        const  cJSON *fan = cJSON_GetObjectItemCaseSensitive(root, "fan");
+        if (cJSON_IsObject(fan))
+        {
+            const cJSON *fan_threshold = cJSON_GetObjectItemCaseSensitive(fan, "tempThreshold");
+            if (cJSON_IsNumber(fan_threshold))
+            {
+                g_config.fan.threshold = fan_threshold->valueint;
+                BLILOG_I(TAG,"fan_speed: %d\n", g_config.fan.threshold);
+            }
+        }
+        else
+        {
+            printf("fan section not found or not an object\n");
+        }       
         ret = &g_config;
 
         free(jsondata);

@@ -11,6 +11,11 @@
 
 #include "common/blikvm_log/blikvm_log.h"
 
+typedef struct
+{
+    blikvm_int32_t threshold;
+}blikvm_fan_config_t;
+
 blikvm_int8_t blikvm_fan_init();
 blikvm_int8_t blikvm_fan_start();
 

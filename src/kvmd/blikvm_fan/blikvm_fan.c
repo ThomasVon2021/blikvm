@@ -16,6 +16,7 @@
 #include "blikvm_fan.h"
 #include "common/blikvm_log/blikvm_log.h"
 #include "common/blikvm_socket/blikvm_socket.h"
+#include "config/blikvm_config.h"
 
 #define TAG "FAN"
 #define TEMP_PATH "/sys/class/thermal/thermal_zone0/temp"
@@ -38,6 +39,8 @@ typedef struct
     blikvm_int8_t init;
     blikvm_int32_t socket;
     blikvm_domainsocket_addr_t socket_addr;
+    blikvm_int32_t left_temp;
+    blikvm_int32_t right_temp;
 }blikvm_fan_t;
 
 static blikvm_fan_t g_fan = {0};
@@ -112,6 +115,18 @@ blikvm_int8_t blikvm_fan_init()
         //init gpio control
         softPwmCreate(FAN_PIN,0,100); //当前pwmRange为100，频率为100Hz，若pwmRange为50时，频率为200，若pwmRange为2时，频率为5000。
 	    softPwmWrite(FAN_PIN,50); //占空比 = value/pwmRange，当前占空比 = 50/100 = 50%
+
+        blikvm_config_t *config = blikvm_get_config();
+        if(config->fan.threshold > 0)
+        {
+            g_fan.left_temp = config->fan.threshold - 5;
+            g_fan.right_temp = config->fan.threshold;
+        }
+        else
+        {
+            g_fan.left_temp = TEMP_LEFT_LIMIT;
+            g_fan.right_temp = TEMP_RIGHT_LIMIT;
+        }
 
         g_fan.init = 1;
         ret =0;
@@ -205,7 +220,7 @@ static blikvm_void_t *blikvm_fan_loop(void *_)
             // 关闭文件
             close(fd);
 
-            if(temp > TEMP_RIGHT_LIMIT || (temp > TEMP_LEFT_LIMIT && fan_enable == 1))
+            if(temp > g_fan.right_temp || (temp > g_fan.left_temp && fan_enable == 1))
             {
                 fan_enable = 1;
                 Duty = GetDuty(temp);

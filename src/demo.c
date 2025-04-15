@@ -8,7 +8,7 @@
 #define TAG "MAIN"
 
 
-//static char* config_json_path= (char*)"/mnt/blikvm/web_src/web_server/config/app.json";
+// static char* config_json_path= (char*)"/mnt/blikvm/web_src/web_server/config/app.json";
 static char* config_json_path= (char*)"/mnt/exec/release/config/app.json";
 static blikvm_log_t g_log_config={0};
 static blikvm_config_t* g_config = NULL;

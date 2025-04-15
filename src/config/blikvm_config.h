@@ -13,6 +13,7 @@
 #include "common/blikvm_log/blikvm_log.h"
 #include "kvmd/blikvm_oled/blikvm_oled.h"
 #include "kvmd/blikvm_switch/blikvm_switch.h"
+#include "kvmd/blikvm_fan/blikvm_fan.h"
 
 
 typedef struct
@@ -20,6 +21,7 @@ typedef struct
     blikvm_log_t log;
     blikvm_switch_t switch_handle;
     blikvm_oled_config_t oled;
+    blikvm_fan_config_t fan;
 }blikvm_config_t;
 
 blikvm_int8_t blikvm_config_init();
