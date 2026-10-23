@@ -18,7 +18,7 @@ BliKVM 是软硬件结合的 KVM over IP 远程管理方案。将设备连接到
 
 **先体验，再部署：** [打开在线 Demo](https://blikvm.com/demo/)，体验 BliKVM 的操作界面。
 
-![BliKVM 连接示意：被控计算机、BliKVM 与远程浏览器](https://raw.githubusercontent.com/blikvm/blikvm/3e34c04a1dfa84636050585d12d5e585098258ea/images/hardware-connect.png)
+![BliKVM Demo 界面组合展示：虚拟键盘、设置侧栏与 Virtual Media](https://raw.githubusercontent.com/blikvm/blikvm/99a42a17a4b30b967f1e657fde598bddb388755e/blikvm-readme-hero.png)
 
 > 本文介绍新版 BliKVM 软件。不同型号的可用功能、固件发布状态与升级兼容性，以对应 Release 说明为准。
 
