@@ -8,7 +8,9 @@
 
 **English · [简体中文](README_CN.md)**
 
-[Online Demo](https://blikvm.com/demo/) · [Downloads & Updates](https://github.com/blikvm/blikvm/releases) · [Documentation](https://blikvm.com/docs/) · [Hardware & Accessories](https://blicube.aliexpress.com/) · [Report an Issue](https://github.com/blikvm/blikvm/issues) · [Discord](https://discord.gg/9Y374gUF6C)
+[Online Demo](https://blikvm.com/demo/) · [Downloads & Updates](https://github.com/blikvm/blikvm/releases) · [Documentation](https://blikvm.com/docs/) · [Hardware & Accessories](https://blicube.aliexpress.com/) · [Report an Issue](https://github.com/blikvm/blikvm/issues)
+
+[![Discord Server](https://img.shields.io/discord/943534043515977768?color=0&label=discord%20server&logo=discord)](https://discord.gg/9Y374gUF6C)
 
 </div>
 
@@ -146,7 +148,7 @@ Historical source code, build scripts, images, and development notes remain avai
 - **User documentation:** [BliKVM docs](https://blikvm.com/docs/)
 - **Downloads and release notes:** [GitHub Releases](https://github.com/blikvm/blikvm/releases)
 - **Issues and feature requests:** [GitHub Issues](https://github.com/blikvm/blikvm/issues)
-- **Community:** [Discord](https://discord.gg/9Y374gUF6C)
+- **Community:** [![Discord Server](https://img.shields.io/discord/943534043515977768?color=0&label=discord%20server&logo=discord)](https://discord.gg/9Y374gUF6C)
 - **Product inquiries and customization:** [info@blicube.com](mailto:info@blicube.com)
 
 When reporting a problem, include your hardware model, system version, App version, reproduction steps, and relevant logs.
