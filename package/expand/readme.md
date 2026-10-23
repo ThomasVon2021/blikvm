@@ -1,1 +1,0 @@
-before build image, you need touch /mnt/tmp/firstboot file first.

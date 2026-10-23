@@ -1,103 +1,158 @@
-<h1 align="center">BliKVM - 开源软硬件一体KVM解决方案</h1>
-<p align="center">
-<a href="README.md">English Documents</a>
-</p>
-<p align="center">
-  <a href="https://www.blicube.com">BliKVM</a> 是一款开源软件的KVM专业设备，目前有4个版本，v1 CM4, v2 PCIe, v3 HAT, v4 Allwinner。该设备在于帮助用户通过得到控制设备的HDMI
-画面和鼠标键盘，去远程管理服务器、工作站或个人PC等。 无论目标设备的操作系统是否能正常运行，可以通过BLIKVM解决目标设备的一切问题。如：配置BIOS系统，通过使用远程CD-ROM或者闪存驱动器给目标设备重新安装操作系统。和基于软件的远程管理方式不同，你无需在被控电脑安装任何软件，做到无侵入式控制。
-</p>
+<div align="center">
 
-<p align="center">
-  <a href="https://github.com/ThomasVon2021/blikvm/stargazers">
-    <img alt="GitHub Stars" src="https://img.shields.io/github/stars/ThomasVon2021/blikvm?color=ffcb2f&label=%E2%AD%90%20on%20GitHub">
-  </a>
-  <a href="https://discord.gg/9Y374gUF6C">
-    <img alt="Discord Server" src="https://img.shields.io/discord/943534043515977768?color=0&label=discord%20server&logo=discord">
-  </a>
-  <a href="https://qm.qq.com/q/V0qWcbNoIi">
-    <img alt="QQ Group" src="https://img.shields.io/badge/QQ%E7%BE%A4-join-12B7F5?logo=tencentqq">
-  </a>
-</p>
+# BliKVM
 
-![](/images/hardware-connect.png)
-## 概览
+### 把显示器、键盘和鼠标，带到你的浏览器。
 
-| __中文界面__ | __英文界面__ |
-|--------------------------------------------|-------------------------------------------|
-| ![chinese](/images/web/web-chinese.png) | ![PCB - Back](/images/web/web-english.png) |
+**远程看画面、控键鼠、装系统、管电源，无需在被控电脑安装代理软件。**
 
+**[English](README.md) · 简体中文**
 
-## 功能特点
+[在线 Demo](https://blikvm.com/demo/) · [下载镜像与更新包](https://github.com/blikvm/blikvm/releases) · [使用文档](https://blikvm.com/docs/) · [选购硬件与配件](https://blicube.aliexpress.com/) · [问题反馈](https://github.com/blikvm/blikvm/issues) · [Discord 社区](https://discord.gg/9Y374gUF6C)
 
-- **视频捕获**（HDMI/DVI/VGA）
-- **键盘转发**
-- **鼠标转发**
-- **虚拟U盘（重装系统）**
-- **ATX** 使用 ATX 功能控制服务器电源
-- Wake-on-LAN(远程唤醒)
-- **全屏模式**
-- 通过 **Web UI** 访问
-- 支持 **多语言** 切换
-- 对 Pi 进行 **健康监控**
-- PWM **风扇** 控制器
-- 支持 **PoE**
-- **串口** 控制台端口
-- **I2C** 显示器连接器
-- **实时时钟（RTC）**
+</div>
 
-## 支持
+BliKVM 是软硬件结合的 KVM over IP 远程管理方案。将设备连接到计算机的 HDMI 和 USB 接口，再接入网络，就可以在浏览器中查看真实画面并操作键鼠。
 
-- 查看 [文档](https://wiki.blicube.com/blikvm/)！
-- 加入 [Discord 社区聊天](https://discord.gg/9Y374gUF6C) 获取新闻、提问和支持！如果是中国用户，可以加入[飞书](https://applink.feishu.cn/client/chat/chatter/add_by_link?link_token=ebfgce4a-deb3-4275-a337-cce905ebe2fb)。
-- 下载 [BLIKVM OS](https://wiki.blicube.com/blikvm/en/flashing_os/)。
+从 BIOS/UEFI、启动菜单到操作系统桌面，BliKVM 的控制不依赖被控电脑上的远程桌面服务。系统无法启动、网络配置出错或需要重新安装时，你仍可通过独立供电、保持联网的 BliKVM 进行处理。
 
-## 购买
+**先体验，再部署：** [打开在线 Demo](https://blikvm.com/demo/)，体验 BliKVM 的操作界面。
 
-- [购买 - BliKVM CM4 v1 版本](https://www.aliexpress.com/item/1005003262886521.html)
-- [购买 - BliKVM PCIe v2 版本](https://www.aliexpress.com/item/1005004572837650.html)
-- [购买 - BliKVM HAT v3 版本](https://www.aliexpress.com/item/1005004377930400.html)
-- [购买 - BliKVM Allwinner v4 版本](https://www.aliexpress.com/item/3256805673100994.html)
+![BliKVM 连接示意：被控计算机、BliKVM 与远程浏览器](https://raw.githubusercontent.com/blikvm/blikvm/3e34c04a1dfa84636050585d12d5e585098258ea/images/hardware-connect.png)
 
-## 其他购买链接
+> 本文介绍新版 BliKVM 软件。不同型号的可用功能、固件发布状态与升级兼容性，以对应 Release 说明为准。
 
-- [购买 - PiKVM ATX 电源适配器](https://www.aliexpress.com/item/1005003761450893.html)
-- [购买 - PiKVM USB 分配器](https://www.aliexpress.com/item/1005003793429781.html)
-- [购买 - PiKVM HDMI 转 CSI 板](https://www.aliexpress.com/item/1005002861310912.html)
+## 为什么选择 BliKVM
 
-## 视频
+| 你需要的能力 | BliKVM 带来的便利 |
+| --- | --- |
+| **系统出问题，也能远程接管** | 直接访问 HDMI 画面与 USB 键鼠，从 BIOS 配置、启动排障到系统重装，覆盖远程桌面难以处理的阶段。 |
+| **硬件编码的实时画面** | 通过 H.264 与 WebRTC 在浏览器中操作，提供画质、码率和帧率设置；另有 MJPEG 模式满足不同使用需求。 |
+| **丰富的 OpenAPI，连接 AI 与自动化** | 将画面获取、键鼠操作、电源管理等能力接入自己的程序，让 AI 智能体或自动化工具通过 BliKVM 操作真实计算机。 |
+| **比键鼠更丰富的 USB 功能** | 按需配置虚拟介质、USB 网络、摄像头和麦克风转发，让更多维护任务在一个界面中完成。 |
+| **由你选择连接方式** | 可在局域网独立使用，也可配置 WireGuard、Tailscale 或 ZeroTier 接入自己的远程网络。 |
+| **持续更新，保留恢复路径** | 新版系统采用 A/B 更新机制，配合签名校验、启动健康确认和失败回退；App 可独立更新与回滚。 |
+| **多种硬件，熟悉的操作方式** | CM4、Pi 4B、H616 与 RV1126B 使用一致的 Web 操作逻辑，设置项按设备实际能力呈现。 |
 
-- [CM4 版本评测（由 `Geerling Engineering` 提供）](https://www.youtube.com/watch?v=3OPd7svT3bE) 
-- [PCIe 版本评测（由 `Geerling Engineering` 提供）](https://www.youtube.com/watch?v=cVWF3u-y-Zg)
-- [CM4 版本评测（由 `Geerling Engineering` 提供）](https://www.youtube.com/watch?v=3OPd7svT3bE) 
-- [PCIe 版本评测（由 `Geerling Engineering` 提供）](https://www.youtube.com/watch?v=cVWF3u-y-Zg) 
-- [CM4 版本功能概览](https://www.youtube.com/watch?v=aehOawHklGE)
-- [CM4 版本开箱](https://www.youtube.com/watch?v=d7I9l5yG5M8)
+## 从日常操作到远程恢复
 
-## 硬件版本
+### 画面、声音与操控，在同一个浏览器里
 
-![图片标题](/images/version_all.png)
+- 查看被控电脑的 HDMI 画面，操作键盘、鼠标和常用快捷键。
+- 使用硬件编码的 H.264 视频；支持的型号还提供 H.265。
+- 调整视频参数，兼顾清晰度、网络带宽与操作体验。
+- 通过支持的音频采集链路收听被控电脑声音。
+- 使用全屏、截图、浏览器录像、文本输入和键盘宏，减少重复操作。
+- 通过多语言、主题和工具栏设置，整理适合自己的工作界面。
 
-## 开发者
-前后端分离的软件架构：
-![](/images/docs_image/arch.drawio.png)
-更多详情请查看 [dev-readme](dev-readme.md) 文件。
+### 不止是一套远程键鼠
 
-## 参与贡献
-我们欢迎来自社区的贡献！无论是改进固件、添加新功能，还是完善文档，您的建议和改动都非常宝贵。
+USB 功能可以按任务选择，而不必始终启用所有类别：
 
-## 报告 Bug 和提出新功能请求
-  如果您在使用项目时遇到问题、发现了 bug，或者您有新的功能请求或改进建议，请提出问题。我们欢迎您的建议，因为它们有助于我们不断改进项目，满足更多用户的需求。
+| 功能 | 可以完成什么 |
+| --- | --- |
+| **键盘与鼠标** | 配置绝对或相对鼠标模式，适应不同系统和使用场景。 |
+| **虚拟介质** | 向被控电脑提供虚拟光驱或存储介质，用于启动安装镜像、恢复与维护。 |
+| **USB 虚拟网络** | 为兼容的被控系统提供 USB 网络连接，并按配置共享 KVM 的网络。 |
+| **浏览器摄像头与麦克风转发** | 将远端浏览器中的摄像头或麦克风提供给被控电脑使用。 |
+| **外接 USB 摄像头** | 在支持的设备上补充查看现场、仪表或机柜环境。 |
+| **本地 USB 键鼠转发** | 在支持的设备上转发接入 KVM 的实体键鼠。 |
 
-## 捐赠
-该项目由开源爱好者开发。如果您认为 BliKVM 对您有用，或者它曾帮助您避免不必要的服务器故障巡检，您可以通过 [Patreon](https://www.patreon.com/blikvm) 或 [Paypal](https://www.paypal.me/blikvm) 支持我们，或者购买我们的设备。这些资金将用于购买新的硬件（树莓派板和其他组件），以测试和维护各种配置的 BliKVM，并且通常将更多时间投入到该项目中。本页面底部列出了所有通过捐赠帮助项目发展的人的名字。我们由衷感谢您的支持！
+可同时启用的组合取决于 USB 控制器资源和固件支持。界面会检查相关能力与资源限制；具体支持情况请查看对应型号说明。
 
-如果您希望在生产中使用 BliKVM，我们接受修改以满足您需求或实现您所需的自定义功能的订单。通过 [在线聊天](https://discord.gg/9Y374gUF6C) 或电子邮件联系我们：info@blicube.com。
+### 运维工具，随手可用
 
-## 致谢
+- **电源管理**：搭配 ATX 连接控制开关机和重启，也可使用 Wake-on-LAN 唤醒兼容设备。
+- **终端与串口**：在浏览器中管理 KVM 本机，或通过配置好的串口排查目标设备。
+- **自动化**：使用键盘宏、自定义脚本与 API，把重复维护步骤接入自己的工作流程。
+- **监控与诊断**：查看设备状态、网络地址和运行信息，使用日志、诊断工具及 Prometheus 集成辅助维护。
+- **网络管理**：配置有线网络、受支持的 Wi-Fi、VPN 与 DDNS，适应不同部署环境。
 
-BliKVM 项目离不开许多开源项目的卓越和慷慨贡献，
-其中最值得一提的包括：
+### 丰富的 OpenAPI，让 AI 与自动化操作真实计算机
 
-- [PiKVM](https://github.com/pikvm/pikvm)
-- [TinyPilot](https://github.com/tiny-pilot/tinypilot)
+BliKVM 不仅提供浏览器界面，也提供基于 **OpenAPI 3** 描述的丰富 API，覆盖画面截图、键鼠输入、文本与快捷键操作、电源控制、虚拟介质及设备管理等能力。你可以使用自己熟悉的语言和工具，将这些能力接入运维平台、自动化脚本或 AI 智能体。
 
+通过 API，结合具备视觉理解能力的 AI，可以构建这样的操作流程：
+
+1. **看见画面**：获取被控电脑的当前截图。
+2. **理解与规划**：由 AI 分析界面，判断下一步需要执行的操作。
+3. **执行操作**：调用 API 发送按键、移动鼠标、点击或输入文本。
+4. **验证结果**：再次获取画面，确认操作结果并决定是否继续。
+
+这让自动化不必局限于被控电脑上已有的远程桌面或软件接口。你可以据此开发图形界面操作、安装流程验证、重复维护任务，以及 BIOS/UEFI 阶段的辅助操作。BliKVM 提供硬件访问与控制能力，AI 模型和任务编排由你选择并接入。
+
+**从设备上的 API 文档开始：** 访问 `https://<设备地址>/docs` 查看交互式文档，或从 `https://<设备地址>/openapi.yaml` 获取接口定义，用于生成客户端、理解请求参数和对接自动化工具。接口调用使用设备授权的 API 令牌，并受账户权限及硬件能力限制。
+
+### 访问与权限，由你管理
+
+BliKVM 支持 HTTPS、账户权限、双重验证和可撤销的 API 访问令牌。可以为管理员、操作员和只读用户分配不同权限，并按需启用远程访问方式。
+
+局域网使用无需先绑定 BliKVM 云账号。VPN、联网服务和可选云功能是否可用，取决于所选型号与固件；启用它们时需要相应的网络配置或服务账号。
+
+## 面向长期使用的更新方式
+
+新版 BliKVM 将系统与 App 分开维护，日常应用更新无需每次重刷整张存储卡。
+
+- **系统 A/B 更新**：将新系统写入备用槽位，重启后进行健康确认；试启动失败时，可按更新机制回到原槽位。
+- **系统与内置 App 配套切换**：系统更新同时处理更新包内的 App，避免新系统继续运行不匹配的旧应用。
+- **App 独立更新与回滚**：只更新界面或应用功能时，可以安装对应的 App 更新包。
+- **升级前检查**：校验更新包签名、硬件匹配、版本及兼容性；下载文件可使用 Release 提供的校验信息核对。
+- **配置持久保存**：日常更新中，用户配置与工作数据使用独立持久存储；恢复出厂设置和重新烧录应另行备份。
+
+系统版本与 App 版本可以不同。选择更新包时，请以“关于”页面的当前版本和 Release 的兼容性说明为依据。
+
+## 硬件与选购
+
+BliKVM 提供基于 Raspberry Pi CM4、Pi 4B、Allwinner H616 和 Rockchip RV1126B 的硬件方案，以及切换器、ATX 和采集板等配件。
+
+**[前往官方商店，查看全部商品与配件](https://blicube.aliexpress.com/)**
+
+型号介绍与规格见[官方网站](https://blikvm.com/)。视频、USB 资源和扩展能力因型号而异，下载镜像时请确认硬件型号与采集芯片匹配。
+
+## 下载与开始使用
+
+**[前往 GitHub Releases 下载](https://github.com/blikvm/blikvm/releases)**
+
+先确认硬件型号，再根据用途选择文件。以所选 Release 的实际附件为准：
+
+| 你要做什么 | 文件类型 | 使用方式 |
+| --- | --- | --- |
+| **首次安装、重新安装或迁移旧系统** | 完整烧录镜像，例如 `.img.xz` / `.img.gz` | 按说明解压并写入对应存储介质；镜像已包含 App。 |
+| **更新兼容的新版 A/B 系统** | 系统更新包 `.raucb` | 在系统升级界面上传并按提示操作。 |
+| **只更新 App** | App 更新包 `.tar.gz` | 在应用升级界面安装，先确认最低系统版本要求。 |
+
+历史版本可能使用不同的分区布局、安装格式和更新方式。旧系统迁移请遵循目标版本的 Release 说明，不能仅凭文件名或版本数字判断兼容性。
+
+### 四步开始远程管理
+
+1. **连接**：将被控电脑的 HDMI 输出、USB 接口连接到 BliKVM；需要电源管理时，再连接 ATX 线缆。
+2. **联网与供电**：按型号说明接入网络并为 KVM 供电。
+3. **打开浏览器**：从设备显示屏或路由器 DHCP 列表获取地址，访问设备的 HTTPS 页面，完成首次登录与密码设置。
+4. **开始操作**：打开画面并测试键鼠；按需启用声音、虚拟介质或其他 USB 功能。
+
+接线、烧录和型号差异见[使用文档](https://blikvm.com/docs/)。新增固件功能与旧版文档不一致时，以对应 Release 的说明为准。
+
+## 本仓库的用途
+
+`blikvm/blikvm` 是 BliKVM 的公开产品与发布入口。当前分支仅保留中英文 README，集中提供下载、版本说明、使用文档、硬件与社区入口。
+
+历史源码、构建脚本、图片和旧版开发说明仍可通过 [Git 历史](https://github.com/blikvm/blikvm/commits/master/) 查阅，不应作为当前固件的构建入口。从当前目录移除历史文件不会改变其原有许可证。
+
+## 文档、支持与反馈
+
+- **在线体验**：[BliKVM 在线 Demo](https://blikvm.com/demo/)
+- **OpenAPI 文档**：设备上的 `/docs`；接口定义为 `/openapi.yaml`。
+- **官方网站**：[blikvm.com](https://blikvm.com/)
+- **使用文档**：[BliKVM 文档](https://blikvm.com/docs/)
+- **下载与发行说明**：[GitHub Releases](https://github.com/blikvm/blikvm/releases)
+- **问题与功能建议**：[GitHub Issues](https://github.com/blikvm/blikvm/issues)
+- **社区交流**：[Discord](https://discord.gg/9Y374gUF6C)
+- **产品咨询与定制**：[info@blicube.com](mailto:info@blicube.com)
+
+反馈问题时，请附上硬件型号、系统版本、App 版本、复现步骤及必要日志，方便定位。
+
+## 致谢与许可证
+
+感谢 [PiKVM](https://github.com/pikvm/pikvm)、[TinyPilot](https://github.com/tiny-pilot/tinypilot) 及相关开源项目对 KVM 生态的贡献。
+
+历史代码的许可证保留在 [历史 LICENSE 文件](https://github.com/blikvm/blikvm/blob/3e34c04a1dfa84636050585d12d5e585098258ea/LICENSE)中。发行包中各组件及第三方依赖遵循各自的许可证与使用条款。
