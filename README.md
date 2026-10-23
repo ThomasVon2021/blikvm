@@ -18,7 +18,7 @@ From BIOS/UEFI and boot menus to the operating system desktop, control does not 
 
 **Try it first:** [Open the online demo](https://blikvm.com/demo/) to explore the BliKVM interface.
 
-![BliKVM connection diagram: target computer, BliKVM, and remote browser](https://raw.githubusercontent.com/blikvm/blikvm/3e34c04a1dfa84636050585d12d5e585098258ea/images/hardware-connect.png)
+![BliKVM demo interface showcase with virtual keyboard, settings, and Virtual Media](https://raw.githubusercontent.com/blikvm/blikvm/99a42a17a4b30b967f1e657fde598bddb388755e/blikvm-readme-hero.png)
 
 > This page describes the new BliKVM software. Available features, firmware availability, and upgrade compatibility vary by model. Refer to the relevant release notes.
 
