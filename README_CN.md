@@ -18,7 +18,7 @@ BliKVM 是软硬件结合的 KVM over IP 远程管理方案。将设备连接到
 
 **先体验，再部署：** [打开在线 Demo](https://blikvm.com/demo/)，体验 BliKVM 的操作界面。
 
-![BliKVM Demo 界面组合展示：虚拟键盘、设置侧栏与 Virtual Media](https://raw.githubusercontent.com/blikvm/blikvm/99a42a17a4b30b967f1e657fde598bddb388755e/blikvm-readme-hero.png)
+![BliKVM Demo 界面组合展示：虚拟键盘、设置侧栏与 Virtual Media](images/blikvm-readme-hero.png)
 
 > 本文介绍新版 BliKVM 软件。不同型号的可用功能、固件发布状态与升级兼容性，以对应 Release 说明为准。
 
@@ -134,7 +134,7 @@ BliKVM 提供基于 Raspberry Pi CM4、Pi 4B、Allwinner H616 和 Rockchip RV112
 
 ## 本仓库的用途
 
-`blikvm/blikvm` 是 BliKVM 的公开产品与发布入口。当前分支仅保留中英文 README，集中提供下载、版本说明、使用文档、硬件与社区入口。
+`blikvm/blikvm` 是 BliKVM 的公开产品与发布入口。当前分支保留中英文 README 及配图，集中提供下载、版本说明、使用文档、硬件与社区入口。
 
 历史源码、构建脚本、图片和旧版开发说明仍可通过 [Git 历史](https://github.com/blikvm/blikvm/commits/master/) 查阅，不应作为当前固件的构建入口。从当前目录移除历史文件不会改变其原有许可证。
 

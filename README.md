@@ -18,7 +18,7 @@ From BIOS/UEFI and boot menus to the operating system desktop, control does not 
 
 **Try it first:** [Open the online demo](https://blikvm.com/demo/) to explore the BliKVM interface.
 
-![BliKVM demo interface showcase with virtual keyboard, settings, and Virtual Media](https://raw.githubusercontent.com/blikvm/blikvm/99a42a17a4b30b967f1e657fde598bddb388755e/blikvm-readme-hero.png)
+![BliKVM demo interface showcase with virtual keyboard, settings, and Virtual Media](images/blikvm-readme-hero.png)
 
 > This page describes the new BliKVM software. Available features, firmware availability, and upgrade compatibility vary by model. Refer to the relevant release notes.
 
@@ -134,7 +134,7 @@ See the [documentation](https://blikvm.com/docs/) for wiring, flashing, and mode
 
 ## About this repository
 
-`blikvm/blikvm` is BliKVM's public product and release hub. This branch contains the English and Chinese READMEs, with links to downloads, release notes, documentation, hardware, and community support.
+`blikvm/blikvm` is BliKVM's public product and release hub. This branch contains the English and Chinese READMEs and their supporting images, with links to downloads, release notes, documentation, hardware, and community support.
 
 Historical source code, build scripts, images, and development notes remain available in [Git history](https://github.com/blikvm/blikvm/commits/master/). They are not the build entry point for current firmware. Removing them from the current tree does not change their existing licenses.
 
