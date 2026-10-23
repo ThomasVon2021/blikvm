@@ -107,6 +107,15 @@ BliKVM 支持 HTTPS、账户权限、双重验证和可撤销的 API 访问令�
 
 BliKVM 提供基于 Raspberry Pi CM4、Pi 4B、Allwinner H616 和 Rockchip RV1126B 的硬件方案，以及切换器、ATX 和采集板等配件。
 
+<table>
+  <tr>
+    <td align="center" width="25%"><img src="images/products/blikvm-v1.png" alt="BliKVM v1 CM4" width="220" /><br /><strong>BliKVM v1 CM4</strong></td>
+    <td align="center" width="25%"><img src="images/products/blikvm-v2.png" alt="BliKVM v2 PCIe" width="220" /><br /><strong>BliKVM v2 PCIe</strong></td>
+    <td align="center" width="25%"><img src="images/products/blikvm-v3.png" alt="BliKVM v3 HAT" width="220" /><br /><strong>BliKVM v3 HAT</strong></td>
+    <td align="center" width="25%"><img src="images/products/blikvm-v4.png" alt="BliKVM v4 Allwinner" width="220" /><br /><strong>BliKVM v4 Allwinner</strong></td>
+  </tr>
+</table>
+
 **[前往官方商店，查看全部商品与配件](https://blicube.aliexpress.com/)**
 
 型号介绍与规格见[官方网站](https://blikvm.com/)。视频、USB 资源和扩展能力因型号而异，下载镜像时请确认硬件型号与采集芯片匹配。

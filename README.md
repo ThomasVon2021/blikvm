@@ -107,6 +107,15 @@ System and App version numbers may differ. Check the versions on your About page
 
 BliKVM offers hardware based on Raspberry Pi CM4, Pi 4B, Allwinner H616, and Rockchip RV1126B, plus switches, ATX accessories, and capture boards.
 
+<table>
+  <tr>
+    <td align="center" width="25%"><img src="images/products/blikvm-v1.png" alt="BliKVM v1 CM4" width="220" /><br /><strong>BliKVM v1 CM4</strong></td>
+    <td align="center" width="25%"><img src="images/products/blikvm-v2.png" alt="BliKVM v2 PCIe" width="220" /><br /><strong>BliKVM v2 PCIe</strong></td>
+    <td align="center" width="25%"><img src="images/products/blikvm-v3.png" alt="BliKVM v3 HAT" width="220" /><br /><strong>BliKVM v3 HAT</strong></td>
+    <td align="center" width="25%"><img src="images/products/blikvm-v4.png" alt="BliKVM v4 Allwinner" width="220" /><br /><strong>BliKVM v4 Allwinner</strong></td>
+  </tr>
+</table>
+
 **[Visit the official store for all products and accessories](https://blicube.aliexpress.com/)**
 
 See the [official website](https://blikvm.com/) for model details and specifications. Video, USB resources, and expansion capabilities vary. Match the image to your hardware model and capture chip.
