@@ -8,7 +8,9 @@
 
 **[English](README.md) · 简体中文**
 
-[在线 Demo](https://blikvm.com/demo/) · [下载镜像与更新包](https://github.com/blikvm/blikvm/releases) · [使用文档](https://blikvm.com/docs/) · [选购硬件与配件](https://blicube.aliexpress.com/) · [问题反馈](https://github.com/blikvm/blikvm/issues) · [Discord 社区](https://discord.gg/9Y374gUF6C)
+[在线 Demo](https://blikvm.com/demo/) · [下载镜像与更新包](https://github.com/blikvm/blikvm/releases) · [使用文档](https://blikvm.com/docs/) · [选购硬件与配件](https://blicube.aliexpress.com/) · [问题反馈](https://github.com/blikvm/blikvm/issues)
+
+[![Discord Server](https://img.shields.io/discord/943534043515977768?color=0&label=discord%20server&logo=discord)](https://discord.gg/9Y374gUF6C)
 
 </div>
 
@@ -146,7 +148,7 @@ BliKVM 提供基于 Raspberry Pi CM4、Pi 4B、Allwinner H616 和 Rockchip RV112
 - **使用文档**：[BliKVM 文档](https://blikvm.com/docs/)
 - **下载与发行说明**：[GitHub Releases](https://github.com/blikvm/blikvm/releases)
 - **问题与功能建议**：[GitHub Issues](https://github.com/blikvm/blikvm/issues)
-- **社区交流**：[Discord](https://discord.gg/9Y374gUF6C)
+- **社区交流**：[![Discord Server](https://img.shields.io/discord/943534043515977768?color=0&label=discord%20server&logo=discord)](https://discord.gg/9Y374gUF6C)
 - **产品咨询与定制**：[info@blicube.com](mailto:info@blicube.com)
 
 反馈问题时，请附上硬件型号、系统版本、App 版本、复现步骤及必要日志，方便定位。
